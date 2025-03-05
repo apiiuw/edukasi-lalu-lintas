@@ -35,19 +35,19 @@
     <div id="hs-navbar-hcail" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow lg:block lg:w-auto lg:basis-auto lg:order-2 lg:col-span-6" aria-labelledby="hs-navbar-hcail-collapse">
       <div class="flex flex-col gap-y-4 gap-x-0 mt-5 lg:flex-row lg:justify-center lg:items-center lg:gap-y-0 lg:gap-x-7 lg:mt-0">
         <div class="flex justify-center">
-          <a class="relative inline-block text-black focus:outline-hidden before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-blueJR" href="#" aria-current="page">Beranda</a>
+          <a class="relative inline-block text-black focus:outline-hidden before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-blueJR" href="/" aria-current="page">Beranda</a>
         </div>
         <div class="flex justify-center">
-          <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden focus:text-gray-600" href="#">Repositori</a>
+          <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden focus:text-gray-600" href="/repositori">Repositori</a>
         </div>
         <div class="flex justify-center">
-          <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden focus:text-gray-600" href="#">Tentang Kami</a>
+          <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden focus:text-gray-600" href="/tentang-kami">Tentang Kami</a>
         </div>
         <div class="flex justify-center">
-          <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden focus:text-gray-600" href="#">Forum Diskusi</a>
+          <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden focus:text-gray-600" href="/forum-diskusi">Forum Diskusi</a>
         </div>
         <div class="flex justify-center">
-          <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden focus:text-gray-600" href="#">Hubungi Kami</a>
+          <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden focus:text-gray-600" href="/hubungi-kami">Hubungi Kami</a>
         </div>
       </div>
     </div>

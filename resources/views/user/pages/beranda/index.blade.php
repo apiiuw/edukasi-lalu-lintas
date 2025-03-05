@@ -84,6 +84,132 @@
 </div>
 <!-- End Slider -->
 
-<div class="bg-white h-screen"></div>
+<div class="bg-white h-full py-20 pb-36 flex flex-col justify-center items-center">
+  {{-- Section 1 --}}
+  <div class="flex flex-col justify-center items-center max-w-6xl lg:max-w-4xl mx-auto">
+    <h1 class="text-base lg:text-xl text-black font-semibold mb-4 text-center">
+      Mulai Jelajahi Pencarianmu!
+    </h1>
+    <form class="w-full space-y-6 mt-3 px-6 lg:px-12">
+      
+      <!-- Input Text -->
+      <input type="text" placeholder="Ketikkan Kata Kunci..." class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center placeholder:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      
+      <!-- Dropdown -->
+      <select class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        <option>Pilih Kategori</option>
+        <option value="1">Elektronik Buku</option>
+        <option value="2">Video Edukasi</option>
+      </select>
+      
+      <!-- Tahun Publikasi -->
+      <div class="border border-black p-4 lg:p-6 rounded-3xl flex flex-col justify-center items-center">
+        <label class="font-semibold text-sm lg:text-base">Tahun Publikasi</label>
+        <div class="flex flex-wrap justify-center text-xs lg:text-sm gap-2 lg:gap-4 mt-4">
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="tahun" value="2025"> <span>2025</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="tahun" value="2024"> <span>2024</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="tahun" value="2023"> <span>2023</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="tahun" value="2022"> <span>2022</span>
+          </label>
+          <label class="flex items-center space-x-2">
+            <input type="radio" name="tahun" value="2021"> <span>2021</span>
+          </label>
+        </div>
+        
+        <!-- Kustom Tahun -->
+        <div class="mt-5 w-full">
+          <label class="block text-xs lg:text-sm font-medium">Kustom Tahun</label>
+          <div class="flex space-x-2 mt-1">
+            <input type="text" placeholder="Tahun Awal" class="w-1/2 text-xs lg:text-sm text-center px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <span class="text-gray-500">-</span>
+            <input type="text" placeholder="Tahun Akhir" class="w-1/2 text-xs lg:text-sm text-center px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tombol Cari -->
+      <button type="submit" class="w-full text-sm lg:text-base flex items-center justify-center gap-2 bg-blue-500 text-white py-3 lg:py-4 border border-black rounded-full hover:bg-blue-600">
+        Mulai Mencari <span><i class="fa-solid fa-sm lg:fa-lg fa-magnifying-glass"></i></span>
+      </button>
+    </form>
+  </div>
+  
+
+  {{-- Section 2 --}}
+  <div class="flex flex-col justify-center items-center mt-40 px-6">
+    <div class="rounded-3xl shadow-lg border border-black bg-white">
+      <div class="flex justify-center items-center py-2 px-3">
+        <h2 class="text-xs lg:text-lg font-semibold text-center">
+          Mengapa Platform Digital Edukasi Lalu Lintas Sangat Dibutuhkan?
+        </h2>
+      </div>
+      <div class="w-full max-w-2xl overflow-hidden">
+          <iframe src="https://drive.google.com/file/d/1K-EzQVLFgnl_ztsEudNZm0XXf6zItXN-/preview" 
+                  allow="autoplay"
+                  class="w-full h-[11.5rem] lg:h-[18.4rem] rounded-b-3xl">
+          </iframe>
+      </div>
+    </div>
+  </div>
+
+  {{-- Section 3 --}}
+  <div class="flex flex-col justify-center items-center mt-40 px-6">
+    <div class="flex justify-center items-center py-2 px-3">
+      <h2 class="text-xs lg:text-lg font-semibold text-center">
+        Top 3 Trending Books
+      </h2>
+    </div>
+    
+    <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 max-w-5xl mx-auto mt-6">
+      <!-- Card 1 -->
+      <div class="bg-white rounded-xl shadow-lg flex flex-col items-center w-full border border-black">
+        <img src="{{ asset('img/user/beranda/top-3-books/ex-book-1.png') }}" alt="Book 1" class="w-full h-full object-cover rounded-t-xl">
+        <div class="bg-blueJR flex justify-center items-center py-2 w-full">
+          <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
+        </div>
+        <div class="flex flex-col justify-center items-center px-4 py-4">
+          <p class="text-center text-xs lg:text-sm">Desiminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XII</p>
+          <span class="text-gray-500 text-xs">2023</span>
+          <button class="mt-2 bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">Baca Selengkapnya</button>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-xl shadow-lg flex flex-col items-center w-full border border-black">
+        <img src="{{ asset('img/user/beranda/top-3-books/ex-book-2.png') }}" alt="Book 1" class="w-full h-full object-cover rounded-t-xl">
+        <div class="bg-blueJR flex justify-center items-center py-2 w-full">
+          <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
+        </div>
+        <div class="flex flex-col justify-center items-center px-4 py-4">
+          <p class="text-center text-xs lg:text-sm">Desiminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XI</p>
+          <span class="text-gray-500 text-xs">2023</span>
+          <button class="mt-2 bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">Baca Selengkapnya</button>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white rounded-xl shadow-lg flex flex-col items-center w-full border border-black">
+        <img src="{{ asset('img/user/beranda/top-3-books/ex-book-3.png') }}" alt="Book 1" class="w-full h-full object-cover rounded-t-xl">
+        <div class="bg-blueJR flex justify-center items-center py-2 w-full">
+          <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
+        </div>
+        <div class="flex flex-col justify-center items-center px-4 py-4">
+          <p class="text-center text-xs lg:text-sm">Desiminasi Kurikulum Pendidikan Lalu Lintas SMP Kelas VII</p>
+          <span class="text-gray-500 text-xs">2023</span>
+          <button class="mt-2 bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">Baca Selengkapnya</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+
 
 @endsection

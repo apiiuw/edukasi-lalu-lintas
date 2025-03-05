@@ -22,7 +22,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     </head>
-    <body class="font-jakartaSans antialiased">
+    <body class="font-jakartaSans antialiased overflow-x-hidden">
         @include('user.partials.navbar')
         @yield('container')
         @include('user.partials.footer')
