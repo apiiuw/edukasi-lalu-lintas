@@ -4,6 +4,8 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -27,4 +29,27 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function render($request, Throwable $exception)
+    {
+        if ($exception instanceof NotFoundHttpException) {
+            return response()->view('errors.404', ['title' => '404 Not Found | Edulantas'], 404);
+        }
+    
+        // Periksa apakah exception memiliki method getStatusCode()
+        if (method_exists($exception, 'getStatusCode')) {
+            $statusCode = $exception->getStatusCode();
+    
+            if ($statusCode == 500) {
+                return response()->view('errors.500', ['title' => '500 Server Error | Edulantas'], 500);
+            } elseif ($statusCode == 403) {
+                return response()->view('errors.403', ['title' => '403 Forbidden | Edulantas'], 403);
+            } elseif ($statusCode == 419) {
+                return response()->view('errors.419', ['title' => '419 Session Expired | Edulantas'], 419);
+            }
+        }
+    
+        return parent::render($request, $exception);
+    }
+    
 }

@@ -28,3 +28,19 @@ Route::get('/tentang-kami', function () {
 Route::get('/forum-diskusi', function () {
     return view('user.pages.forum-diskusi.index', ['title' => 'Forum Diskusi | Edulantas']);
 });
+
+Route::get('/400', function () {
+    abort(400);
+});
+
+Route::get('/500', function () {
+    abort(500);
+});
+
+Route::get('/403', function () {
+    abort(403);
+});
+
+Route::get('/419', function () {
+    abort(419);
+});
