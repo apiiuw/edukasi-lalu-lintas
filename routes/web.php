@@ -18,13 +18,13 @@ Route::get('/', function () {
 });
 
 Route::get('/repositori', function () {
-    return view('user.pages.repositori.index');
+    return view('user.pages.repositori.index', ['title' => 'Repositori | Edulantas']);
 });
 
 Route::get('/tentang-kami', function () {
-    return view('user.pages.tentang-kami.index');
+    return view('user.pages.tentang-kami.index', ['title' => 'Tentang Kami | Edulantas']);
 });
 
 Route::get('/forum-diskusi', function () {
-    return view('user.pages.forum-diskusi.index');
+    return view('user.pages.forum-diskusi.index', ['title' => 'Forum Diskusi | Edulantas']);
 });

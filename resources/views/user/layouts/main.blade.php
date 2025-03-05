@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
   
         {{-- <title>{{ isset($title) ? $title . 'Knowledge Management Hub' : 'Knowledge Management Hub' }}</title> --}}
-        <title>Edulantas.</title>
+        <title>{{ $title ?? 'Edulantas' }}</title>
         <link rel="icon" href="{{ asset('img/logo/logo-jasaraharja.png') }}">
 
         {{-- CDN --}}

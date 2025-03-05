@@ -1,11 +1,11 @@
 <footer class="bg-white">
     <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
-        <div class="md:flex md:justify-between">
+        <div class="md:flex md:justify-between md:gap-x-10">
           <div class="mb-6 md:mb-0 flex justify-center">
             <a href="#" class="flex flex-col lg:flex-row items-center">
                 <img src="{{ asset('img/logo/logo-jasaraharja.png') }}" class="h-12 lg:h-20 mb-2 lg:mb-0 me-3" alt="logo jasaraharja" />
                 <span class="self-center text-center lg:text-left text-sm lg:text-xl font-semibold whitespace-normal w-full lg:w-[35rem] break-words">
-                    PT. Jasa Raharja Cabang Utama DKI Jakarta
+                    PT. Jasa Raharja Kantor Wilayah Utama DKI Jakarta
                     <br>
                     <span class="text-xs font-light block max-w-[24rem] break-words">
                         Melaksanakan Asuransi Kecelakaan penumpang alat angkutan umum dan asuransi tanggung jawab menurut hukum terhadap pihak ketiga sebagaimana diatur UU No. 33 dan 34 tahun 1964.
@@ -24,7 +24,7 @@
                                 Alamat Kantor
                             </p>
                             </div>
-                            <a href="#" class="text-xs hover:underline">Jl. Jatinegara Timur No.107, RT.1/RW.2, Bali Mester, Kecamatan Jatinegara, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13310.</a>
+                            <a href="#" class="text-xs hover:underline">Jl. Jatinegara Timur No.123, RT.1/RW.2, Bali Mester, Kecamatan Jatinegara, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13310.</a>
                         </li>
                         <li>
                             <div class="flex flex-row items-center mb-2">
