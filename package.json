@@ -14,7 +14,9 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
-        "daisyui": "^5.0.0",
-        "flowbite": "^3.1.2"
+        "@floating-ui/dom": "^1.6.13",
+        "flowbite": "^3.1.2",
+        "preline": "^3.0.0",
+        "vanilla-calendar-pro": "^3.0.3"
     }
 }

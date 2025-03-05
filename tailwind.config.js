@@ -4,7 +4,8 @@ export default {
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
     "./resources/**/*.vue",
-    "./node_modules/flowbite/**/*.js"
+    "./node_modules/preline/dist/*.js",
+    "./node_modules/flowbite/**/*.js",
   ],
   theme: {
     extend: {
@@ -19,5 +20,7 @@ export default {
       },
     },
   },
-  plugins: [require("daisyui"), require("flowbite/plugin")],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 };

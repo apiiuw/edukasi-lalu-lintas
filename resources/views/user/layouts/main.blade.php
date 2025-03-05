@@ -5,8 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
   
         {{-- <title>{{ isset($title) ? $title . 'Knowledge Management Hub' : 'Knowledge Management Hub' }}</title> --}}
-        <title>EduLaluLintas</title>
-        <link rel="icon" href="{{ asset('assets/images/logo/Jasa Raharja Logo Utama.png') }}">
+        <title>Edulantas.</title>
+        <link rel="icon" href="{{ asset('img/logo/logo-jasaraharja.png') }}">
 
         {{-- CDN --}}
         <script src="https://kit.fontawesome.com/d7833bfda5.js" crossorigin="anonymous"></script>
@@ -26,7 +26,6 @@
         @include('user.partials.navbar')
         @yield('container')
         @include('user.partials.footer')
-
-        <script src="node_modules/flowbite/dist/flowbite.min.js"></script>
+        <script type="module" src="{{ asset('resources/js/app.js') }}"></script> 
     </body>
 </html>
