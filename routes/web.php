@@ -13,22 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('user.pages.beranda.index');
-});
-
-Route::get('/repositori', function () {
-    return view('user.pages.repositori.index', ['title' => 'Repositori | Edulantas']);
-});
-
-Route::get('/tentang-kami', function () {
-    return view('user.pages.tentang-kami.index', ['title' => 'Tentang Kami | Edulantas']);
-});
-
-Route::get('/forum-diskusi', function () {
-    return view('user.pages.forum-diskusi.index', ['title' => 'Forum Diskusi | Edulantas']);
-});
-
 Route::get('/400', function () {
     abort(400);
 });
@@ -43,4 +27,25 @@ Route::get('/403', function () {
 
 Route::get('/419', function () {
     abort(419);
+});
+
+Route::get('/', function () {
+    return view('user.pages.beranda.index');
+});
+
+Route::get('/repositori', function () {
+    return view('user.pages.repositori.index', ['title' => 'Repositori | Edulantas']);
+});
+
+// Subpage Repositori
+Route::get('/request-item', function () {
+    return view('user.pages.repositori.subpage.request-item', ['title' => 'Request Item | Edulantas']);
+});
+
+Route::get('/tentang-kami', function () {
+    return view('user.pages.tentang-kami.index', ['title' => 'Tentang Kami | Edulantas']);
+});
+
+Route::get('/forum-diskusi', function () {
+    return view('user.pages.forum-diskusi.index', ['title' => 'Forum Diskusi | Edulantas']);
 });

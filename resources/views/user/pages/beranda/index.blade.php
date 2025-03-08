@@ -86,11 +86,11 @@
 
 <div class="bg-white h-full py-20 pb-36 flex flex-col justify-center items-center">
   {{-- Section 1 --}}
-  <div class="flex flex-col justify-center items-center max-w-6xl lg:max-w-4xl mx-auto">
+  <div class="flex flex-col justify-center items-center max-w-6xl lg:w-full lg:px-28 mx-auto">
     <h1 class="text-base lg:text-xl text-black font-semibold mb-4 text-center">
       Mulai Jelajahi Pencarianmu!
     </h1>
-    <form class="w-full space-y-6 mt-3 px-6 lg:px-12">
+    <form class="w-full flex flex-col justify-center items-center space-y-6 mt-3 px-6 lg:px-12">
       
       <!-- Input Text -->
       <input type="text" placeholder="Ketikkan Kata Kunci..." class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center placeholder:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
@@ -103,7 +103,7 @@
       </select>
       
       <!-- Tahun Publikasi -->
-      <div class="border border-black p-4 lg:p-6 rounded-3xl flex flex-col justify-center items-center">
+      <div class="w-full border border-black p-4 lg:p-6 rounded-3xl flex flex-col justify-center items-center">
         <label class="font-semibold text-sm lg:text-base">Tahun Publikasi</label>
         <div class="flex flex-wrap justify-center text-xs lg:text-sm gap-2 lg:gap-4 mt-4">
           <label class="flex items-center space-x-2">
@@ -135,7 +135,7 @@
       </div>
       
       <!-- Tombol Cari -->
-      <button type="submit" class="w-full text-sm lg:text-base flex items-center justify-center gap-2 bg-blue-500 text-white py-3 lg:py-4 border border-black rounded-full hover:bg-blue-600">
+      <button type="submit" class="w-full lg:w-1/2 text-sm lg:text-base flex items-center justify-center gap-2 bg-blue-500 text-white py-3 lg:py-4 border border-black rounded-full hover:bg-blue-600">
         Mulai Mencari <span><i class="fa-solid fa-sm lg:fa-lg fa-magnifying-glass"></i></span>
       </button>
     </form>

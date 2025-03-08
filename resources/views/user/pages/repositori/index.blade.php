@@ -4,7 +4,7 @@
 <div class="mt-24 lg:mt-40 flex flex-col justify-center items-center px-6 lg:px-0">
     <div class="w-full max-w-5xl">
         <!-- Search Bar -->
-        <div class="flex items-center border justify-center rounded-full p-2 shadow-md bg-white mb-3 border border-black">
+        <div class="flex items-center justify-center rounded-full p-2 shadow-md bg-white mb-3 border border-black">
             <select class="p-2 text-xs lg:text-sm rounded-full border text-center border-gray-300 outline-none">
                 <option>Pilih Kategori</option>
                 <option>Elektronik Buku</option>
@@ -219,7 +219,7 @@
 
 <div class="flex flex-col justify-center items-center my-20 gap-y-4">
     <h1 class="text-sm lg:text-base">Belum menemukan item yang anda inginkan?</h1>
-    <a href="" class="text-sm lg:text-base bg-blueJR px-10 py-2 text-white rounded-xl border border-black">Request Item</a>
+    <a href="/request-item" class="text-sm lg:text-base bg-blueJR px-10 py-2 text-white rounded-xl border border-black">Request Item</a>
 </div>
 
 @endsection
