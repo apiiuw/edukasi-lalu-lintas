@@ -42,6 +42,10 @@ Route::get('/request-item', function () {
     return view('user.pages.repositori.subpage.request-item', ['title' => 'Request Item | Edulantas']);
 });
 
+Route::get('/detail-item', function () {
+    return view('user.pages.repositori.subpage.detail-item', ['title' => 'Detail Item | Edulantas']);
+});
+
 Route::get('/tentang-kami', function () {
     return view('user.pages.tentang-kami.index', ['title' => 'Tentang Kami | Edulantas']);
 });

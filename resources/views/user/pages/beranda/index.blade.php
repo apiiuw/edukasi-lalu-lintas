@@ -167,49 +167,134 @@
       </h2>
     </div>
     
-    <div class="flex flex-wrap justify-between gap-x-1 gap-y-2 lg:gap-x-4 lg:gap-y-4 max-w-5xl mx-auto mt-6">
-      <!-- Card 1 -->
-      <div class="bg-white rounded-xl shadow-lg flex flex-col items-center w-[48%] lg:w-[32%] border border-black lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
-        <img src="{{ asset('img/user/beranda/top-3-books/ex-book-1.png') }}" alt="Book 1" class="w-full h-full object-cover rounded-t-xl">
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-1 gap-y-2 lg:gap-x-4 lg:gap-y-4 max-w-5xl mx-auto mt-6 place-items-center">
+      <!-- Books Card 1 -->
+      <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+        <img src="{{ asset('img/user/beranda/top-3-books/ex-book-1.png') }}" alt="Book 1" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
         <div class="bg-blueJR flex justify-center items-center py-2 w-full">
           <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
         </div>
-        <div class="flex flex-col justify-center items-center px-4 py-4">
-          <p class="text-center text-xs lg:text-sm">Desiminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XII</p>
-          <span class="text-gray-500 text-xs">2023</span>
-          <button class="mt-2 bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">Baca Selengkapnya</button>
+        <div class="flex flex-col px-4 py-4 flex-grow w-full">
+          <p class="text-center text-xs lg:text-sm line-clamp-2 min-h-[2rem] lg:min-h-[2.5rem]">
+            Desiminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XII
+          </p>
+        </div>
+        <div class="mt-auto flex flex-col items-center w-full pb-4">
+          <span class="text-gray-500 text-xs mb-2">2023</span>
+          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+            Baca Selengkapnya
+          </button>
         </div>
       </div>
     
-      <!-- Card 2 -->
-      <div class="bg-white rounded-xl shadow-lg flex flex-col items-center w-[48%] lg:w-[32%] border border-black lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
-        <img src="{{ asset('img/user/beranda/top-3-books/ex-book-2.png') }}" alt="Book 1" class="w-full h-full object-cover rounded-t-xl">
+      <!-- Books Card 2 -->
+      <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+        <img src="{{ asset('img/user/beranda/top-3-books/ex-book-2.png') }}" alt="Book 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
         <div class="bg-blueJR flex justify-center items-center py-2 w-full">
           <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
         </div>
-        <div class="flex flex-col justify-center items-center px-4 py-4">
-          <p class="text-center text-xs lg:text-sm">Desiminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XI</p>
-          <span class="text-gray-500 text-xs">2023</span>
-          <button class="mt-2 bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">Baca Selengkapnya</button>
+        <div class="flex flex-col px-4 py-4 flex-grow w-full">
+          <p class="text-center text-xs lg:text-sm line-clamp-2 min-h-[2rem] lg:min-h-[2.5rem]">
+            Desiminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XI
+          </p>
+        </div>
+        <div class="mt-auto flex flex-col items-center w-full pb-4">
+          <span class="text-gray-500 text-xs mb-2">2023</span>
+          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+            Baca Selengkapnya
+          </button>
         </div>
       </div>
     
-      <!-- Card 3 -->
-      <div class="bg-white rounded-xl shadow-lg flex flex-col items-center w-[48%] lg:w-[32%] border border-black mx-auto lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
-        <img src="{{ asset('img/user/beranda/top-3-books/ex-book-3.png') }}" alt="Book 1" class="w-full h-full object-cover rounded-t-xl">
+      <!-- Books Card 3 -->
+      <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105 col-span-2 sm:col-span-1">
+        <img src="{{ asset('img/user/beranda/top-3-books/ex-book-3.png') }}" alt="Book 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
         <div class="bg-blueJR flex justify-center items-center py-2 w-full">
           <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
         </div>
-        <div class="flex flex-col justify-center items-center px-4 py-4">
-          <p class="text-center text-xs lg:text-sm">Desiminasi Kurikulum Pendidikan Lalu Lintas SMP Kelas VII</p>
-          <span class="text-gray-500 text-xs">2023</span>
-          <button class="mt-2 bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">Baca Selengkapnya</button>
+        <div class="flex flex-col px-4 py-4 flex-grow w-full">
+          <p class="text-center text-xs lg:text-sm line-clamp-2 min-h-[2rem] lg:min-h-[2.5rem]">
+            Desiminasi Kurikulum Pendidikan Lalu Lintas SMP Kelas VII
+          </p>
+        </div>
+        <div class="mt-auto flex flex-col items-center w-full pb-4">
+          <span class="text-gray-500 text-xs mb-2">2023</span>
+          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+            Baca Selengkapnya
+          </button>
         </div>
       </div>
+    </div>    
+    
+  </div>
 
+  {{-- Section 4 --}}
+  <div class="flex flex-col justify-center items-center mt-40 px-6">
+    <div class="flex justify-center items-center py-2 px-3">
+      <h2 class="text-base lg:text-xl font-semibold text-center">
+        Top 3 Trending Videos
+      </h2>
     </div>
     
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-1 gap-y-2 lg:gap-x-4 lg:gap-y-4 max-w-5xl mx-auto mt-6 place-items-center">
+      <!-- Video Card 1 -->
+      <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+        <img src="{{ asset('img/user/repositori/video/ex-vid-1.jpg') }}" alt="Video 1" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
+        <div class="bg-red-500 flex justify-center items-center py-2 w-full">
+          <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Video Edukasi</h3>
+        </div>
+        <div class="flex flex-col px-4 py-4 flex-grow w-full">
+          <p class="text-center text-xs lg:text-sm line-clamp-2 min-h-[2rem] lg:min-h-[2.5rem]">
+            [Motion Grafis] Mari Patuhi Lalu Lintas, Keselamatan No.1
+          </p>
+        </div>
+        <div class="mt-auto flex flex-col items-center w-full pb-4">
+          <span class="text-gray-500 text-xs mb-2">2019</span>
+          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+            Tonton Sekarang
+          </button>
+        </div>
+      </div>
     
+      <!-- Video Card 2 -->
+      <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+        <img src="{{ asset('img/user/repositori/video/ex-vid-2.jpg') }}" alt="Video 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
+        <div class="bg-red-500 flex justify-center items-center py-2 w-full">
+          <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Video Edukasi</h3>
+        </div>
+        <div class="flex flex-col px-4 py-4 flex-grow w-full">
+          <p class="text-center text-xs lg:text-sm line-clamp-2 min-h-[2rem] lg:min-h-[2.5rem]">
+            Sosialisasi Keselamatan Lalu Lintas
+          </p>
+        </div>
+        <div class="mt-auto flex flex-col items-center w-full pb-4">
+          <span class="text-gray-500 text-xs mb-2">2021</span>
+          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+            Tonton Sekarang
+          </button>
+        </div>
+      </div>
+    
+      <!-- Video Card 3 -->
+      <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105 col-span-2 sm:col-span-1">
+        <img src="{{ asset('img/user/repositori/video/ex-vid-3.jpg') }}" alt="Video 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
+        <div class="bg-red-500 flex justify-center items-center py-2 w-full">
+          <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Video Edukasi</h3>
+        </div>
+        <div class="flex flex-col px-4 py-4 flex-grow w-full">
+          <p class="text-center text-xs lg:text-sm line-clamp-2 min-h-[2rem] lg:min-h-[2.5rem]">
+            Etika dalam Berkendara agar aman di Jalan Raya
+          </p>
+        </div>
+        <div class="mt-auto flex flex-col items-center w-full pb-4">
+          <span class="text-gray-500 text-xs mb-2">2021</span>
+          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+            Tonton Sekarang
+          </button>
+        </div>
+      </div>
+    </div>    
+
   </div>
   
 </div>
