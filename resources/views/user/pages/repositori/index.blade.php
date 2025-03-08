@@ -72,7 +72,8 @@
   </div>
 
   <!-- Books Card 2 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/books/ex-book-2.png') }}" alt="Book 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/books/ex-book-2.png') }}" alt="Book 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-blueJR flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
     </div>
@@ -90,7 +91,8 @@
   </div>
 
   <!-- Books Card 3 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/books/ex-book-3.png') }}" alt="Book 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/books/ex-book-3.png') }}" alt="Book 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-blueJR flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
     </div>
@@ -108,8 +110,8 @@
   </div>
 
   <!-- Video Card 1 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/video/ex-vid-1.jpg') }}" alt="Video 1" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
-    
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/video/ex-vid-1.jpg') }}" alt="Video 1" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-red-500 flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">
         Video Edukasi
@@ -129,8 +131,8 @@
   </div>
 
   <!-- Video Card 2 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/video/ex-vid-2.jpg') }}" alt="Video 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
-    
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/video/ex-vid-2.jpg') }}" alt="Video 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-red-500 flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">
         Video Edukasi
@@ -150,8 +152,8 @@
   </div>
 
   <!-- Video Card 3 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/video/ex-vid-3.jpg') }}" alt="Video 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
-    
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/video/ex-vid-3.jpg') }}" alt="Video 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-red-500 flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">
         Video Edukasi
@@ -171,7 +173,8 @@
   </div>
 
   <!-- Books Card 1 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/books/ex-book-1.png') }}" alt="Book 1" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/books/ex-book-1.png') }}" alt="Book 1" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-blueJR flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
     </div>
@@ -189,7 +192,8 @@
   </div>
 
   <!-- Books Card 2 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/books/ex-book-2.png') }}" alt="Book 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/books/ex-book-2.png') }}" alt="Book 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-blueJR flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
     </div>
@@ -207,7 +211,8 @@
   </div>
 
   <!-- Books Card 3 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/books/ex-book-3.png') }}" alt="Book 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/books/ex-book-3.png') }}" alt="Book 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-blueJR flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">Buku Elektronik</h3>
     </div>
@@ -225,8 +230,8 @@
   </div>
 
   <!-- Video Card 1 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/video/ex-vid-1.jpg') }}" alt="Video 1" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
-    
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/video/ex-vid-1.jpg') }}" alt="Video 1" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-red-500 flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">
         Video Edukasi
@@ -246,8 +251,8 @@
   </div>
 
   <!-- Video Card 2 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/video/ex-vid-2.jpg') }}" alt="Video 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
-    
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/video/ex-vid-2.jpg') }}" alt="Video 2" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-red-500 flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">
         Video Edukasi
@@ -267,8 +272,8 @@
   </div>
 
   <!-- Video Card 3 -->
-  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">    <img src="{{ asset('img/user/repositori/video/ex-vid-3.jpg') }}" alt="Video 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
-    
+  <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
+    <img src="{{ asset('img/user/repositori/video/ex-vid-3.jpg') }}" alt="Video 3" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
     <div class="bg-red-500 flex justify-center items-center py-2 w-full">
       <h3 class="text-white text-sm lg:text-base font-medium lg:font-semibold">
         Video Edukasi

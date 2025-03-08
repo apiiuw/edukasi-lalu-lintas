@@ -6,7 +6,7 @@
     <div class="flex flex-col h-full justify-center items-center max-w-6xl lg:max-w-4xl mx-auto">
         <h1 class="text-base lg:text-xl text-blueJR font-semibold mb-4 text-center relative after:content-[''] after:block after:w-16 after:h-[2px] after:bg-blueJR after:mx-auto after:mt-1">
             REQUEST ITEM
-        </h1>      
+        </h1>
         <form class="w-full space-y-6 mt-3 px-6 lg:px-12 flex flex-col justify-center items-center">
           
             <!-- Dropdown -->
