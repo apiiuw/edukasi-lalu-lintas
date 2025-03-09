@@ -7,12 +7,12 @@
     </div>
 
     <div class="flex items-center gap-x-1 lg:gap-x-2 ms-auto py-1 lg:ps-6 lg:order-3 lg:col-span-3">
-      <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100 focus:outline-hidden">
+      <a href="/sign-up" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100 focus:outline-hidden">
         Sign in
-      </button>
-      <button type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-blueJR text-white focus:outline-hidden">
+      </a>
+      <a type="/login" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-blueJR text-white focus:outline-hidden">
         Login
-      </button>
+      </a>
 
       <div class="lg:hidden">
         <button type="button" class="hs-collapse-toggle size-9.5 flex justify-center items-center text-sm font-semibold rounded-xl text-black focus:outline-hidden" id="hs-navbar-hcail-collapse" aria-expanded="false" aria-controls="hs-navbar-hcail" data-hs-collapse="#hs-navbar-hcail">

@@ -22,9 +22,7 @@
 
     </head>
     <body class="font-jakartaSans antialiased overflow-x-hidden">
-        @include('user.partials.navbar')
         @yield('container')
-        @include('user.partials.footer')
         <script type="module" src="{{ asset('resources/js/app.js') }}"></script> 
     </body>
 </html>

@@ -33,6 +33,18 @@ Route::get('/', function () {
     return view('user.pages.beranda.index');
 });
 
+Route::get('/login', function () {
+    return view('auth.login', ['title' => 'Login | Edulantas']);
+});
+
+Route::get('/sign-up', function () {
+    return view('auth.sign-up', ['title' => 'Sign Up | Edulantas']);
+});
+
+Route::get('/sign-up-google', function () {
+    return view('auth.sign-up-google', ['title' => 'Sign Up Google | Edulantas']);
+});
+
 Route::get('/repositori', function () {
     return view('user.pages.repositori.index', ['title' => 'Repositori | Edulantas']);
 });
