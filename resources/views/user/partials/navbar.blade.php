@@ -47,7 +47,7 @@
         </div>
         <div class="flex justify-center">
             <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden 
-                {{ request()->is('forum-diskusi') ? 'relative before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-blueJR' : '' }}" 
+                {{ in_array(request()->path(), ['forum-diskusi', 'form-forum-diskusi', 'detail-item']) ? 'relative before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-blueJR' : '' }}" 
                 href="/forum-diskusi">
                 Forum Diskusi
             </a>
@@ -63,8 +63,8 @@
           <a href="/kontak" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             <i class="fa-solid fa-xl fa-phone-volume mr-2"></i>
             <div class="flex flex-col">
-              <p>Nomor Telepon</p>
-              <p>(021) 21012904</p>
+              <p class="text-xs">Nomor Telepon</p>
+              <p class="text-xs">(021) 21012904</p>
             </div>
           </a>
         </div>

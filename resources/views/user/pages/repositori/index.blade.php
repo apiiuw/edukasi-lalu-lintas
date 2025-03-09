@@ -1,6 +1,7 @@
 @extends('user.layouts.main')
 
 @section('container')
+
 <div class="mt-24 lg:mt-40 flex flex-col justify-center items-center px-6 lg:px-0">
     <div class="w-full max-w-5xl">
         <!-- Search Bar -->
@@ -11,7 +12,7 @@
                 <option>Video Edukasi</option>
             </select>
             <input type="text" class="flex-grow p-2 outline-none border-none text-sm lg:text-base text-black placeholder:text-gray-700" placeholder="Ketikkan Kata Kunci...">
-            <button class="p-2 bg-blue-600 px-4 text-white rounded-full">
+            <button class="p-2 bg-blueJR px-4 text-white rounded-full">
                 <i class="fa-solid fa-xs lg:fa-lg fa-magnifying-glass"></i>
             </button>
         </div>

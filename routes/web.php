@@ -53,3 +53,8 @@ Route::get('/tentang-kami', function () {
 Route::get('/forum-diskusi', function () {
     return view('user.pages.forum-diskusi.index', ['title' => 'Forum Diskusi | Edulantas']);
 });
+
+// Subpage Forum Diskusi
+Route::get('/form-forum-diskusi', function () {
+    return view('user.pages.forum-diskusi.subpage.form-forum-diskusi', ['title' => 'Form Forum Diskusi | Edulantas']);
+});
