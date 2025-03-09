@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Error Test
 Route::get('/400', function () {
     abort(400);
 });
@@ -29,6 +30,7 @@ Route::get('/419', function () {
     abort(419);
 });
 
+// User Pages
 Route::get('/', function () {
     return view('user.pages.beranda.index');
 });
@@ -69,4 +71,30 @@ Route::get('/forum-diskusi', function () {
 // Subpage Forum Diskusi
 Route::get('/form-forum-diskusi', function () {
     return view('user.pages.forum-diskusi.subpage.form-forum-diskusi', ['title' => 'Form Forum Diskusi | Edulantas']);
+});
+
+// Admin Pages
+Route::get('/admin-statistik', function () {
+    return view('admin.pages.statistik.index', ['title' => 'Admin Statistik | Edulantas']);
+});
+
+Route::get('/admin-item', function () {
+    return view('admin.pages.item.index', ['title' => 'Admin Item | Edulantas']);
+});
+
+// Subpage Item
+Route::get('/admin-add-books', function () {
+    return view('admin.pages.item.subpage.add-books', ['title' => 'Admin Tambah Buku | Edulantas']);
+});
+
+Route::get('/admin-add-video', function () {
+    return view('admin.pages.item.subpage.add-video', ['title' => 'Admin Tambah Video | Edulantas']);
+});
+
+Route::get('/admin-request-item', function () {
+    return view('admin.pages.request-item.index', ['title' => 'Admin Request Item | Edulantas']);
+});
+
+Route::get('/admin-forum-diskusi', function () {
+    return view('admin.pages.forum-diskusi.index', ['title' => 'Admin Forum Diskusi | Edulantas']);
 });
