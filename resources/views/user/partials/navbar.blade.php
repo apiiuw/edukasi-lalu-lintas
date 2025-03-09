@@ -60,14 +60,24 @@
         </div>      
 
         <div id="dropdownHubungi" class="hidden absolute left-auto right-72 top-12 mt-1 w-48 bg-white border border-gray-200 shadow-lg rounded-lg py-2">
-          <a href="/kontak" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Kontak</a>
-          <a href="/bantuan" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Bantuan</a>
+          <a href="/kontak" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <i class="fa-solid fa-xl fa-phone-volume mr-2"></i>
+            <div class="flex flex-col">
+              <p>Nomor Telepon</p>
+              <p>(021) 21012904</p>
+            </div>
+          </a>
         </div>
 
         <div id="mobileDropdownHubungi" class="hs-collapse mt-3 hidden absolute top-full left-0 w-full bg-white/60 backdrop-blur-sm text-center shadow-lg py-2 lg:hidden">
           <div class="relative z-10">
-            <a href="/kontak" class="block px-4 py-2 text-black hover:bg-gray-100">Kontak</a>
-            <a href="/bantuan" class="block px-4 py-2 text-black hover:bg-gray-100">Bantuan</a>
+            <a href="/kontak" class="flex items-center justify-center px-4 py-2 text-black hover:bg-gray-100">
+              <i class="fa-solid lg:fa-xl fa-phone-volume mr-2"></i>
+              <div class="flex flex-col text-sm">
+                <p>Nomor Telepon</p>
+                <p>(021) 21012904</p>
+              </div>
+            </a>
           </div>
         </div>        
       </div>
