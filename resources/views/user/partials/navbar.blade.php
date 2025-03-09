@@ -63,8 +63,8 @@
           <a href="/kontak" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
             <i class="fa-solid fa-xl fa-phone-volume mr-2"></i>
             <div class="flex flex-col">
-              <p class="text-xs">Nomor Telepon</p>
-              <p class="text-xs">(021) 21012904</p>
+              <p class="text-sm">Nomor Telepon</p>
+              <p class="text-sm">(021) 21012904</p>
             </div>
           </a>
         </div>
