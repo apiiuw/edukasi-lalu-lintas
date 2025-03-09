@@ -48,7 +48,7 @@
             </div>
           
           <!-- Tombol Cari -->
-          <button type="submit" class="w-1/2 text-sm lg:text-base flex items-center justify-center gap-2 bg-blue-500 text-white py-3 lg:py-4 border border-black rounded-full hover:bg-blue-600">
+          <button type="submit" class="w-1/2 text-sm lg:text-base flex items-center justify-center gap-2 bg-blueJR text-white py-3 lg:py-4 border border-black rounded-full hover:bg-blue-600">
             Kirim Request <span><i class="fa-solid fa-sm lg:fa-lg fa-paper-plane"></i></span>
           </button>
         </form>
