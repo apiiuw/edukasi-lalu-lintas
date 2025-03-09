@@ -4,7 +4,7 @@
 <!-- Slider -->
 <div data-hs-carousel='{
     "loadingClasses": "opacity-0",
-    "dotsItemClasses": "hs-carousel-active:bg-blue-700 hs-carousel-active:border-blue-700 size-5 border border-gray-400 rounded-full cursor-pointer",
+    "dotsItemClasses": "hs-carousel-active:bg-blueJR hs-carousel-active:border-blueJR size-5 border border-gray-400 rounded-full cursor-pointer",
     "isAutoPlay": true
   }' class="relative">
   <div class="hs-carousel relative overflow-hidden w-full h-screen bg-white">
@@ -93,10 +93,10 @@
     <form class="w-full flex flex-col justify-center items-center space-y-6 mt-3 px-6 lg:px-12">
       
       <!-- Input Text -->
-      <input type="text" placeholder="Ketikkan Kata Kunci..." class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center placeholder:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <input type="text" placeholder="Ketikkan Kata Kunci..." class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center placeholder:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blueJR">
       
       <!-- Dropdown -->
-      <select class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
+      <select class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center text-gray-700 focus:outline-none focus:ring-2 focus:ring-blueJR">
         <option>Pilih Kategori</option>
         <option value="1">Elektronik Buku</option>
         <option value="2">Video Edukasi</option>
@@ -135,7 +135,7 @@
       </div>
       
       <!-- Tombol Cari -->
-      <button type="submit" class="w-full lg:w-1/2 text-sm lg:text-base flex items-center justify-center gap-2 bg-blue-500 text-white py-3 lg:py-4 border border-black rounded-full hover:bg-blue-600">
+      <button type="submit" class="w-full lg:w-1/2 text-sm lg:text-base flex items-center justify-center gap-2 bg-blueJR text-white py-3 lg:py-4 border border-black rounded-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
         Mulai Mencari <span><i class="fa-solid fa-sm lg:fa-lg fa-magnifying-glass"></i></span>
       </button>
     </form>
