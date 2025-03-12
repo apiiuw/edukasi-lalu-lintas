@@ -11,6 +11,7 @@ export default {
     extend: {
       colors: {
         blueJR: '#277FC6',
+        blueDarkJR: '#1D71B5',
       },
       fontFamily: {
         jakartaSans: ['"Plus Jakarta Sans"', 'sans-serif'],
