@@ -3,7 +3,7 @@
 
   
 <div class="p-4 sm:ml-64 bg-gray-200 min-h-screen flex justify-center items-center">
-    <div class="p-6 rounded-lg w-full max-w-6xl mt-24">
+    <div class="p-6 rounded-lg w-full max-w-6xl mt-5 lg:mt-24">
         <h1 class="text-center text-xl font-semibold mb-4">TAMBAH ELEKTRONIK BUKU</h1>
         
         <label class="block font-medium">Judul Buku</label>
