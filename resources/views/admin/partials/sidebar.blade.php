@@ -2,6 +2,11 @@
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
         <ul class="space-y-2 font-medium">
             <li>
+                <h1 class="text-base text-blueJR font-semibold mb-4 text-center relative after:content-[''] after:block after:w-14 after:h-[1.5px] after:bg-blueJR after:mx-auto after:mt-1">
+                    DASHBOARD ADMIN
+                </h1>
+            </li>
+            <li>
                 <a href="/admin-statistik" class="flex items-center p-2 rounded-lg group {{ request()->is('admin-statistik') ? 'bg-gray-200 text-gray-900' : 'text-gray-900' }} hover:bg-gray-100">
                     <i class="fa-solid fa-chart-line fa-lg {{ request()->is('admin-statistik') ? 'text-gray-900' : 'text-gray-500 group-hover:text-gray-900' }}"></i>
                     <span class="ms-3">Statistik</span>
