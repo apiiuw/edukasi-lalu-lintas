@@ -40,10 +40,10 @@
             </form>            
 
             <div class="w-full mt-1 px-3 text-sm">
-                <button class="w-full border border-gray-300 text-black py-2 text-sm rounded-md flex justify-center items-center gap-2 hover:bg-gray-100">
+                <a href="{{ url('/auth/google') }}" role="button" class="w-full border border-gray-300 text-black py-2 text-sm rounded-md flex justify-center items-center gap-2 hover:bg-gray-100">
                     <img src="{{ asset('img/logo/icon-google.png') }}" alt="Google" class="w-5 h-5">
                     Sign in dengan Google
-                </button>
+                </a>                
             </div>
 
             <p class="mt-2 text-sm text-center text-gray-600">Sudah memiliki akun? <br>

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAddBooksController;
 use App\Http\Controllers\Admin\AdminAddVideosController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,10 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/sign-up-google', function () {
     return view('auth.sign-up-google', ['title' => 'Sign Up Google | Edulantas']);
 });
+Route::get('/sign-up-google', [GoogleAuthController::class, 'showGoogleSignUp'])->name('sign-up-google');
+Route::post('/sign-up-google', [GoogleAuthController::class, 'completeGoogleSignUp'])->name('sign-up-google.process');
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 
 Route::get('/repositori', function () {
     return view('user.pages.repositori.index', ['title' => 'Repositori | Edulantas']);
