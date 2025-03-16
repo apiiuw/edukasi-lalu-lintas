@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAddBooksController;
+use App\Http\Controllers\Admin\AdminAddVideosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,9 +90,11 @@ Route::get('/admin-add-books', function () {
 });
 Route::post('/admin-add-books', [AdminAddBooksController::class, 'store'])->name('admin.add.books');
 
-Route::get('/admin-add-video', function () {
-    return view('admin.pages.item.subpage.add-video', ['title' => 'Admin Tambah Video | Edulantas']);
+Route::get('/admin-add-videos', function () {
+    return view('admin.pages.item.subpage.add-videos', ['title' => 'Admin Tambah Video | Edulantas']);
 });
+Route::post('/admin-add-videos', [AdminAddVideosController::class, 'store'])->name('admin.add.videos');
+
 
 Route::get('/admin-request-item', function () {
     return view('admin.pages.request-item.index', ['title' => 'Admin Request Item | Edulantas']);

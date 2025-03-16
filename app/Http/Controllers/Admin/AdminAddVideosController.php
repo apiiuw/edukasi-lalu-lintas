@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\ElectronicsBook;
+use App\Models\Video;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 
-class AdminAddBooksController extends Controller
+class AdminAddVideosController extends Controller
 {
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $request->validate([
             'judul' => 'required|string|max:255',
             'tahun_rilis' => 'required|integer|min:1900|max:' . date('Y'),
             'deskripsi' => 'required|string',
@@ -21,52 +21,51 @@ class AdminAddBooksController extends Controller
                 'required',
                 'string',
                 function ($attribute, $value, $fail) {
-                    $words = explode(',', $value); // Pisahkan kata kunci dengan koma
+                    $words = explode(',', $value);
                     if (count($words) < 3) {
                         $fail('Kata kunci minimal harus berisi 3 kata kunci yang dipisahkan dengan koma.');
                     }
                 }
             ],
             'cover' => 'required|image|mimes:jpg,jpeg,png|max:10240',
-            'pdf' => 'required|mimes:pdf|max:153600',
+            'youtube_url' => 'required|url',
         ]);
-    
-        // Jika validasi gagal, kembalikan respons JSON dengan error
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validasi gagal.',
-                'errors' => $validator->errors()
-            ], 422);
-        }
     
         DB::beginTransaction();
     
         try {
-            $coverPath = $request->file('cover')->store('data/books/covers', 'public');
-            $pdfPath = $request->file('pdf')->store('data/books/pdfs', 'public');
+            // Simpan cover ke storage
+            $coverPath = $request->file('cover')->store('data/videos/covers', 'public');
     
-            ElectronicsBook::create([
+            // Konversi URL YouTube ke format embed
+            $youtubeUrl = $request->youtube_url;
+            $videoId = $this->extractVideoId($youtubeUrl);
+            $iframeUrl = $videoId ? "https://www.youtube.com/embed/{$videoId}" : null;
+    
+            // Simpan data ke database
+            Video::create([
                 'judul' => $request->judul,
                 'tahun_rilis' => $request->tahun_rilis,
                 'deskripsi' => $request->deskripsi,
                 'kata_kunci' => $request->kata_kunci,
                 'cover' => $coverPath,
-                'pdf' => $pdfPath,
+                'youtube_url' => $youtubeUrl,
+                'iframe_url' => $iframeUrl,
             ]);
     
             DB::commit();
     
             return response()->json([
                 'success' => true,
-                'message' => 'Buku berhasil ditambahkan!'
+                'message' => 'Video Edukasi berhasil ditambahkan!'
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
     
             // Hapus file jika gagal menyimpan ke database
-            if (isset($coverPath)) Storage::disk('public')->delete($coverPath);
-            if (isset($pdfPath)) Storage::disk('public')->delete($pdfPath);
+            if (isset($coverPath)) {
+                Storage::disk('public')->delete($coverPath);
+            }
     
             return response()->json([
                 'success' => false,
@@ -75,5 +74,14 @@ class AdminAddBooksController extends Controller
         }
     }
     
+    /**
+     * Ekstrak ID video dari URL YouTube
+     */
+    private function extractVideoId($url)
+    {
+        preg_match('/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/', $url, $matches);
+        return $matches[1] ?? null;
+    }
     
+
 }
