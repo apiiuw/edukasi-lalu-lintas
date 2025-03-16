@@ -36,7 +36,7 @@ class GoogleAuthController extends Controller
             // Login user jika sudah ada
             Auth::login($user);
 
-            return redirect('/dashboard')->with('success', 'Berhasil login dengan Google');
+            return redirect('/')->with('success', 'Selamat datang');
         } catch (\Exception $e) {
             return redirect('/login')->with('error', 'Gagal login dengan Google');
         }
@@ -82,6 +82,7 @@ class GoogleAuthController extends Controller
             'name' => $request->nama_lengkap ?? $name, // Nama bisa diedit jika belum ada
             'email' => $email,
             'password' => Hash::make($request->password),
+            'role' => 'User',
         ]);
     
         // Hapus session Google setelah signup
@@ -90,6 +91,6 @@ class GoogleAuthController extends Controller
         // Login user
         Auth::login($user);
     
-        return redirect('/')->with('success', 'Akun berhasil dibuat, Anda telah login');
+        return redirect('/')->with('success', 'Selamat datang');
     }
 }

@@ -7,12 +7,39 @@
     </div>
 
     <div class="flex items-center gap-x-1 lg:gap-x-2 ms-auto py-1 lg:ps-6 lg:order-3 lg:col-span-3">
-      <a href="/sign-up" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100 focus:outline-hidden">
-        Sign in
-      </a>
-      <a href="/login" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-blueJR text-white focus:outline-hidden">
-        Login
-      </a>
+      @if (Auth::check())
+        <button type="button" class="flex justify-center py-2 px-3 mr-2 lg:mr-0 items-center text-sm bg-black rounded-full md:me-0 focus:ring-4 focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+          <span class="sr-only">Open user menu</span>
+          <i class="fa-solid fa-user lg:fa-xl rounded-full text-white pr-2"></i>
+          <p class="text-white text-sm lg:text-base">{{ Auth::user()->name }}</p>
+        </button>
+        <!-- Dropdown menu -->
+        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg" id="user-dropdown">
+          <div class="px-4 py-3">
+            <span class="block text-sm text-black">{{ Auth::user()->name }}</span>
+            <span class="block text-sm  text-black truncate">{{ Auth::user()->email }}</span>
+            <span class="block text-blueJR text-xs">{{ Auth::user()->role }}</span>
+          </div>
+          <ul class="py-2" aria-labelledby="user-menu-button">
+            <li>
+              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+            </li>
+            <li>
+              <form action="{{ route('logout') }}" method="POST" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-600 hover:text-white">
+                @csrf
+                <button type="submit" class="w-full text-start">Sign out</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      @else
+          <a href="/sign-up" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100">
+              Sign up
+          </a>
+          <a href="/login" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-blueJR text-white">
+              Login
+          </a>
+      @endif
 
       <div class="lg:hidden">
         <button type="button" class="hs-collapse-toggle size-9.5 flex justify-center items-center text-sm font-semibold rounded-xl text-black focus:outline-hidden" id="hs-navbar-hcail-collapse" aria-expanded="false" aria-controls="hs-navbar-hcail" data-hs-collapse="#hs-navbar-hcail">
@@ -118,21 +145,27 @@
     const navbar = document.getElementById("navbar");
     const desktopDropdown = document.getElementById("dropdownHubungi"); 
     const mobileDropdown = document.getElementById("mobileDropdownHubungi"); 
+    const dropdownMenu = document.getElementById("dropdownHubungi");
+    const dropdownUser = document.getElementById("user-dropdown");
 
     if (window.scrollY > 50) {
       navbar.classList.add("bg-white/60", "backdrop-blur-sm");
       desktopDropdown.classList.add("bg-white/80", "backdrop-blur-sm");
       mobileDropdown.classList.add("bg-white/60", "backdrop-blur-sm");
+      dropdownUser.classList.add("bg-white/80", "backdrop-blur-sm");
       navbar.classList.remove("bg-white");
       desktopDropdown.classList.remove("bg-white");
       mobileDropdown.classList.remove("bg-white");
+      dropdownUser.classList.remove("bg-white");
     } else {
       navbar.classList.remove("bg-white/60", "backdrop-blur-sm");
       desktopDropdown.classList.remove("bg-white/80", "backdrop-blur-sm");
       mobileDropdown.classList.remove("bg-white/60", "backdrop-blur-sm");
+      dropdownUser.classList.remove("bg-white/80", "backdrop-blur-sm");
       navbar.classList.add("bg-white");
       desktopDropdown.classList.add("bg-white");
       mobileDropdown.classList.add("bg-white");
+      dropdownUser.classList.add("bg-white");
     }
   });
 

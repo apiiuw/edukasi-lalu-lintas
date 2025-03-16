@@ -34,10 +34,11 @@ class RegisterController extends Controller
             'name' => $request->nama_lengkap,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'User',
         ]);
 
         auth()->login($user);
 
-        return redirect('/')->with('success', 'Akun berhasil dibuat.');
+        return redirect('/')->with('success', 'Selamat datang');
     }
 }
