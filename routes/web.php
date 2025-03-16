@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminAddBooksController;
 use App\Http\Controllers\Admin\AdminAddVideosController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,7 @@ Route::get('/login', function () {
 Route::get('/sign-up', function () {
     return view('auth.sign-up', ['title' => 'Sign Up | Edulantas']);
 });
+Route::post('/register', [RegisterController::class, 'register'])->name('register');
 
 Route::get('/sign-up-google', function () {
     return view('auth.sign-up-google', ['title' => 'Sign Up Google | Edulantas']);

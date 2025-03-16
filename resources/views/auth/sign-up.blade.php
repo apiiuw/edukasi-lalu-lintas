@@ -10,10 +10,10 @@
         <span class="hidden md:inline text-sm text-blueJR font-medium">Back</span>
     </a>
 
-    <div class="flex flex-col lg:flex-row h-full justify-center items-center max-w-sm lg:max-w-5xl gap-x-5 px-6 lg:px-0 mx-auto">
-        <img class="hidden lg:block rounded-3xl border-2 border-blueJR w-3/5 lg:h-[26rem] shadow-lg" src="{{ asset('img/user/tentang-kami/tentang-kami-1.png') }}" alt="Login">
+    <div class="flex flex-col lg:flex-row h-full justify-center items-center max-w-sm lg:max-w-6xl gap-x-5 px-6 lg:px-0 mx-auto">
+        <img class="hidden lg:block rounded-3xl border-2 border-blueJR w-[60%] lg:h-[30rem] shadow-lg" src="{{ asset('img/user/tentang-kami/tentang-kami-1.png') }}" alt="Login">
         
-        <div class="w-full md:w-1/2 flex flex-col justify-center lg:h-[26rem] items-center p-6 md:p-10 bg-white border-2 border-blueJR rounded-3xl shadow-lg">
+        <div class="w-full md:w-1/2 flex flex-col justify-center lg:h-[30rem] items-center p-6 md:p-10 bg-white border-2 border-blueJR rounded-3xl shadow-lg">
             <h1 class="text-xl font-semibold text-blueJR text-center">
                 Sign Up
                 <span class="block w-16 h-[2px] bg-blueJR mx-auto mt-1"></span>
@@ -23,13 +23,21 @@
                 Platform Digital Keselamatan Lalu Lintas
             </p>
 
-            <form class="w-full mt-3 px-3 text-sm">
-                <input type="text" placeholder="Nama Lengkap" class="text-sm w-full px-4 py-2 placeholder:text-gray-600 border border-gray-300 rounded-lg">
-                <input type="email" placeholder="Email" class="text-sm w-full px-4 py-2 mt-1 placeholder:text-gray-600 border border-gray-300 rounded-lg">
-                <input type="password" placeholder="Password" class="text-sm w-full mt-1 placeholder:text-gray-600 px-4 py-2 border border-gray-300 rounded-lg">
-                <input type="password" placeholder="Konfirmasi Password" class="text-sm w-full mt-1 placeholder:text-gray-600 px-4 py-2 border border-gray-300 rounded-lg">
-                <button class="w-full mt-2 bg-blueJR text-white py-2 rounded-md">Sign in</button>
-            </form>
+            <form action="{{ route('register') }}" method="POST" class="w-full mt-3 px-3 text-sm">
+                @csrf
+                <input type="text" name="nama_lengkap" placeholder="Nama Lengkap" value="{{ old('nama_lengkap') }}" class="text-sm placeholder:text-gray-500 w-full px-4 py-2 border border-gray-300 rounded-lg">
+                @error('nama_lengkap') <small class="text-red-500">{{ $message }}</small> @enderror
+            
+                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" class="text-sm placeholder:text-gray-500 w-full px-4 py-2 mt-1 border border-gray-300 rounded-lg">
+                @error('email') <small class="text-red-500">{{ $message }}</small> @enderror
+            
+                <input type="password" name="password" placeholder="Password" class="text-sm placeholder:text-gray-500 w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg">
+                @error('password') <small class="text-red-500">{{ $message }}</small> @enderror
+            
+                <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" class="text-sm placeholder:text-gray-500 w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg">
+                
+                <button type="submit" class="w-full mt-2 bg-blueJR text-white py-2 rounded-md">Buat Akun</button>
+            </form>            
 
             <div class="w-full mt-1 px-3 text-sm">
                 <button class="w-full border border-gray-300 text-black py-2 text-sm rounded-md flex justify-center items-center gap-2 hover:bg-gray-100">
