@@ -23,7 +23,7 @@
         <div id="keywordsList" class="mb-4 flex flex-wrap gap-2"></div>
         <p id="errorMessage" class="text-red-500 text-sm mt-1"></p>
         
-        <label class="block font-medium">Masukkan Thumbnail Video Youtube</label>
+        <label class="block font-medium">Thumbnail Video Youtube</label>
         <div class="flex items-center border border-gray-400 rounded p-2 bg-white gap-2">
             <i class="fa-solid fa-image fa-xl text-gray-600"></i>
             <label for="coverInput" id="coverLabel" class="text-gray-500 cursor-pointer">Pilih File IMG, JPG, JPEG, atau PNG...</label>
@@ -32,7 +32,7 @@
         <img id="coverPreview" class="hidden w-32 h-32 object-cover my-2 rounded-lg border border-gray-300" alt="Preview Gambar">
         <p id="coverOriginalName" class="hidden text-gray-700 text-sm"></p>
         
-        <label class="block font-medium mt-4">Masukkan Link Video Youtube</label>
+        <label class="block font-medium mt-4">Link Video Youtube</label>
         <input type="text" id="youtubeLink" class="w-full border border-gray-400 rounded-xl p-2 mb-4 placeholder:text-gray-500" placeholder="Masukkan URL Video..." oninput="updatePreview()">
         
         <div class="w-full flex justify-center">

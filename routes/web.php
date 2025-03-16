@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\AdminAddBooksController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +87,7 @@ Route::get('/admin-item', function () {
 Route::get('/admin-add-books', function () {
     return view('admin.pages.item.subpage.add-books', ['title' => 'Admin Tambah Buku | Edulantas']);
 });
+Route::post('/admin-add-books', [AdminAddBooksController::class, 'store'])->name('admin.add.books');
 
 Route::get('/admin-add-video', function () {
     return view('admin.pages.item.subpage.add-video', ['title' => 'Admin Tambah Video | Edulantas']);
