@@ -1,6 +1,38 @@
 @extends('auth.layouts.main')
 @section('container')
 
+@if (session('error'))
+    <div id="error-alert" class="bg-red-50 border-s-4 border-red-500 p-4 dark:bg-red-800/30" role="alert" tabindex="-1" aria-labelledby="hs-bordered-red-style-label">
+        <div class="flex">
+        <div class="shrink-0">
+            <!-- Icon -->
+            <span class="inline-flex justify-center items-center size-8 rounded-full border-4 border-red-100 bg-red-200 text-red-800 dark:border-red-900 dark:bg-red-800 dark:text-red-400">
+            <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+            </svg>
+            </span>
+            <!-- End Icon -->
+        </div>
+        <div class="ms-3">
+            <h3 id="hs-bordered-red-style-label" class="text-gray-800 font-semibold dark:text-white">
+            Tidak memiliki akses!
+            </h3>
+            <p class="text-sm text-gray-700 dark:text-neutral-400">
+                {{ session('error') }}
+            </p>
+        </div>
+        </div>
+    </div>
+
+    <script>
+        // Hilangkan alert setelah 5 detik
+        setTimeout(() => {
+            document.getElementById('error-alert')?.remove();
+        }, 5000);
+    </script>
+@endif
+
 {{-- Section 1 --}}
 <div class="w-full h-screen bg-cover bg-center relative" style="background-image: url('/img/background/bg-jr-gray.png');">
     <a href="javascript:void(0);" onclick="window.history.back();" class="absolute top-6 left-6 shadow-md bg-white p-2 rounded-full border border-gray-300 flex items-center gap-1 hover:bg-gray-100">

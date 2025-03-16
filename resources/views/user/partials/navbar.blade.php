@@ -21,9 +21,13 @@
             <span class="block text-blueJR text-xs">{{ Auth::user()->role }}</span>
           </div>
           <ul class="py-2" aria-labelledby="user-menu-button">
-            <li>
-              <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
-            </li>
+            @if(Auth::check() && Auth::user()->role === 'Admin')
+              <li>
+                <a href="/admin-statistik" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  Dashboard
+                </a>
+              </li>
+            @endif          
             <li>
               <form action="{{ route('logout') }}" method="POST" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-600 hover:text-white">
                 @csrf

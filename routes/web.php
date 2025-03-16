@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-// Error Test
+// Halaman Error
 Route::get('/400', function () {
     abort(400);
 });
@@ -35,11 +35,9 @@ Route::get('/419', function () {
     abort(419);
 });
 
-// User Pages
-Route::get('/', function () {
-    return view('user.pages.beranda.index');
-});
 
+
+// Halaman Auth
 Route::get('/login', function () {
     return view('auth.login', ['title' => 'Login | Edulantas']);
 });
@@ -59,17 +57,15 @@ Route::post('/sign-up-google', [GoogleAuthController::class, 'completeGoogleSign
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
 
+
+
+// Halaman Tidak Perlu Login
+Route::get('/', function () {
+    return view('user.pages.beranda.index');
+});
+
 Route::get('/repositori', function () {
     return view('user.pages.repositori.index', ['title' => 'Repositori | Edulantas']);
-});
-
-// Subpage Repositori
-Route::get('/request-item', function () {
-    return view('user.pages.repositori.subpage.request-item', ['title' => 'Request Item | Edulantas']);
-});
-
-Route::get('/detail-item', function () {
-    return view('user.pages.repositori.subpage.detail-item', ['title' => 'Detail Item | Edulantas']);
 });
 
 Route::get('/tentang-kami', function () {
@@ -80,36 +76,54 @@ Route::get('/forum-diskusi', function () {
     return view('user.pages.forum-diskusi.index', ['title' => 'Forum Diskusi | Edulantas']);
 });
 
-// Subpage Forum Diskusi
-Route::get('/form-forum-diskusi', function () {
-    return view('user.pages.forum-diskusi.subpage.form-forum-diskusi', ['title' => 'Form Forum Diskusi | Edulantas']);
+
+
+// Halaman yang bisa diakses oleh User dan Admin (wajib login)
+Route::middleware(['auth'])->group(function () {
+    // Subpage Repositori
+    Route::get('/request-item', function () {
+        return view('user.pages.repositori.subpage.request-item', ['title' => 'Request Item | Edulantas']);
+    });
+
+    // Subpage Forum Diskusi
+    Route::get('/form-forum-diskusi', function () {
+        return view('user.pages.forum-diskusi.subpage.form-forum-diskusi', ['title' => 'Form Forum Diskusi | Edulantas']);
+    });
+
+    Route::get('/detail-item', function () {
+        return view('user.pages.repositori.subpage.detail-item', ['title' => 'Detail Item | Edulantas']);
+    });
 });
 
-// Admin Pages
-Route::get('/admin-statistik', function () {
-    return view('admin.pages.statistik.index', ['title' => 'Admin Statistik | Edulantas']);
-});
-
-Route::get('/admin-item', function () {
-    return view('admin.pages.item.index', ['title' => 'Admin Item | Edulantas']);
-});
-
-// Subpage Item
-Route::get('/admin-add-books', function () {
-    return view('admin.pages.item.subpage.add-books', ['title' => 'Admin Tambah Buku | Edulantas']);
-});
-Route::post('/admin-add-books', [AdminAddBooksController::class, 'store'])->name('admin.add.books');
-
-Route::get('/admin-add-videos', function () {
-    return view('admin.pages.item.subpage.add-videos', ['title' => 'Admin Tambah Video | Edulantas']);
-});
-Route::post('/admin-add-videos', [AdminAddVideosController::class, 'store'])->name('admin.add.videos');
 
 
-Route::get('/admin-request-item', function () {
-    return view('admin.pages.request-item.index', ['title' => 'Admin Request Item | Edulantas']);
-});
-
-Route::get('/admin-forum-diskusi', function () {
-    return view('admin.pages.forum-diskusi.index', ['title' => 'Admin Forum Diskusi | Edulantas']);
+// Halaman khusus Admin
+Route::middleware(['auth', 'role:Admin'])->group(function () {
+    Route::get('/admin-statistik', function () {
+        return view('admin.pages.statistik.index', ['title' => 'Admin Statistik | Edulantas']);
+    });
+    
+    Route::get('/admin-item', function () {
+        return view('admin.pages.item.index', ['title' => 'Admin Item | Edulantas']);
+    });
+    
+    // Subpage Item
+    Route::get('/admin-add-books', function () {
+        return view('admin.pages.item.subpage.add-books', ['title' => 'Admin Tambah Buku | Edulantas']);
+    });
+    Route::post('/admin-add-books', [AdminAddBooksController::class, 'store'])->name('admin.add.books');
+    
+    Route::get('/admin-add-videos', function () {
+        return view('admin.pages.item.subpage.add-videos', ['title' => 'Admin Tambah Video | Edulantas']);
+    });
+    Route::post('/admin-add-videos', [AdminAddVideosController::class, 'store'])->name('admin.add.videos');
+    
+    
+    Route::get('/admin-request-item', function () {
+        return view('admin.pages.request-item.index', ['title' => 'Admin Request Item | Edulantas']);
+    });
+    
+    Route::get('/admin-forum-diskusi', function () {
+        return view('admin.pages.forum-diskusi.index', ['title' => 'Admin Forum Diskusi | Edulantas']);
+    });
 });
