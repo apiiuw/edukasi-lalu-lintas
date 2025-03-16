@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AdminAddBooksController;
 use App\Http\Controllers\Admin\AdminAddVideosController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\Auth\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,8 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('auth.login', ['title' => 'Login | Edulantas']);
 });
+Route::post('/login', [LoginController::class, 'login'])->name('login');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/sign-up', function () {
     return view('auth.sign-up', ['title' => 'Sign Up | Edulantas']);

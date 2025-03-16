@@ -10,10 +10,10 @@
         <span class="hidden md:inline text-sm text-blueJR font-medium">Back</span>
     </a>
 
-    <div class="flex flex-col lg:flex-row h-full justify-center items-center max-w-sm lg:max-w-5xl gap-x-5 px-6 lg:px-0 mx-auto">
-        <img class="hidden lg:block rounded-3xl border-2 border-blueJR w-3/5 lg:h-[26rem] shadow-lg" src="{{ asset('img/user/tentang-kami/tentang-kami-1.png') }}" alt="Login">
+    <div class="flex flex-col lg:flex-row h-full justify-center items-center max-w-sm lg:max-w-6xl gap-x-5 px-6 lg:px-0 mx-auto">
+        <img class="hidden lg:block rounded-3xl border-2 border-blueJR w-[65%] lg:h-[30rem] shadow-lg" src="{{ asset('img/user/tentang-kami/tentang-kami-1.png') }}" alt="Login">
         
-        <div class="w-full md:w-1/2 flex flex-col justify-center lg:h-[26rem] items-center p-6 md:p-10 bg-white border-2 border-blueJR rounded-3xl shadow-lg">
+        <div class="w-full md:w-1/2 flex flex-col justify-center lg:h-[30rem] items-center p-6 md:p-10 bg-white border-2 border-blueJR rounded-3xl shadow-lg">
             <h1 class="text-xl font-semibold text-blueJR text-center">
                 Sign in
                 <span class="block w-16 h-[2px] bg-blueJR mx-auto mt-1"></span>
@@ -23,17 +23,27 @@
                 Platform Digital Keselamatan Lalu Lintas
             </p>
 
-            <form class="w-full mt-5 px-3 text-sm">
-                <input type="email" placeholder="Email" class="text-sm w-full px-4 py-2 placeholder:text-gray-600 border border-gray-300 rounded-lg">
-                <input type="password" placeholder="Password" class="text-sm w-full mt-3 placeholder:text-gray-600 px-4 py-2 border border-gray-300 rounded-lg">
-                <button class="w-full mt-4 bg-blueJR text-white py-2 rounded-md">Sign in</button>
+            <form action="{{ route('login') }}" method="POST" class="w-full mt-5 px-3 text-sm">
+                @csrf
+                <input name="email" type="email" placeholder="Email" class="text-sm w-full px-4 py-2 placeholder:text-gray-600 border border-gray-300 rounded-lg">
+                <input name="password" type="password" placeholder="Password" class="text-sm w-full mt-3 placeholder:text-gray-600 px-4 py-2 border border-gray-300 rounded-lg">
+                @if ($errors->any())
+                    <div class="bg-red-100 text-red-600 p-2 mt-3 rounded">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <button type="submit" class="w-full mt-4 bg-blueJR text-white py-2 rounded-md">Sign in</button>
             </form>
 
             <div class="w-full mt-3 px-3 text-sm">
-                <button class="w-full border border-gray-300 text-black py-2 text-sm rounded-md flex justify-center items-center gap-2 hover:bg-gray-100">
+                <a href="{{ url('/auth/google') }}" class="w-full border border-gray-300 text-black py-2 text-sm rounded-md flex justify-center items-center gap-2 hover:bg-gray-100">
                     <img src="{{ asset('img/logo/icon-google.png') }}" alt="Google" class="w-5 h-5">
                     Sign in dengan Google
-                </button>
+                </a>
             </div>
 
             <p class="mt-4 text-sm text-center text-gray-600">Belum memiliki akun? <br>
