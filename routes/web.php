@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
 
+use App\Http\Controllers\Admin\AdminItemController;
 use App\Http\Controllers\Admin\AdminAddBooksController;
 use App\Http\Controllers\Admin\AdminAddVideosController;
 
@@ -130,6 +131,8 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/admin-item', function () {
         return view('admin.pages.item.index', ['title' => 'Admin Item | Edulantas']);
     });
+
+    Route::get('/admin-item', [AdminItemController::class, 'index'])->name('item.index');
     
     // Subpage Item
     Route::get('/admin-add-books', function () {
@@ -141,6 +144,19 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
         return view('admin.pages.item.subpage.add-videos', ['title' => 'Admin Tambah Video | Edulantas']);
     });
     Route::post('/admin-add-videos', [AdminAddVideosController::class, 'store'])->name('admin.add.videos');
+
+    Route::get('/admin-edit-books', function () {
+        return view('admin.pages.item.subpage.edit-books', ['title' => 'Admin Edit Buku | Edulantas']);
+    });
+    Route::get('/admin-edit-books/{id}', [AdminItemController::class, 'editBook'])->name('admin.edit.book');
+    Route::put('/admin-update-books/{id}', [AdminItemController::class, 'updateBook'])->name('admin.update.book');
+
+
+    Route::get('/admin-edit-videos', function () {
+        return view('admin.pages.item.subpage.edit-videos', ['title' => 'Admin Edit Video | Edulantas']);
+    });
+    Route::get('/admin-edit-videos/{id}', [AdminItemController::class, 'editVideo'])->name('admin.edit.video');
+    Route::put('/admin-update-videos/{id}', [AdminItemController::class, 'updateVideo'])->name('admin.update.video');
     
     
     Route::get('/admin-request-item', function () {
