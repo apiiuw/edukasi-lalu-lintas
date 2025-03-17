@@ -59,14 +59,14 @@ class AdminItemController extends Controller
     public function editBook($id)
     {
         $book = ElectronicsBook::findOrFail($id); // Ambil data buku berdasarkan ID
-        return view('admin.pages.item.subpage.edit-books', compact('book')); // Kirim data ke view
+        return view('admin.pages.item.subpage.edit-books', compact('book') + ['title' => 'Admin Edit Buku | Edulantas']);
     }
 
     // Fungsi untuk mengedit video
     public function editVideo($id)
     {
         $video = Video::findOrFail($id); // Ambil data video berdasarkan ID
-        return view('admin.pages.item.subpage.edit-videos', compact('video')); // Kirim data ke view
+        return view('admin.pages.item.subpage.edit-videos', compact('video')+ ['title' => 'Admin Edit Video | Edulantas']); // Kirim data ke view
     }
 
     public function updateBook(Request $request, $id)
@@ -109,9 +109,49 @@ class AdminItemController extends Controller
     public function updateVideo(Request $request, $id)
     {
         $video = Video::findOrFail($id);
-        $video->update($request->all());
+        $request->validate([
+            'judul' => 'required|string|max:255',
+            'tahun_rilis' => 'required|integer|min:1900|max:' . date('Y'),
+            'deskripsi' => 'required|string',
+            'kata_kunci' => [
+                'required',
+                'string',
+                function ($attribute, $value, $fail) {
+                    $words = explode(',', $value);
+                    if (count($words) < 3) {
+                        $fail('Kata kunci minimal harus berisi 3 kata kunci yang dipisahkan dengan koma.');
+                    }
+                }
+            ],
+            'cover' => 'required|image|mimes:jpg,jpeg,png|max:10240',
+            'youtube_url' => 'required|url',
+        ]);
 
-        return redirect()->route('admin.edit.video', $id)->with('success', 'Video berhasil diperbarui!');
+        // Simpan cover ke storage
+        $coverPath = $request->file('cover')->store('data/videos/covers', 'public');
+
+        // Konversi URL YouTube ke format embed
+        $youtubeUrl = $request->youtube_url;
+        $videoId = $this->extractVideoId($youtubeUrl);
+        $iframeUrl = $videoId ? "https://www.youtube.com/embed/{$videoId}" : null;
+
+        $video->update([
+            'judul' => $request->judul,
+            'tahun_rilis' => $request->tahun_rilis,
+            'deskripsi' => $request->deskripsi,
+            'kata_kunci' => $request->kata_kunci,
+            'cover' => $coverPath,
+            'youtube_url' => $youtubeUrl,
+            'iframe_url' => $iframeUrl,
+        ]);
+
+        return response()->json(['success' => true, 'message' => 'Data berhasil diperbarui']);
+    }
+
+    private function extractVideoId($url)
+    {
+        preg_match('/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/)([\w-]{11})/', $url, $matches);
+        return $matches[1] ?? null;
     }
 
 }

@@ -16,20 +16,21 @@
     <div class="p-6 rounded-lg w-full max-w-6xl mt-5 lg:mt-24">
         <h1 class="text-center text-xl font-semibold mb-4">EDIT VIDEO EDUKASI</h1>
 
-        <form id="uploadForm" action="{{ route('admin.add.videos') }}" method="POST" enctype="multipart/form-data">
+        <form id="uploadForm" action="{{ route('admin.update.video', ['id' => $video->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
 
             <!-- Judul Video -->
             <label class="block font-medium">Judul Video</label>
-            <input type="text" name="judul" class="w-full border border-gray-400 rounded-xl p-2 mb-4 placeholder:text-gray-500" placeholder="Ketikkan Judul..." required>
+            <input value="{{ $video->judul }}" type="text" name="judul" class="w-full border border-gray-400 rounded-xl p-2 mb-4 placeholder:text-gray-500" placeholder="Ketikkan Judul..." required>
 
             <!-- Tahun Rilis -->
             <label class="block font-medium">Tahun Rilis</label>
-            <input type="number" name="tahun_rilis" class="w-full border border-gray-400 rounded-xl p-2 mb-4 placeholder:text-gray-500" placeholder="Ketikkan Tahun Rilis..." required>
+            <input value="{{ $video->tahun_rilis }}" type="number" name="tahun_rilis" class="w-full border border-gray-400 rounded-xl p-2 mb-4 placeholder:text-gray-500" placeholder="Ketikkan Tahun Rilis..." required>
 
             <!-- Deskripsi Video -->
             <label class="block font-medium">Deskripsi Video</label>
-            <textarea name="deskripsi" class="w-full border border-gray-400 rounded-xl p-2 mb-4 placeholder:text-gray-500" rows="4" placeholder="Ketikkan Deskripsi Video..." required></textarea>
+            <textarea name="deskripsi" class="w-full border border-gray-400 rounded-xl p-2 mb-4 placeholder:text-gray-500" rows="4" placeholder="Ketikkan Deskripsi Video..." required>{{ $video->deskripsi }}</textarea>
 
             <!-- Kata Kunci -->
             <label class="block font-medium">Kata Kunci</label>
@@ -39,21 +40,21 @@
             </div>
             <p id="errorMessage" class="text-red-500 text-sm"></p>
             <div id="keywordsList" class="mb-4 flex flex-wrap gap-2"></div>
-            <input type="hidden" name="kata_kunci" id="kataKunciField">
+            <input type="hidden" name="kata_kunci" id="kataKunciField" value="{{ $video->kata_kunci }}">
 
             <!-- Thumbnail Video Youtube -->
             <label class="block font-medium">Thumbnail Video Youtube</label>
             <div class="flex items-center border border-gray-400 rounded p-2 bg-white gap-2">
                 <i class="fa-solid fa-image fa-xl text-gray-600"></i>
                 <label for="coverInput" id="coverLabel" class="text-gray-500 cursor-pointer">Pilih File IMG, JPG, JPEG, atau PNG...</label>
-                <input type="file" id="coverInput" name="cover" accept="image/png, image/jpeg, image/jpg" class="hidden" onchange="previewImage(this)" required>
+                <input value="{{ $video->cover }}" type="file" id="coverInput" name="cover" accept="image/png, image/jpeg, image/jpg" class="hidden" onchange="previewImage(this)" required>
             </div>
             <img id="coverPreview" class="hidden w-32 h-32 object-cover my-2 rounded-lg border border-gray-300" alt="Preview Gambar">
             <p id="coverOriginalName" class="hidden text-gray-700 text-sm"></p>
 
             <!-- Link Video Youtube -->
             <label class="block font-medium mt-4">Link Video Youtube</label>
-            <input type="text" id="youtubeLink" name="youtube_url" class="w-full border border-gray-400 rounded-xl p-2 mb-4 placeholder:text-gray-500" placeholder="Masukkan URL Video..." oninput="updatePreview()" required>
+            <input value="{{ $video->youtube_url }}" type="text" id="youtubeLink" name="youtube_url" class="w-full border border-gray-400 rounded-xl p-2 mb-4 placeholder:text-gray-500" placeholder="Masukkan URL Video..." oninput="updatePreview()" required>
 
             <div class="w-full flex justify-center">
                 <iframe id="videoPreview" class="hidden w-full max-w-xl h-72 border border-gray-400 rounded-lg" frameborder="0" allowfullscreen></iframe>
@@ -208,6 +209,39 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             errorMessage.textContent = "";
         }
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        let kataKunciField = document.getElementById('kataKunciField');
+        let keywords = kataKunciField.value ? kataKunciField.value.split(",") : [];
+
+        keywords.forEach(keyword => {
+            addKeywordFromStorage(keyword.trim());
+        });
+
+        updateKataKunci();
+    });
+
+    function addKeywordFromStorage(keyword) {
+        let container = document.getElementById('keywordsList');
+
+        let keywordElement = document.createElement('span');
+        keywordElement.classList.add('bg-gray-300', 'text-black', 'px-2', 'py-1', 'rounded-xl', 'flex', 'items-center', 'gap-1');
+
+        let keywordText = document.createElement('span');
+        keywordText.textContent = keyword;
+
+        let removeButton = document.createElement('button');
+        removeButton.textContent = 'x';
+        removeButton.classList.add('text-red-500', 'ml-2', 'hover:text-red-700', 'font-bold');
+        removeButton.onclick = function () {
+            container.removeChild(keywordElement);
+            updateKataKunci();
+        };
+
+        keywordElement.appendChild(keywordText);
+        keywordElement.appendChild(removeButton);
+        container.appendChild(keywordElement);
     }
 
     function handleEnter(event) {
