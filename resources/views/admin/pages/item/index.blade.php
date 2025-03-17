@@ -1,7 +1,36 @@
 @extends('admin.layouts.main')
 @section('container')
 
-  
+@if (session('success'))
+    <div id="success-alert" class="fixed top-24 right-5 bg-teal-50 border-t-2 border-teal-500 rounded-lg p-4 shadow-lg z-50">
+        <div class="flex">
+            <div class="shrink-0">
+                <span class="inline-flex justify-center items-center size-8 rounded-full border-4 border-teal-100 bg-teal-200 text-teal-800">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                </span>
+            </div>
+            <div class="ms-3">
+                <h3 class="text-xs lg:text-sm text-gray-800 font-semibold">
+                    Berhasil!
+                </h3>
+                <p class="text-xs lg:text-sm text-gray-700">
+                    {{ session('success') }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hilangkan alert setelah 5 detik
+        setTimeout(() => {
+            document.getElementById('success-alert')?.remove();
+        }, 5000);
+    </script>
+@endif
+
 <div class="p-4 lg:ml-64 bg-gray-200">
     <div class="mt-24 lg:mt-32 flex flex-col justify-center items-center px-0 lg:px-0 pb-10">
 
@@ -88,10 +117,24 @@
                     class="bg-yellow-500 text-xs w-full lg:text-sm border text-center border-black text-white py-2 px-3 mt-2 rounded-md">
                     Edit Item
                   </a>                  
-                  <a href="{{ url('/detail-item/book-' . $item['data']->id) }}" 
-                    class="bg-red-600 text-xs w-full lg:text-sm border text-center border-black text-white py-2 px-3 mt-2 rounded-md">
-                    Hapus Item
-                  </a>
+
+                  <!-- Tombol Hapus dengan Konfirmasi -->
+                  <form class="w-full" action="{{ $item['type'] == 'book' ? route('admin.delete.book', $item['data']->id) : route('admin.delete.video', $item['data']->id) }}" method="POST" onsubmit="return confirmDelete(event)">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="bg-red-600 w-full text-xs lg:text-sm border text-center border-black text-white py-2 px-3 mt-2 rounded-md">
+                          Hapus Item
+                      </button>
+                  </form>
+                  
+                  <script>
+                      function confirmDelete(event) {
+                          event.preventDefault(); // Mencegah penghapusan langsung
+                          if (confirm("Apakah Anda yakin ingin menghapus item ini?")) {
+                              event.target.submit(); // Submit jika dikonfirmasi
+                          }
+                      }
+                  </script>
                         
                 </div>
               </div>

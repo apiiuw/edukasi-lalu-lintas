@@ -157,6 +157,9 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     });
     Route::get('/admin-edit-videos/{id}', [AdminItemController::class, 'editVideo'])->name('admin.edit.video');
     Route::put('/admin-update-videos/{id}', [AdminItemController::class, 'updateVideo'])->name('admin.update.video');
+
+    Route::delete('/admin-delete-books/{id}', [AdminItemController::class, 'destroyBook'])->name('admin.delete.book');
+    Route::delete('/admin-delete-videos/{id}', [AdminItemController::class, 'destroyVideo'])->name('admin.delete.video');
     
     
     Route::get('/admin-request-item', function () {

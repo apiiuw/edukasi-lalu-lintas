@@ -154,4 +154,46 @@ class AdminItemController extends Controller
         return $matches[1] ?? null;
     }
 
+    public function destroyBook($id)
+    {
+        $book = ElectronicsBook::find($id);
+    
+        if (!$book) {
+            return redirect()->back()->with('error', 'Buku elektronik tidak ditemukan!');
+        }
+    
+        // Hapus cover jika ada
+        if ($book->cover && Storage::disk('public')->exists($book->cover)) {
+            Storage::disk('public')->delete($book->cover);
+        }
+    
+        // Hapus PDF jika ada
+        if ($book->pdf && Storage::disk('public')->exists($book->pdf)) {
+            Storage::disk('public')->delete($book->pdf);
+        }
+    
+        // Hapus dari database
+        $book->delete();
+    
+        return redirect()->back()->with('success', 'Buku elektronik berhasil dihapus!');
+    }
+    
+    public function destroyVideo($id)
+    {
+        $video = Video::find($id);
+    
+        if (!$video) {
+            return redirect()->back()->with('error', 'Video tidak ditemukan!');
+        }
+    
+        // Hapus cover jika ada
+        if ($video->cover && Storage::disk('public')->exists($video->cover)) {
+            Storage::disk('public')->delete($video->cover);
+        }
+    
+        // Hapus dari database
+        $video->delete();
+    
+        return redirect()->back()->with('success', 'Video Edukasi berhasil dihapus!');
+    }
 }
