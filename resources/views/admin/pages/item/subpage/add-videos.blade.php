@@ -16,7 +16,7 @@
     <div class="p-6 rounded-lg w-full max-w-6xl mt-5 lg:mt-24">
         <h1 class="text-center text-xl font-semibold mb-4">TAMBAH VIDEO EDUKASI</h1>
 
-        <form action="{{ route('admin.add.videos') }}" method="POST" enctype="multipart/form-data">
+        <form id="uploadForm" action="{{ route('admin.add.videos') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <!-- Judul Video -->
@@ -62,25 +62,31 @@
             <!-- Tombol Submit -->
             <button type="submit" class="w-full bg-blueJR text-white py-2 rounded-xl mt-4">Tambah Video Edukasi</button>
         </form>
+
+        <!-- Area untuk Pesan Error -->
+        <div id="errorMessages" class="text-red-500 text-sm mt-3"></div>
     </div>
 </div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const form = document.querySelector("form");
+    const form = document.getElementById("uploadForm");
     const overlay = document.getElementById("uploadOverlay");
     const progressBar = document.getElementById("uploadProgressBar");
     const percentageText = document.getElementById("uploadPercentage");
+    const errorMessages = document.getElementById("errorMessages");
 
     form.addEventListener("submit", function (event) {
         event.preventDefault(); // Mencegah pengiriman langsung
+
+        // Reset pesan error
+        errorMessages.innerHTML = "";
 
         // Validasi sebelum mengunggah
         const judul = document.querySelector("input[name='judul']").value.trim();
         const tahunRilis = document.querySelector("input[name='tahun_rilis']").value.trim();
         const deskripsi = document.querySelector("textarea[name='deskripsi']").value.trim();
         const kataKunci = document.querySelector("input[name='kata_kunci']").value.trim();
-        const youtubeUrl = document.querySelector("input[name='youtube_url']").value.trim();
         const cover = document.querySelector("input[name='cover']").files[0];
 
         let errors = [];
@@ -90,11 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
             errors.push("Tahun rilis harus valid (antara 1900 hingga tahun saat ini).");
         }
         if (!deskripsi) errors.push("Deskripsi wajib diisi.");
-        
-        const kataKunciList = kataKunci.split(',').map(k => k.trim()).filter(k => k !== '');
-        if (kataKunciList.length < 3) {
-            errors.push("Kata kunci minimal harus 3 dan dipisahkan dengan koma.");
-        }
+        if (!kataKunci) errors.push("Kata kunci wajib diisi.");
 
         if (!cover) {
             errors.push("Cover wajib diunggah.");
@@ -104,17 +106,13 @@ document.addEventListener("DOMContentLoaded", function () {
             errors.push("Ukuran cover maksimal 10MB.");
         }
 
-        if (!youtubeUrl.match(/^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)[\w-]+$/)) {
-            errors.push("Masukkan URL YouTube yang valid.");
-        }
-
-        // Jika ada error, tampilkan pesan dan batalkan unggahan
+        // Jika ada error, tampilkan dan batalkan proses unggah
         if (errors.length > 0) {
-            alert(errors.join("\n"));
+            errorMessages.innerHTML = errors.map(error => `<p class="text-red-500">${error}</p>`).join("");
             return;
         }
 
-        // Jika lolos validasi, lanjutkan unggah
+        // Jika lolos validasi, tampilkan overlay dan mulai unggah
         overlay.classList.remove("hidden");
 
         const formData = new FormData(form);
@@ -130,11 +128,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         xhr.onload = function () {
             try {
-                let response = JSON.parse(xhr.responseText);
+                let response = JSON.parse(xhr.responseText); // Parsing respons JSON dari server
                 
                 if (xhr.status === 200 && response.success) {
                     alert(response.message);
-                    window.location.reload();
+                    window.location.reload(); // Bisa diganti dengan redirect ke halaman lain
                 } else {
                     alert("Error: " + response.message);
                 }
@@ -142,7 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Terjadi kesalahan dalam memproses respons server.");
             }
 
-            overlay.classList.add("hidden");
+            overlay.classList.add("hidden"); // Sembunyikan overlay setelah selesai
         };
 
         xhr.onerror = function () {
@@ -155,6 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
         xhr.send(formData);
     });
 });
+
 
     function addKeyword() {
         let input = document.getElementById('keywordInput');

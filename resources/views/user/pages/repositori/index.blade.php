@@ -52,7 +52,6 @@
 </div>
 
 <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-1 gap-y-2 lg:gap-x-4 lg:gap-y-4 max-w-5xl mx-auto mt-6 place-items-center px-6 lg:px-0">
-
   @foreach ($items as $item)
     <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
       <img src="{{ Storage::url($item['data']->cover) }}" alt="{{ $item['data']->judul }}" class="w-full h-52 lg:h-80 object-cover rounded-t-xl">
@@ -87,18 +86,30 @@
       </div>
     </div>
   @endforeach
-
-
 </div>
 
 <!-- Pagination -->
 <div class="mt-6 text-xs lg:text-sm flex justify-center items-center space-x-2">
-    <button class="border px-4 py-2 rounded-lg text-gray-500 bg-white">Sebelumnya</button>
-    <button class="border px-4 py-2 rounded-lg bg-gray-200">1</button>
-    <button class="border px-4 py-2 rounded-lg bg-white">2</button>
-    <button class="border px-4 py-2 rounded-lg bg-white">3</button>
-    <button class="border px-4 py-2 rounded-lg bg-blueJR text-white">Selanjutnya</button>
+  @if ($items->currentPage() > 1)
+      <a href="{{ $items->previousPageUrl() }}" class="border px-4 py-2 rounded-lg text-gray-500 bg-white">Sebelumnya</a>
+  @else
+      <span class="border px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Sebelumnya</span>
+  @endif
+
+  @for ($i = 1; $i <= $items->lastPage(); $i++)
+      <a href="{{ $items->url($i) }}" class="border px-4 py-2 rounded-lg {{ $items->currentPage() == $i ? 'bg-gray-200' : 'bg-white' }}">
+          {{ $i }}
+      </a>
+  @endfor
+
+  @if ($items->hasMorePages())
+      <a href="{{ $items->nextPageUrl() }}" class="border px-4 py-2 rounded-lg bg-blueJR text-white">Selanjutnya</a>
+  @else
+      <span class="border px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Selanjutnya</span>
+  @endif
 </div>
+
+
 
 <div class="flex flex-col justify-center items-center my-20 gap-y-4">
     <h1 class="text-sm lg:text-base">Belum menemukan item yang anda inginkan?</h1>

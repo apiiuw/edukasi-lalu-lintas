@@ -16,7 +16,7 @@
     <div class="p-6 rounded-lg w-full max-w-6xl mt-5 lg:mt-24">
         <h1 class="text-center text-xl font-semibold mb-4">TAMBAH ELEKTRONIK BUKU</h1>
 
-        <form action="{{ route('admin.add.books') }}" method="POST" enctype="multipart/form-data">
+        <form id="uploadForm" action="{{ route('admin.add.books') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             <label class="block font-medium">Judul Buku</label>
@@ -44,6 +44,7 @@
                 <input type="file" name="cover" id="coverInput" accept="image/png, image/jpeg, image/jpg" class="hidden" onchange="previewImage(this)" required>
             </div>
             <img id="coverPreview" class="hidden w-32 h-32 object-cover my-2 rounded-lg border border-gray-300" alt="Preview Gambar">
+            <p id="coverOriginalName" class="hidden text-gray-700 text-sm"></p>
 
             <label class="block font-medium mt-4">Masukkan PDF</label>
             <div class="flex items-center border border-gray-400 rounded p-2 bg-white gap-2">
@@ -54,18 +55,25 @@
 
             <button type="submit" class="w-full bg-blueJR text-white py-2 rounded-xl mt-4">Tambah Elektronik Buku</button>
         </form>
+
+        <!-- Area untuk Pesan Error -->
+        <div id="errorMessages" class="text-red-500 text-sm mt-3"></div>
     </div>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const form = document.querySelector("form");
+        const form = document.getElementById("uploadForm");
         const overlay = document.getElementById("uploadOverlay");
         const progressBar = document.getElementById("uploadProgressBar");
         const percentageText = document.getElementById("uploadPercentage");
+        const errorMessages = document.getElementById("errorMessages");
 
         form.addEventListener("submit", function (event) {
             event.preventDefault(); // Mencegah pengiriman langsung
+
+            // Reset pesan error
+            errorMessages.innerHTML = "";
 
             // Validasi sebelum mengunggah
             const judul = document.querySelector("input[name='judul']").value.trim();
@@ -82,11 +90,7 @@
                 errors.push("Tahun rilis harus valid (antara 1900 hingga tahun saat ini).");
             }
             if (!deskripsi) errors.push("Deskripsi wajib diisi.");
-            
-            const kataKunciList = kataKunci.split(',').map(k => k.trim()).filter(k => k !== '');
-            if (kataKunciList.length < 3) {
-                errors.push("Kata kunci minimal harus 3 dan dipisahkan dengan koma.");
-            }
+            if (!kataKunci) errors.push("Kata kunci wajib diisi.");
 
             if (!cover) {
                 errors.push("Cover wajib diunggah.");
@@ -104,13 +108,13 @@
                 errors.push("Ukuran file PDF maksimal 150MB.");
             }
 
-            // Jika ada error, tampilkan pesan dan batalkan unggahan
+            // Jika ada error, tampilkan dan batalkan proses unggah
             if (errors.length > 0) {
-                alert(errors.join("\n"));
+                errorMessages.innerHTML = errors.map(error => `<p>${error}</p>`).join("");
                 return;
             }
 
-            // Jika lolos validasi, lanjutkan unggah
+            // Jika lolos validasi, tampilkan overlay dan mulai unggah
             overlay.classList.remove("hidden");
 
             const formData = new FormData(form);
