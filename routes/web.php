@@ -1,11 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\AdminAddBooksController;
-use App\Http\Controllers\Admin\AdminAddVideosController;
+
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
+
+use App\Http\Controllers\Admin\AdminAddBooksController;
+use App\Http\Controllers\Admin\AdminAddVideosController;
+
+use App\Http\Controllers\User\RepositoriController;
+
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,9 +70,7 @@ Route::get('/', function () {
     return view('user.pages.beranda.index');
 });
 
-Route::get('/repositori', function () {
-    return view('user.pages.repositori.index', ['title' => 'Repositori | Edulantas']);
-});
+Route::get('/repositori', [RepositoriController::class, 'index'])->name('repositori.index');
 
 Route::get('/tentang-kami', function () {
     return view('user.pages.tentang-kami.index', ['title' => 'Tentang Kami | Edulantas']);
@@ -90,9 +94,29 @@ Route::middleware(['auth'])->group(function () {
         return view('user.pages.forum-diskusi.subpage.form-forum-diskusi', ['title' => 'Form Forum Diskusi | Edulantas']);
     });
 
-    Route::get('/detail-item', function () {
-        return view('user.pages.repositori.subpage.detail-item', ['title' => 'Detail Item | Edulantas']);
+    Route::get('/detail-item/{type_id}', function ($type_id) {
+        // Pisahkan prefix dan ID (contoh: "book-1" menjadi ["book", "1"])
+        [$type, $id] = explode('-', $type_id);
+    
+        if ($type === 'book') {
+            $item = DB::table('electronics_books')->where('id', $id)->first();
+        } elseif ($type === 'video') {
+            $item = DB::table('videos')->where('id', $id)->first();
+        } else {
+            abort(404); // Jika bukan book atau video, tampilkan 404
+        }
+    
+        if (!$item) {
+            abort(404);
+        }
+    
+        return view('user.pages.repositori.subpage.detail-item', [
+            'title' => 'Detail Item | Edulantas',
+            'item' => $item,
+            'type' => $type
+        ]);
     });
+    
 });
 
 

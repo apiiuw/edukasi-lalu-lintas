@@ -15,20 +15,44 @@
         </div>
         <div class="flex items-center">
             <div class="flex items-center ms-3">
-              <div>
-                <button type="button" class="flex rounded-full w-full h-full" aria-expanded="false" data-dropdown-toggle="dropdown-user">
-                  <i class="fa-solid fa-circle-user fa-2xl w-full h-full rounded-full text-blueJR focus:ring-4 focus:ring-gray-500"></i>
-                </button>
-              </div>
-              <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm" id="dropdown-user">
-                <div class="px-4 py-3" role="none">
-                  <p class="text-sm text-gray-900" role="none">
-                    Admin Edu
-                  </p>
-                  <p class="text-sm font-medium text-gray-900 truncate" role="none">
-                    admin@edukasilalulintas.com
-                  </p>
-                </div>
+              <div class="flex items-center gap-x-1 lg:gap-x-2 ms-auto py-1 lg:ps-6 lg:order-3 lg:col-span-3">
+                @if (Auth::check())
+                  <button type="button" class="flex justify-center py-2 px-3 mr-2 lg:mr-0 items-center text-sm bg-black rounded-full md:me-0 focus:ring-4 focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                    <span class="sr-only">Open user menu</span>
+                    <i class="fa-solid fa-user lg:fa-xl rounded-full text-white pr-2"></i>
+                    <p class="text-white text-sm lg:text-base">{{ Auth::user()->name }}</p>
+                  </button>
+                  <!-- Dropdown menu -->
+                  <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg" id="user-dropdown">
+                    <div class="px-4 py-3">
+                      <span class="block text-sm text-black">{{ Auth::user()->name }}</span>
+                      <span class="block text-sm  text-black truncate">{{ Auth::user()->email }}</span>
+                      <span class="block text-blueJR text-xs">{{ Auth::user()->role }}</span>
+                    </div>
+                    <ul class="py-2" aria-labelledby="user-menu-button">
+                      @if(Auth::check() && Auth::user()->role === 'Admin')
+                        <li>
+                          <a href="/admin-statistik" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            Dashboard
+                          </a>
+                        </li>
+                      @endif          
+                      <li>
+                        <form action="{{ route('logout') }}" method="POST" class="block px-4 py-2 text-sm text-gray-700 hover:bg-red-600 hover:text-white">
+                          @csrf
+                          <button type="submit" class="w-full text-start">Sign out</button>
+                        </form>
+                      </li>
+                    </ul>
+                  </div>
+                @else
+                    <a href="/sign-up" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl bg-white border border-gray-200 text-black hover:bg-gray-100">
+                        Sign up
+                    </a>
+                    <a href="/login" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-blueJR text-white">
+                        Login
+                    </a>
+                @endif
               </div>
             </div>
           </div>

@@ -2,7 +2,7 @@
 @section('container')
 
 @if (session('error'))
-    <div id="error-alert" class="bg-red-50 border-s-4 border-red-500 p-4 dark:bg-red-800/30" role="alert" tabindex="-1" aria-labelledby="hs-bordered-red-style-label">
+    <div id="error-alert" class="fixed top-24 right-5 z-50 bg-red-50 border-s-4 border-red-500 p-4 dark:bg-red-800/30" role="alert" tabindex="-1" aria-labelledby="hs-bordered-red-style-label">
         <div class="flex">
         <div class="shrink-0">
             <!-- Icon -->
