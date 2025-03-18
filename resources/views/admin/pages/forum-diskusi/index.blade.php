@@ -16,42 +16,61 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white text-gray-700 text-xs">
+                    @foreach($data as $item)
                     <tr class="border-b">
-                        <td class="px-4 py-3">Bagaimana cara request buku elektronik?</td>
-                        <td class="px-4 py-3 text-center">2025-02-28</td>
-                        <td class="px-4 py-3 text-center">Rafi Rizqallah Andila</td>
-                        <td class="px-4 py-3 text-center text-yellow-500">Diproses</td>
-                        <td class="px-4 py-3 text-center text-blueJR cursor-pointer">
-                            Edit
+                        <td class="px-4 py-3">{{ $item->pertanyaan }}</td>
+                        <td class="px-4 py-3 text-center">{{ $item->tanggal }}</td>
+                        <td class="px-4 py-3 text-center">{{ $item->pengirim }}</td>
+                        <td class="px-4 py-3 text-center 
+                            @if($item->status == 'Diproses') text-yellow-500 
+                            @elseif($item->status == 'Berhasil Dikirim') text-green-600 
+                            @else text-red-500 
+                            @endif
+                        ">
+                            {{ $item->status }}
                         </td>
-                    </tr>
-                    <!-- Tambahkan baris lainnya sesuai data -->
-                    <tr class="border-b">
-                        <td class="px-4 py-3">Pendidikan Disiplin Berlalu Lintas</td>
-                        <td class="px-4 py-3 text-center">2025-02-26</td>
-                        <td class="px-4 py-3 text-center">Uray Faisal</td>
-                        <td class="px-4 py-3 text-center text-green-600">Berhasil Dikirim</td>
                         <td class="px-4 py-3 text-center text-blueJR cursor-pointer">
-                            Edit
-                        </td>
+                            <button 
+                                onclick="openModal(this)"
+                                data-id="{{ $item->id }}"
+                                data-pertanyaan="{{ $item->pertanyaan }}"
+                                data-tanggal="{{ $item->tanggal }}"
+                                data-pengirim="{{ $item->pengirim }}"
+                                data-status="{{ $item->status }}"
+                                data-balasan="{{ $item->balasan_admin ?? '' }}"
+                            >
+                                Edit
+                            </button>
+                        </td>                        
                     </tr>
-                    <tr class="border-b">
-                        <td class="px-4 py-3">Rekayasa Lalu Lintas</td>
-                        <td class="px-4 py-3 text-center">2025-02-20</td>
-                        <td class="px-4 py-3 text-center">Gita Andini</td>
-                        <td class="px-4 py-3 text-center text-red-500">Ditolak</td>
-                        <td class="px-4 py-3 text-center text-blueJR cursor-pointer">
-                            Edit
-                        </td>
-                    </tr>
-                </tbody>
+                    @endforeach
+                </tbody>                
             </table>
         </div>
         <div class="mt-6 text-xs lg:text-sm flex justify-center items-center space-x-2">
-            <span class="border border-black px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Sebelumnya</span>
-            <a href="" class="border px-4 py-2 rounded-lg border-black">1</a>
-            <a href="" class="border border-black px-4 py-2 rounded-lg bg-blueJR text-white">Selanjutnya</a>
-        </div>
+            {{-- Tombol Sebelumnya --}}
+            @if ($data->onFirstPage())
+                <span class="border border-black px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Sebelumnya</span>
+            @else
+                <a href="{{ $data->previousPageUrl() }}" class="border px-4 py-2 rounded-lg border-black bg-blueJR text-white">Sebelumnya</a>
+            @endif
+        
+            {{-- Nomor Halaman --}}
+            @for ($i = 1; $i <= $data->lastPage(); $i++)
+                @if ($i == $data->currentPage())
+                    <span class="border border-black px-4 py-2 rounded-lg bg-blueJR text-white">{{ $i }}</span>
+                @else
+                    <a href="{{ $data->url($i) }}" class="border px-4 py-2 rounded-lg border-black">{{ $i }}</a>
+                @endif
+            @endfor
+        
+            {{-- Tombol Selanjutnya --}}
+            @if ($data->hasMorePages())
+                <a href="{{ $data->nextPageUrl() }}" class="border border-black px-4 py-2 rounded-lg bg-blueJR text-white">Selanjutnya</a>
+            @else
+                <span class="border border-black px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Selanjutnya</span>
+            @endif
+        </div>        
     </div>
 </div>
 
@@ -75,22 +94,49 @@
             </div>
             <div class="grid grid-cols-2 gap-2">
                 <span>Jawaban</span>
-                <textarea class="w-full" type="text" name="" id=""></textarea>
+                <textarea id="popupJawaban" class="w-full border rounded p-1" rows="3"></textarea>
             </div>
         </div>
-        <div class="flex justify-center gap-2 mt-7">
-            <a href="#" class="bg-green-600 flex justify-center items-center text-center border border-black text-white text-xs px-4 py-1 rounded">Kirim Jawaban</a>
-            <a href="#" class="bg-red-600 flex justify-center items-center text-center border border-black text-white text-xs px-4 py-1 rounded">Tolak Jawaban</a>
-        </div>
+        <div id="popupButtons" class="flex justify-center gap-2 mt-7">
+            <!-- Tombol-tombol akan di-generate lewat JS -->
+        </div>        
     </div>
 </div>
 
-
 <script>
-    function openModal(judul, kategori, pengirim) {
-        document.getElementById('popupJudul').innerText = judul;
-        document.getElementById('popupKategori').innerText = kategori;
+    function openModal(button) {
+        const id = button.getAttribute('data-id');
+        const pertanyaan = button.getAttribute('data-pertanyaan');
+        const tanggal = button.getAttribute('data-tanggal');
+        const pengirim = button.getAttribute('data-pengirim');
+        const status = button.getAttribute('data-status');
+        const balasan = button.getAttribute('data-balasan');
+
+        document.getElementById('popupJudul').innerText = pertanyaan;
+        document.getElementById('popupKategori').innerText = tanggal;
         document.getElementById('popupPengirim').innerText = pengirim;
+        document.getElementById('popupJawaban').value = balasan ?? '';
+
+        const buttonContainer = document.getElementById('popupButtons');
+        buttonContainer.innerHTML = '';
+
+        if (status.toLowerCase() === 'diproses') {
+            buttonContainer.innerHTML = `
+                <button onclick="kirimJawaban(${id})" class="bg-green-600 border border-black text-white text-xs px-4 py-1 rounded">Kirim Jawaban</button>
+                <button onclick="tolakPertanyaan(${id})" class="bg-red-600 border border-black text-white text-xs px-4 py-1 rounded">Tolak Pertanyaan</button>
+            `;
+        } else if (status.toLowerCase() === 'berhasil dikirim') {
+            buttonContainer.innerHTML = `
+                <button onclick="ubahJawaban(${id})" class="bg-yellow-500 border border-black text-white text-xs px-4 py-1 rounded">Ubah Jawaban</button>
+                <button onclick="tolakPertanyaan(${id})" class="bg-red-600 border border-black text-white text-xs px-4 py-1 rounded">Tolak Pertanyaan</button>
+            `;
+        } else if (status.toLowerCase() === 'ditolak') {
+            buttonContainer.innerHTML = `
+                <button onclick="kirimJawaban(${id})" class="bg-green-600 border border-black text-white text-xs px-4 py-1 rounded">Kirim Jawaban</button>
+                <button onclick="prosesPertanyaan(${id})" class="bg-yellow-500 border border-black text-white text-xs px-4 py-1 rounded">Diproses</button>
+            `;
+        }
+
         document.getElementById('popupModal').classList.remove('hidden');
     }
 
@@ -98,16 +144,63 @@
         document.getElementById('popupModal').classList.add('hidden');
     }
 
-    // Event listener untuk semua tombol edit
-    document.querySelectorAll('td.text-blueJR.cursor-pointer').forEach(item => {
-        item.addEventListener('click', function() {
-            const row = item.closest('tr');
-            const judul = row.children[0].innerText;
-            const kategori = row.children[1].innerText;
-            const pengirim = row.children[2].innerText;
-            openModal(judul, kategori, pengirim);
+    function kirimJawaban(id) {
+        const jawaban = document.getElementById('popupJawaban').value.trim();
+        if (jawaban === '') {
+            alert('Harap isi jawaban terlebih dahulu!');
+            return;
+        }
+        updateForum(id, { action: 'kirim_jawaban', balasan_admin: jawaban });
+    }
+
+    function ubahJawaban(id) {
+        const jawaban = document.getElementById('popupJawaban').value.trim();
+        if (jawaban === '') {
+            alert('Harap isi jawaban terlebih dahulu!');
+            return;
+        }
+        updateForum(id, { action: 'ubah_jawaban', balasan_admin: jawaban });
+    }
+
+    function tolakPertanyaan(id) {
+        if (confirm('Yakin ingin menolak pertanyaan ini?')) {
+            updateForum(id, { action: 'tolak_pertanyaan' });
+        }
+    }
+
+    function prosesPertanyaan(id) {
+        updateForum(id, { action: 'diproses' });
+    }
+
+    function updateForum(id, data) {
+        fetch(`/admin/forum-diskusi/${id}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(res => {
+            if (res.message) {
+                alert(res.message);
+                closeModal();
+                location.reload();
+            } else {
+                alert('Terjadi kesalahan!');
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Error saat memproses data.');
         });
-    });
+    }
+
+
+
 </script>
+    
+    
 
 @endsection

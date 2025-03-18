@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AdminItemController;
 use App\Http\Controllers\Admin\AdminAddBooksController;
 use App\Http\Controllers\Admin\AdminAddVideosController;
 use App\Http\Controllers\Admin\AdminRequestItemController;
+use App\Http\Controllers\Admin\AdminForumDiskusiController;
 
 use App\Http\Controllers\User\RepositoriController;
 use App\Http\Controllers\User\SearchController;
@@ -169,7 +170,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/admin-request-item/{id}/edit', [AdminRequestItemController::class, 'edit'])->name('admin-request-item.edit');
     Route::put('/admin-request-item/{id}', [AdminRequestItemController::class, 'update'])->name('admin-request-item.update');
     
-    Route::get('/admin-forum-diskusi', function () {
-        return view('admin.pages.forum-diskusi.index', ['title' => 'Admin Forum Diskusi | Edulantas']);
-    });
+    Route::get('/admin-forum-diskusi', [AdminForumDiskusiController::class, 'index'])->name('admin-forum-diskusi.index');
+    Route::post('/admin/forum-diskusi/{id}', [AdminForumDiskusiController::class, 'update']);
+
 });
