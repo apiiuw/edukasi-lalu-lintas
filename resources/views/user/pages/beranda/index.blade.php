@@ -120,16 +120,16 @@
     <h1 class="text-base lg:text-xl text-black font-semibold mb-4 text-center">
       Mulai Jelajahi Pencarianmu!
     </h1>
-    <form class="w-full flex flex-col justify-center items-center space-y-6 mt-3 px-6 lg:px-12">
+    <form action="{{ route('search.index') }}" method="GET" class="w-full flex flex-col justify-center items-center space-y-6 mt-3 px-6 lg:px-12">
       
       <!-- Input Text -->
-      <input type="text" placeholder="Ketikkan Kata Kunci..." class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center placeholder:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blueJR">
+      <input name="search" type="text" placeholder="Ketikkan Kata Kunci..." class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center placeholder:text-gray-700 focus:outline-none focus:ring-2 focus:ring-blueJR">
       
       <!-- Dropdown -->
-      <select class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center text-gray-700 focus:outline-none focus:ring-2 focus:ring-blueJR">
+      <select name="kategori" class="w-full text-sm lg:text-base py-3 lg:py-4 border border-black rounded-full text-center text-gray-700 focus:outline-none focus:ring-2 focus:ring-blueJR">
         <option>Pilih Kategori</option>
-        <option value="1">Elektronik Buku</option>
-        <option value="2">Video Edukasi</option>
+        <option value="Elektronik Buku">Elektronik Buku</option>
+        <option value="Video Edukasi">Video Edukasi</option>
       </select>
       
       <!-- Tahun Publikasi -->
@@ -157,9 +157,9 @@
         <div class="mt-5 w-full">
           <label class="block text-xs lg:text-sm font-medium">Kustom Tahun</label>
           <div class="flex space-x-2 mt-1">
-            <input type="text" placeholder="Tahun Awal" class="w-1/2 text-xs lg:text-sm text-center px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input name="tahun_awal" type="text" placeholder="Tahun Awal" class="w-1/2 text-xs lg:text-sm text-center px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
             <span class="text-gray-500">-</span>
-            <input type="text" placeholder="Tahun Akhir" class="w-1/2 text-xs lg:text-sm text-center px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+            <input name="tahun_akhir" type="text" placeholder="Tahun Akhir" class="w-1/2 text-xs lg:text-sm text-center px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
           </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\AdminAddBooksController;
 use App\Http\Controllers\Admin\AdminAddVideosController;
 
 use App\Http\Controllers\User\RepositoriController;
+use App\Http\Controllers\User\SearchController;
 
 use Illuminate\Support\Facades\DB;
 
@@ -72,6 +73,7 @@ Route::get('/', function () {
 });
 
 Route::get('/repositori', [RepositoriController::class, 'index'])->name('repositori.index');
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
 
 Route::get('/tentang-kami', function () {
     return view('user.pages.tentang-kami.index', ['title' => 'Tentang Kami | Edulantas']);
