@@ -102,11 +102,18 @@
                     items-center justify-center rounded-lg p-3 border border-black">
                     <p class="text-white text-center text-xs rounded">{{ $item->status }}</p>
                 </div>
-                <button class="flex w-[5%] 
-                    @if($item->status == 'Berhasil Dikirim') bg-green-500 
-                    @elseif($item->status == 'Diproses') bg-yellow-500 
-                    @else bg-red-500 @endif
-                    items-center justify-center rounded-lg p-3 border border-black">
+                <button
+                    @if($item->status == 'Berhasil Dikirim') 
+                        onclick="window.location.href='{{ route('search.index', ['search' => $item->judul]) }}'" 
+                    @endif
+                    class="flex w-[5%] 
+                        @if($item->status == 'Berhasil Dikirim') bg-green-500 
+                        @elseif($item->status == 'Diproses') bg-yellow-500 
+                        @else bg-red-500 @endif
+                        items-center justify-center rounded-lg p-3 border border-black 
+                        @if($item->status != 'Berhasil Dikirim') cursor-not-allowed @endif"
+                    @if($item->status != 'Berhasil Dikirim') disabled @endif
+                >
                     @if($item->status == 'Berhasil Dikirim')
                         <i class="fa-solid fa-eye text-white"></i>
                     @else
