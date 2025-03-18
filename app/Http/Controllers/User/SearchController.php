@@ -69,6 +69,4 @@ class SearchController extends Controller
             'items' => $paginatedItems
         ]);
     }
-    
-    
 }

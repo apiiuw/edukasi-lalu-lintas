@@ -73,7 +73,7 @@ Route::get('/', function () {
 });
 
 Route::get('/repositori', [RepositoriController::class, 'index'])->name('repositori.index');
-Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+Route::get('/repositori', [SearchController::class, 'index'])->name('search.index');
 
 Route::get('/tentang-kami', function () {
     return view('user.pages.tentang-kami.index', ['title' => 'Tentang Kami | Edulantas']);
@@ -135,6 +135,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     });
 
     Route::get('/admin-item', [AdminItemController::class, 'index'])->name('item.index');
+    Route::get('/admin-item', [AdminItemController::class, 'search'])->name('item.search');
     
     // Subpage Item
     Route::get('/admin-add-books', function () {
