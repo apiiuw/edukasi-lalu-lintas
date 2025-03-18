@@ -7,21 +7,52 @@
         <h1 class="text-base lg:text-xl text-blueJR font-semibold mb-4 text-center relative after:content-[''] after:block after:w-16 after:h-[2px] after:bg-blueJR after:mx-auto after:mt-1">
             REQUEST ITEM
         </h1>
-        <form class="w-full space-y-6 mt-3 px-6 lg:px-12 flex flex-col justify-center items-center">
+        @if (session('success'))
+            <div id="success-alert" class="fixed top-24 right-5 bg-teal-50 border-t-2 border-teal-500 rounded-lg p-4 shadow-lg z-50">
+                <div class="flex">
+                    <div class="shrink-0">
+                        <span class="inline-flex justify-center items-center size-8 rounded-full border-4 border-teal-100 bg-teal-200 text-teal-800">
+                            <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                <path d="m9 12 2 2 4-4"></path>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="ms-3">
+                        <h3 class="text-xs lg:text-sm text-gray-800 font-semibold">
+                            Berhasil!
+                        </h3>
+                        <p class="text-xs lg:text-sm text-gray-700">
+                            {{ session('success') }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                // Hilangkan alert setelah 5 detik
+                setTimeout(() => {
+                    document.getElementById('success-alert')?.remove();
+                }, 5000);
+            </script>
+        @endif
+
+        <form action="{{ route('request-items.store') }}" method="POST" class="w-full space-y-6 mt-3 px-6 lg:px-12 flex flex-col justify-center items-center">
+            @csrf
           
             <!-- Dropdown -->
-            <div class="w-full flex items-center border border-black rounded-full px-5 py-3 lg:py-4 focus-within:ring-2 focus-within:ring-blue-400">
-                <select class="w-full text-sm lg:text-base text-gray-700 text-center focus:outline-none border-none bg-transparent">
-                    <option>Pilih Kategori</option>
-                    <option value="1">Elektronik Buku</option>
-                    <option value="2">Video Edukasi</option>
+            <div class="w-full flex items-center border bg-white border-black rounded-full px-5 py-3 lg:py-4 focus-within:ring-2 focus-within:ring-blue-400">
+                <select name="kategori" class="w-full text-sm lg:text-base text-gray-700 text-center focus:outline-none border-none bg-transparent">
+                    <option value="">Pilih Kategori</option>
+                    <option value="Elektronik Buku">Elektronik Buku</option>
+                    <option value="Video Edukasi">Video Edukasi</option>
                 </select>
                 <span class="text-red-600 text-lg ml-2">*</span>
             </div>
 
             <!-- Input Text -->
-            <div class="w-full flex items-center border border-black rounded-full px-5 py-3 lg:py-4 focus-within:ring-2 focus-within:ring-blue-400 mt-4">
-                <input type="text" placeholder="Ketikkan Kata Kunci..." class="w-full text-sm text-center lg:text-base text-gray-700 focus:outline-none bg-transparent placeholder:text-gray-700 border-none">
+            <div class="w-full flex items-center border bg-white border-black rounded-full px-5 py-3 lg:py-4 focus-within:ring-2 focus-within:ring-blue-400 mt-4">
+                <input name="judul" type="text" placeholder="Ketikkan Judul..." class="w-full text-sm text-center lg:text-base text-gray-700 focus:outline-none bg-transparent placeholder:text-gray-700 border-none">
                 <span class="text-red-600 text-lg ml-2">*</span>
             </div>
                       
@@ -29,32 +60,22 @@
                 <!-- Tahun Publikasi -->
                 <label class="font-semibold text-sm lg:text-base">Tahun Publikasi</label>
                 <div class="flex flex-wrap justify-center text-xs lg:text-sm gap-2 lg:gap-4 mt-4">
+                    @for($year = date('Y'); $year >= date('Y') - 4; $year--)
                     <label class="flex items-center space-x-2">
-                        <input type="radio" name="tahun" value="2025"> <span>2025</span>
+                        <input type="radio" name="tahun" value="{{ $year }}"> <span>{{ $year }}</span>
                     </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="radio" name="tahun" value="2024"> <span>2024</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="radio" name="tahun" value="2023"> <span>2023</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="radio" name="tahun" value="2022"> <span>2022</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="radio" name="tahun" value="2021"> <span>2021</span>
-                    </label>
+                    @endfor
                 </div>
             
                 <!-- Kustom Tahun -->
                 <div class="mt-5 w-full flex justify-center items-center gap-x-2">
                     <label class="block text-xs lg:text-sm font-medium">Kustom Tahun</label>
-                    <input type="text" placeholder="Ketikkan Tahun" class="text-xs lg:text-sm text-center placeholder:text-gray-700 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                    <input name="tahun_custom" type="text" placeholder="Ketikkan Tahun" class="text-xs lg:text-sm text-center placeholder:text-gray-700 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
             </div>
           
-          <!-- Tombol Cari -->
-          <button type="submit" class="w-1/2 text-sm lg:text-base flex items-center justify-center gap-2 bg-blueJR text-white py-3 lg:py-4 border border-black rounded-full hover:bg-blue-600">
+          <!-- Tombol Kirim -->
+          <button type="submit" class="w-1/2 text-sm lg:text-base flex items-center justify-center gap-2 bg-blueJR text-white py-3 lg:py-4 border border-black rounded-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">
             Kirim Request <span><i class="fa-solid fa-sm lg:fa-lg fa-paper-plane"></i></span>
           </button>
         </form>
@@ -69,41 +90,33 @@
 
     {{-- Table --}}
     <div class="w-full px-6 lg:px-12 flex flex-col max-w-6xl lg:max-w-4xl">
-        <div class="flex lg:h-16 mb-2 gap-x-2">
-            <div class="flex w-[80%] lg:w-[85%] text-sm items-center justify-between border border-black rounded-lg p-3">
-                <p>Cerdas Berlalu Lintas</p>
+        @forelse($requestItems as $item)
+            <div class="flex lg:h-16 mb-2 gap-x-2">
+                <div class="flex w-[80%] lg:w-[85%] text-sm items-center justify-between border border-black rounded-lg p-3">
+                    <p>{{ $item->judul }}</p>
+                </div>
+                <div class="flex w-[15%] lg:w-[10%]
+                    @if($item->status == 'Berhasil Dikirim') bg-green-500 
+                    @elseif($item->status == 'Diproses') bg-yellow-500 
+                    @else bg-red-500 @endif
+                    items-center justify-center rounded-lg p-3 border border-black">
+                    <p class="text-white text-center text-xs rounded">{{ $item->status }}</p>
+                </div>
+                <button class="flex w-[5%] 
+                    @if($item->status == 'Berhasil Dikirim') bg-green-500 
+                    @elseif($item->status == 'Diproses') bg-yellow-500 
+                    @else bg-red-500 @endif
+                    items-center justify-center rounded-lg p-3 border border-black">
+                    @if($item->status == 'Berhasil Dikirim')
+                        <i class="fa-solid fa-eye text-white"></i>
+                    @else
+                        <i class="fa-solid fa-eye-slash text-white"></i>
+                    @endif
+                </button>
             </div>
-            <div class="flex w-[15%] lg:w-[10%] bg-green-500 items-center justify-center rounded-lg p-3 border border-black">
-                <p class="text-white text-center text-xs rounded">Berhasil Dikirim</p>
-            </div>
-            <button class="flex w-[5%] bg-green-500 items-center justify-center rounded-lg p-3 border border-black">
-                <i class="fa-solid fa-eye text-white"></i>
-            </button>
-        </div>
-
-        <div class="flex lg:h-16 mb-2 gap-x-2">
-            <div class="flex w-[80%] lg:w-[85%] text-sm items-center justify-between border border-black rounded-lg p-3">
-                <p>Rekayasa Lalu Lintas</p>
-            </div>
-            <div class="flex w-[15%] lg:w-[10%] bg-yellow-500 items-center justify-center rounded-lg p-3 border border-black">
-                <p class="text-white text-center text-xs rounded">Diproses</p>
-            </div>
-            <button class="flex w-[5%] bg-yellow-500 items-center justify-center rounded-lg p-3 border border-black">
-                <i class="fa-solid fa-eye-slash text-white"></i>
-            </button>
-        </div>
-
-        <div class="flex lg:h-16 mb-2 gap-x-2">
-            <div class="flex w-[80%] lg:w-[85%] text-sm items-center justify-between border border-black rounded-lg p-3">
-                <p>Pendidikan Disiplin Berlalu Lintas</p>
-            </div>
-            <div class="flex w-[15%] lg:w-[10%] bg-red-500 items-center justify-center rounded-lg p-3 border border-black">
-                <p class="text-white text-center text-xs rounded">Ditolak</p>
-            </div>
-            <button class="flex w-[5%] bg-red-500 items-center justify-center rounded-lg p-3 border border-black">
-                <i class="fa-solid fa-eye-slash text-white"></i>
-            </button>
-        </div>
+        @empty
+            <p class="text-center text-gray-500 mt-4">Tidak ada request item yang anda kirimkan.</p>
+        @endforelse
     </div>
 </div>
 

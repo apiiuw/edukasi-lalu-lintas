@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\AdminAddVideosController;
 
 use App\Http\Controllers\User\RepositoriController;
 use App\Http\Controllers\User\SearchController;
+use App\Http\Controllers\User\RequestItemController;
 
 use Illuminate\Support\Facades\DB;
 
@@ -88,9 +89,8 @@ Route::get('/forum-diskusi', function () {
 // Halaman yang bisa diakses oleh User dan Admin (wajib login)
 Route::middleware(['auth'])->group(function () {
     // Subpage Repositori
-    Route::get('/request-item', function () {
-        return view('user.pages.repositori.subpage.request-item', ['title' => 'Request Item | Edulantas']);
-    });
+    Route::get('/request-item', [RequestItemController::class, 'index'])->name('request-item.index');
+    Route::post('/request-item', [RequestItemController::class, 'store'])->name('request-items.store');
 
     // Subpage Forum Diskusi
     Route::get('/form-forum-diskusi', function () {
