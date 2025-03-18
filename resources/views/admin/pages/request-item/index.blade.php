@@ -17,42 +17,65 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white text-gray-700 text-xs">
+                    @forelse($requestItems as $item)
                     <tr class="border-b">
-                        <td class="px-4 py-3">Cerdas Berlalu Lintas</td>
-                        <td class="px-4 py-3 text-center">Elektronik Buku</td>
-                        <td class="px-4 py-3 text-center">Rafi Rizqallah Andila</td>
-                        <td class="px-4 py-3 text-yellow-500 text-center">Diproses</td>
-                        <td class="px-4 py-3 text-center text-blueJR cursor-pointer">
-                            Edit
+                        <td class="px-4 py-3">{{ $item->judul }}</td>
+                        <td class="px-4 py-3 text-center">{{ $item->kategori }}</td>
+                        <td class="px-4 py-3 text-center">{{ $item->pengirim }}</td>
+                        <td class="px-4 py-3 text-center 
+                            @if($item->status == 'Diproses') text-yellow-500 
+                            @elseif($item->status == 'Berhasil Dikirim') text-green-600 
+                            @elseif($item->status == 'Ditolak') text-red-500 
+                            @endif">
+                            {{ $item->status }}
                         </td>
-                    </tr>
-                    <!-- Tambahkan baris lainnya sesuai data -->
-                    <tr class="border-b">
-                        <td class="px-4 py-3">Pendidikan Disiplin Berlalu Lintas</td>
-                        <td class="px-4 py-3 text-center">Elektronik Buku</td>
-                        <td class="px-4 py-3 text-center">Uray Faisal</td>
-                        <td class="px-4 py-3 text-green-600 text-center">Berhasil Dikirim</td>
                         <td class="px-4 py-3 text-center text-blueJR cursor-pointer">
-                            Edit
-                        </td>
+                            <button 
+                                onclick="openModal(
+                                    '{{ $item->id }}', 
+                                    '{{ $item->judul }}', 
+                                    '{{ $item->kategori }}', 
+                                    '{{ $item->pengirim }}', 
+                                    '{{ $item->status }}'
+                                )"
+                                class="text-blueJR hover:underline"
+                            >
+                                Edit
+                            </button>
+                        </td>                        
                     </tr>
-                    <tr class="border-b">
-                        <td class="px-4 py-3">Cerdas Berlalu Lintas</td>
-                        <td class="px-4 py-3 text-center">Elektronik Buku</td>
-                        <td class="px-4 py-3 text-center">Rafi Rizqallah Andila</td>
-                        <td class="px-4 py-3 text-red-500 text-center">Ditolak</td>
-                        <td class="px-4 py-3 text-center text-blueJR cursor-pointer">
-                            Edit
-                        </td>
+                    @empty
+                    <tr>
+                        <td colspan="5" class="px-4 py-3 text-center text-gray-500">Belum ada data request item.</td>
                     </tr>
-                </tbody>
+                    @endforelse
+                </tbody>                
             </table>
         </div>
         <div class="mt-6 text-xs lg:text-sm flex justify-center items-center space-x-2">
-            <span class="border border-black px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Sebelumnya</span>
-            <a href="" class="border px-4 py-2 rounded-lg border-black">1</a>
-            <a href="" class="border border-black px-4 py-2 rounded-lg bg-blueJR text-white">Selanjutnya</a>
-        </div>
+            {{-- Tombol sebelumnya --}}
+            @if ($requestItems->onFirstPage())
+                <span class="border border-black px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Sebelumnya</span>
+            @else
+                <a href="{{ $requestItems->previousPageUrl() }}" class="border border-black px-4 py-2 rounded-lg bg-blueJR text-white">Sebelumnya</a>
+            @endif
+        
+            {{-- Nomor halaman --}}
+            @for ($i = 1; $i <= $requestItems->lastPage(); $i++)
+                @if ($i == $requestItems->currentPage())
+                    <span class="border px-4 py-2 rounded-lg border-black bg-blueJR text-white">{{ $i }}</span>
+                @else
+                    <a href="{{ $requestItems->url($i) }}" class="border px-4 py-2 rounded-lg border-black">{{ $i }}</a>
+                @endif
+            @endfor
+        
+            {{-- Tombol selanjutnya --}}
+            @if ($requestItems->hasMorePages())
+                <a href="{{ $requestItems->nextPageUrl() }}" class="border border-black px-4 py-2 rounded-lg bg-blueJR text-white">Selanjutnya</a>
+            @else
+                <span class="border border-black px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Selanjutnya</span>
+            @endif
+        </div>        
     </div>
 </div>
 
@@ -75,20 +98,35 @@
                 <span id="popupPengirim" class="font-medium break-words text-right"></span>
             </div>
         </div>
-        <div class="flex justify-center gap-2 mt-7">
-            <a href="#" class="bg-yellow-400 flex justify-center items-center text-center border border-black text-white text-xs px-4 py-1 rounded">Diproses</a>
-            <a href="#" class="bg-green-500 flex justify-center items-center text-center border border-black text-white text-xs px-4 py-1 rounded">Berhasil Dikirim</a>
-            <a href="#" class="bg-red-500 flex justify-center items-center text-center border border-black text-white text-xs px-4 py-1 rounded">Ditolak</a>
-        </div>
+        <div class="flex justify-center gap-2 mt-7" id="popupActions"></div>
     </div>
 </div>
 
-
 <script>
-    function openModal(judul, kategori, pengirim) {
-        document.getElementById('popupJudul').innerText = judul;
-        document.getElementById('popupKategori').innerText = kategori;
-        document.getElementById('popupPengirim').innerText = pengirim;
+    function openModal(id, judul, kategori, pengirim, status) {
+        document.getElementById('popupJudul').textContent = judul;
+        document.getElementById('popupKategori').textContent = kategori;
+        document.getElementById('popupPengirim').textContent = pengirim;
+
+        let actions = document.getElementById('popupActions');
+        actions.innerHTML = ""; // Bersihkan tombol sebelumnya
+
+        if (status === "Diproses") {
+            actions.innerHTML = `
+                <button onclick="updateStatus(${id}, 'Berhasil Dikirim')" class="bg-green-500 text-white px-4 py-1 rounded">Kirim</button>
+                <button onclick="updateStatus(${id}, 'Ditolak')" class="bg-red-500 text-white px-4 py-1 rounded">Tolak</button>
+            `;
+        } else if (status === "Berhasil Dikirim") {
+            actions.innerHTML = `
+                <button onclick="updateStatus(${id}, 'Diproses')" class="bg-yellow-400 text-white px-4 py-1 rounded">Proses</button>
+                <button onclick="updateStatus(${id}, 'Ditolak')" class="bg-red-500 text-white px-4 py-1 rounded">Tolak</button>
+            `;
+        } else if (status === "Ditolak") {
+            actions.innerHTML = `
+                <button onclick="updateStatus(${id}, 'Diproses')" class="bg-yellow-400 text-white px-4 py-1 rounded">Proses</button>
+            `;
+        }
+
         document.getElementById('popupModal').classList.remove('hidden');
     }
 
@@ -96,16 +134,79 @@
         document.getElementById('popupModal').classList.add('hidden');
     }
 
-    // Event listener untuk semua tombol edit
-    document.querySelectorAll('td.text-blueJR.cursor-pointer').forEach(item => {
-        item.addEventListener('click', function() {
-            const row = item.closest('tr');
-            const judul = row.children[0].innerText;
-            const kategori = row.children[1].innerText;
-            const pengirim = row.children[2].innerText;
-            openModal(judul, kategori, pengirim);
-        });
-    });
+    function updateStatus(id, newStatus) {
+        fetch(`/admin-request-item/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ status: newStatus })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                closeModal();
+                showSuccessMessage('Status berhasil diubah!');
+
+                // Ambil kategori dari modal (yang sudah dimasukkan saat openModal)
+                const kategori = document.getElementById('popupKategori').textContent.trim().toLowerCase();
+
+                if (newStatus === 'Berhasil Dikirim') {
+                    // Tunggu 2 detik setelah pesan sukses, lalu redirect
+                    setTimeout(() => {
+                        if (kategori === 'elektronik buku') {
+                            window.location.href = '/admin-add-books';
+                        } else if (kategori === 'video edukasi') {
+                            window.location.href = '/admin-add-videos';
+                        } else {
+                            // Kalau kategori tidak sesuai, hanya reload
+                            window.location.reload();
+                        }
+                    }, 2000);
+                } else {
+                    // Kalau tombol selain kirim (proses/tolak), cukup reload
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                }
+            }
+        })
+        .catch(err => console.error(err));
+    }
+
+    function showSuccessMessage(message) {
+        const alertHtml = `
+            <div id="success-alert" class="fixed top-24 right-5 bg-teal-50 border-t-2 border-teal-500 rounded-lg p-4 shadow-lg z-50">
+                <div class="flex">
+                    <div class="shrink-0">
+                        <span class="inline-flex justify-center items-center size-8 rounded-full border-4 border-teal-100 bg-teal-200 text-teal-800">
+                            <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                                <path d="m9 12 2 2 4-4"></path>
+                            </svg>
+                        </span>
+                    </div>
+                    <div class="ms-3">
+                        <h3 class="text-xs lg:text-sm text-gray-800 font-semibold">
+                            Berhasil!
+                        </h3>
+                        <p class="text-xs lg:text-sm text-gray-700">
+                            ${message}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        document.body.insertAdjacentHTML('beforeend', alertHtml);
+        setTimeout(() => {
+            document.getElementById('success-alert')?.remove();
+        }, 2000);
+    }
+
 </script>
+
+
 
 @endsection

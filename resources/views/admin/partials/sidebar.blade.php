@@ -26,7 +26,9 @@
                         <path d="M17.418 3.623l-.018-.008a6.713 6.713 0 0 0-2.4-.569V2h1a1 1 0 1 0 0-2h-2a1 1 0 0 0-1 1v2H9.89A6.977 6.977 0 0 1 12 8v5h-2V8A5 5 0 1 0 0 8v6a1 1 0 0 0 1 1h8v4a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-4h6a1 1 0 0 0 1-1V8a5 5 0 0 0-2.582-4.377Z" />
                     </svg>
                     <span class="flex-1 ms-3 whitespace-nowrap">Request Item</span>
-                    <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blueJR bg-blue-100 rounded-full">3</span>
+                    <span class="inline-flex items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blueJR bg-blue-100 rounded-full">
+                        {{ $totalRequestDiproses }}
+                    </span>                    
                 </a>
             </li>
             <li>
