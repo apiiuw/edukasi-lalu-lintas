@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\AdminRequestItemController;
 use App\Http\Controllers\User\RepositoriController;
 use App\Http\Controllers\User\SearchController;
 use App\Http\Controllers\User\RequestItemController;
+use App\Http\Controllers\User\FormForumDiskusiController;
 
 use Illuminate\Support\Facades\DB;
 
@@ -94,9 +95,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/request-item', [RequestItemController::class, 'store'])->name('request-items.store');
 
     // Subpage Forum Diskusi
-    Route::get('/form-forum-diskusi', function () {
-        return view('user.pages.forum-diskusi.subpage.form-forum-diskusi', ['title' => 'Form Forum Diskusi | Edulantas']);
-    });
+    Route::get('/form-forum-diskusi', [FormForumDiskusiController::class, 'index'])->name('form-forum-diskusi.index');
+    Route::post('/form-forum-diskusi', [FormForumDiskusiController::class, 'store'])->name('form-forum-diskusi.store');
 
     Route::get('/detail-item/{type_id}', function ($type_id) {
         // Pisahkan prefix dan ID (contoh: "book-1" menjadi ["book", "1"])
