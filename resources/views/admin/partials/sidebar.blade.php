@@ -9,7 +9,7 @@
             <li>
                 <a href="/admin-statistik" class="flex items-center p-2 rounded-lg group {{ request()->is('admin-statistik') ? 'bg-gray-200 text-gray-900' : 'text-gray-900' }} hover:bg-gray-100">
                     <i class="fa-solid fa-chart-line fa-lg {{ request()->is('admin-statistik') ? 'text-gray-900' : 'text-gray-500 group-hover:text-gray-900' }}"></i>
-                    <span class="ms-3">Statistik</span>
+                    <span class="ms-3">Statistik Pengunjung</span>
                 </a>
             </li>
             <li>

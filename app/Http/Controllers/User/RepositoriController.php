@@ -9,6 +9,8 @@ use App\Models\Video;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use App\Models\Visitor;
+use Illuminate\Support\Carbon;
 
 class RepositoriController extends Controller
 {
@@ -47,6 +49,16 @@ class RepositoriController extends Controller
             $currentPage,
             ['path' => request()->url(), 'query' => request()->query()]
         );
+
+        Visitor::create([
+            'name'       => auth()->check() ? auth()->user()->name : 'tamu',
+            'email'      => auth()->check() ? auth()->user()->email : 'tamu',
+            'visit_date' => Carbon::now(),
+            'page'       => 'beranda',
+            'item_id'    => null,
+            'item_judul' => null,
+            'item_kategori' => null,
+        ]);
     
         // Kirim data ke view
         return view('user.pages.repositori.index', [

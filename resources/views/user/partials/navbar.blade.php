@@ -64,10 +64,12 @@
         </div>
         <div class="flex justify-center">
             <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden 
-            {{ in_array(request()->path(), ['repositori', 'request-item', 'detail-item']) ? 'relative before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-blueJR' : '' }}" 
-            href="/repositori">
-              Repositori
-          </a>
+                {{ (in_array(request()->path(), ['repositori', 'request-item']) || Str::startsWith(request()->path(), 'detail-item')) 
+                    ? 'relative before:absolute before:bottom-0.5 before:start-0 before:-z-1 before:w-full before:h-1 before:bg-blueJR' 
+                    : '' }}" 
+                href="/repositori">          
+                Repositori
+            </a>
         </div>
         <div class="flex justify-center">
             <a class="inline-block text-black hover:text-gray-600 focus:outline-hidden 

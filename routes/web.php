@@ -1,11 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\Visitor;
+use Illuminate\Support\Facades\Request;
 
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
 
+use App\Http\Controllers\Admin\AdminStatistikController;
 use App\Http\Controllers\Admin\AdminItemController;
 use App\Http\Controllers\Admin\AdminAddBooksController;
 use App\Http\Controllers\Admin\AdminAddVideosController;
@@ -13,6 +16,7 @@ use App\Http\Controllers\Admin\AdminRequestItemController;
 use App\Http\Controllers\Admin\AdminForumDiskusiController;
 
 use App\Http\Controllers\User\RepositoriController;
+use App\Http\Controllers\User\DetailItemController;
 use App\Http\Controllers\User\SearchController;
 use App\Http\Controllers\User\RequestItemController;
 use App\Http\Controllers\User\FormForumDiskusiController;
@@ -74,6 +78,22 @@ Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleC
 
 // Halaman Tidak Perlu Login
 Route::get('/', function () {
+    // Dapatkan data user (atau tamu)
+    $user = auth()->user();
+    $name = $user ? $user->name : 'Tamu';
+    $email = $user ? $user->email : 'tamu@guest.com';
+
+    // Tambahkan visitor
+    Visitor::create([
+        'name' => $name,
+        'email' => $email,
+        'visit_date' => now(),
+        'page' => 'Beranda',
+        'item_id' => null,
+        'item_judul' => null,
+        'item_kategori' => null,
+    ]);
+
     return view('user.pages.beranda.index');
 });
 
@@ -81,6 +101,22 @@ Route::get('/repositori', [RepositoriController::class, 'index'])->name('reposit
 Route::get('/repositori', [SearchController::class, 'index'])->name('search.index');
 
 Route::get('/tentang-kami', function () {
+    // Dapatkan data user (atau tamu)
+    $user = auth()->user();
+    $name = $user ? $user->name : 'Tamu';
+    $email = $user ? $user->email : 'tamu@guest.com';
+
+    // Tambahkan visitor
+    Visitor::create([
+        'name' => $name,
+        'email' => $email,
+        'visit_date' => now(),
+        'page' => 'Tentang Kami',
+        'item_id' => null,
+        'item_judul' => null,
+        'item_kategori' => null,
+    ]);
+    
     return view('user.pages.tentang-kami.index', ['title' => 'Tentang Kami | Edulantas']);
 });
 
@@ -88,8 +124,9 @@ Route::get('/forum-diskusi', [ForumDiskusiController::class, 'index']);
 Route::get('/forum-diskusi/search', [ForumDiskusiController::class, 'search'])->name('forum-diskusi.search');
 
 
-// Halaman yang bisa diakses oleh User dan Admin (wajib login)
-Route::middleware(['auth'])->group(function () {
+
+// Halaman yang hanya untuk user login + tracking visitor
+Route::middleware('auth')->group(function () {
     // Subpage Repositori
     Route::get('/request-item', [RequestItemController::class, 'index'])->name('request-item.index');
     Route::post('/request-item', [RequestItemController::class, 'store'])->name('request-items.store');
@@ -98,29 +135,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/form-forum-diskusi', [FormForumDiskusiController::class, 'index'])->name('form-forum-diskusi.index');
     Route::post('/form-forum-diskusi', [FormForumDiskusiController::class, 'store'])->name('form-forum-diskusi.store');
 
-    Route::get('/detail-item/{type_id}', function ($type_id) {
-        // Pisahkan prefix dan ID (contoh: "book-1" menjadi ["book", "1"])
-        [$type, $id] = explode('-', $type_id);
-    
-        if ($type === 'book') {
-            $item = DB::table('electronics_books')->where('id', $id)->first();
-        } elseif ($type === 'video') {
-            $item = DB::table('videos')->where('id', $id)->first();
-        } else {
-            abort(404); // Jika bukan book atau video, tampilkan 404
-        }
-    
-        if (!$item) {
-            abort(404);
-        }
-    
-        return view('user.pages.repositori.subpage.detail-item', [
-            'title' => 'Detail Item | Edulantas',
-            'item' => $item,
-            'type' => $type
-        ]);
-    });
-    
+    // Detail Item
+    Route::get('/detail-item/{type_id}', [DetailItemController::class, 'showByTypeId'])->name('detail-item.showByTypeId');
 });
 
 
@@ -130,6 +146,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::get('/admin-statistik', function () {
         return view('admin.pages.statistik.index', ['title' => 'Admin Statistik | Edulantas']);
     });
+    Route::get('/admin-statistik', [AdminStatistikController::class, 'index'])->name('admin.statistik');
     
     Route::get('/admin-item', function () {
         return view('admin.pages.item.index', ['title' => 'Admin Item | Edulantas']);

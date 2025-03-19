@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\RequestItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Visitor;
+use Illuminate\Support\Carbon;
 
 class RequestItemController extends Controller
 {
@@ -16,6 +18,16 @@ class RequestItemController extends Controller
         ->orderByRaw("FIELD(status, 'Berhasil Dikirim', 'Diproses', 'Ditolak')")
         ->orderBy('created_at', 'desc')
         ->get();
+
+        Visitor::create([
+            'name'       => auth()->check() ? auth()->user()->name : 'tamu',
+            'email'      => auth()->check() ? auth()->user()->email : 'tamu',
+            'visit_date' => Carbon::now(),
+            'page'       => 'Request Item - Repositori',
+            'item_id'    => null,
+            'item_judul' => null,
+            'item_kategori' => null,
+        ]);
         
         return view('user.pages.repositori.subpage.request-item', [
             'title' => 'Request Item | Edulantas',

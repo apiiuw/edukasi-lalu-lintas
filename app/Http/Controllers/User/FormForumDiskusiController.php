@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\ForumDiskusi; // pastikan sudah ada modelnya
 use Illuminate\Support\Facades\Auth;
+use App\Models\Visitor;
 
 class FormForumDiskusiController extends Controller
 {
@@ -23,6 +24,16 @@ class FormForumDiskusiController extends Controller
             ")
             ->orderBy('created_at', 'desc')
             ->get();
+
+        Visitor::create([
+            'name'       => auth()->check() ? auth()->user()->name : 'tamu',
+            'email'      => auth()->check() ? auth()->user()->email : 'tamu',
+            'visit_date' => Carbon::now(),
+            'page'       => 'Tanya Admin - Forum Diskusi',
+            'item_id'    => null,
+            'item_judul' => null,
+            'item_kategori' => null,
+        ]);
     
         return view('user.pages.forum-diskusi.subpage.form-forum-diskusi', [
             'title' => 'Form Forum Diskusi | Edulantas',

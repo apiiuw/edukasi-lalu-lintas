@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Models\ElectronicsBook;
 use App\Models\Video;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Visitor;
+use Illuminate\Support\Carbon;
 
 class SearchController extends Controller
 {
@@ -63,9 +65,19 @@ class SearchController extends Controller
             $currentPage,
             ['path' => request()->url(), 'query' => request()->query()]
         );
+
+        Visitor::create([
+            'name'       => auth()->check() ? auth()->user()->name : 'tamu',
+            'email'      => auth()->check() ? auth()->user()->email : 'tamu',
+            'visit_date' => Carbon::now(),
+            'page'       => 'Repositori',
+            'item_id'    => null,
+            'item_judul' => null,
+            'item_kategori' => null,
+        ]);
     
         return view('user.pages.repositori.index', [
-            'title' => 'Hasil Pencarian | Edulantas',
+            'title' => 'Repositori | Edulantas',
             'items' => $paginatedItems
         ]);
     }
