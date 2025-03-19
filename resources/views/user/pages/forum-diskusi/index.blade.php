@@ -1,6 +1,35 @@
 @extends('user.layouts.main')
 @section('container')
 
+@if (session('success'))
+    <div id="success-alert" class="fixed top-24 right-5 bg-teal-50 border-t-2 border-teal-500 rounded-lg p-4 shadow-lg z-50">
+        <div class="flex">
+            <div class="shrink-0">
+                <span class="inline-flex justify-center items-center size-8 rounded-full border-4 border-teal-100 bg-teal-200 text-teal-800">
+                    <svg class="shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>
+                        <path d="m9 12 2 2 4-4"></path>
+                    </svg>
+                </span>
+            </div>
+            <div class="ms-3">
+                <h3 class="text-xs lg:text-sm text-gray-800 font-semibold">
+                    Berhasil!
+                </h3>
+                <p class="text-xs lg:text-sm text-gray-700">
+                    {{ session('success') }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+            document.getElementById('success-alert')?.remove();
+        }, 5000);
+    </script>
+@endif
+
 {{-- Section 1 --}}
 <div class="w-full h-screen bg-cover bg-center" style="background-image: url('/img/background/bg-jr-gray.png');">
     <div class="flex flex-col h-full justify-center items-center max-w-sm lg:max-w-lg mx-auto">
@@ -23,125 +52,65 @@
 <div class="flex flex-col justify-center items-center px-6 lg:px-0">
     <div class="w-full max-w-5xl">
         <!-- Search Bar -->
-        <div class="flex items-center justify-center rounded-full p-2 shadow-md bg-white mb-3 border border-black">
-            <input type="text" class="flex-grow p-2 outline-none border-none text-sm lg:text-base text-black placeholder:text-gray-700" placeholder="Ketikkan Kata Kunci...">
+        <form action="{{ route('forum-diskusi.search') }}" method="GET" class="flex items-center justify-center rounded-full p-2 shadow-md bg-white mb-3 border border-black">
+            <input 
+                type="text" 
+                name="search" 
+                value="{{ request('search') }}" 
+                class="flex-grow p-2 outline-none border-none text-sm lg:text-base text-black placeholder:text-gray-700" 
+                placeholder="Ketikkan Kata Kunci..."
+            >
             <button class="p-2 bg-blueJR px-4 text-white rounded-full">
                 <i class="fa-solid fa-xs lg:fa-lg fa-magnifying-glass"></i>
             </button>
-        </div>
+        </form>        
 
         <!-- Kotak Pertanyaan -->
         <div class="space-y-2">
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana jika menambahkan buku tentang penggunaan helm yang baik dan benar?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Menambahkan buku tentang helm dapat membantu meningkatkan kesadaran keselamatan berkendara.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana cara membagikan buku yang kita baca pada platform edukasi lalu lintas?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Anda bisa mengunggah buku ke platform dengan mengisi formulir yang tersedia di halaman unggah.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana jika saya ingin request buku pada platform edukasi lalu lintas?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Anda dapat mengajukan permintaan buku melalui fitur request di dalam aplikasi.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana cara membayar pajak kendaraan?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Pajak kendaraan dapat dibayar melalui Samsat terdekat atau aplikasi e-Samsat online.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana jika menambahkan buku tentang penggunaan helm yang baik dan benar?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Menambahkan buku tentang helm dapat membantu meningkatkan kesadaran keselamatan berkendara.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana cara membagikan buku yang kita baca pada platform edukasi lalu lintas?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Anda bisa mengunggah buku ke platform dengan mengisi formulir yang tersedia di halaman unggah.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana jika saya ingin request buku pada platform edukasi lalu lintas?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Anda dapat mengajukan permintaan buku melalui fitur request di dalam aplikasi.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana cara membayar pajak kendaraan?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Pajak kendaraan dapat dibayar melalui Samsat terdekat atau aplikasi e-Samsat online.
-                </div>
-            </div>
-
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana jika menambahkan buku tentang penggunaan helm yang baik dan benar?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Menambahkan buku tentang helm dapat membantu meningkatkan kesadaran keselamatan berkendara.
-                </div>
-            </div>
-            
-            <div class="faq-item">
-                <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
-                    <span>Bagaimana cara membagikan buku yang kita baca pada platform edukasi lalu lintas?</span>
-                    <i class="fa-solid fa-chevron-down"></i>
-                </button>
-                <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
-                    Anda bisa mengunggah buku ke platform dengan mengisi formulir yang tersedia di halaman unggah.
-                </div>
-            </div>
+            @if ($forumDiskusi->isEmpty())
+                <p class="text-center text-gray-500 text-sm lg:text-base mt-4">Tidak ada pertanyaan yang ditemukan.</p>
+            @else
+                @foreach ($forumDiskusi as $item)
+                    <div class="faq-item">
+                        <button class="faq-question w-full text-left bg-gray-200 px-4 py-2 rounded-md flex justify-between items-center">
+                            <span>{{ $item->pertanyaan }}</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </button>
+                        <div class="faq-answer hidden bg-gray-100 px-4 py-2 rounded-md mt-1">
+                            {{ $item->balasan_admin ?? 'Belum ada balasan dari admin.' }}
+                        </div>
+                    </div>
+                @endforeach
+            @endif        
         </div>
+        
     </div>
 </div>
 
 <!-- Pagination -->
 <div class="mt-6 text-xs lg:text-sm flex justify-center items-center space-x-2">
-    <button class="border px-4 py-2 rounded-lg text-gray-500 bg-white">Sebelumnya</button>
-    <button class="border px-4 py-2 rounded-lg bg-gray-200">1</button>
-    <button class="border px-4 py-2 rounded-lg bg-white">2</button>
-    <button class="border px-4 py-2 rounded-lg bg-white">3</button>
-    <button class="border px-4 py-2 rounded-lg bg-blueJR text-white">Selanjutnya</button>
+    {{-- Tombol Sebelumnya --}}
+    @if ($forumDiskusi->onFirstPage())
+        <button class="border px-4 py-2 rounded-lg text-gray-500 bg-white" disabled>Sebelumnya</button>
+    @else
+        <a href="{{ $forumDiskusi->previousPageUrl() }}" class="border px-4 py-2 rounded-lg text-gray-500 bg-white">Sebelumnya</a>
+    @endif
+
+    {{-- Nomor halaman --}}
+    @for ($i = 1; $i <= $forumDiskusi->lastPage(); $i++)
+        @if ($i == $forumDiskusi->currentPage())
+            <button class="border px-4 py-2 rounded-lg bg-gray-200">{{ $i }}</button>
+        @else
+            <a href="{{ $forumDiskusi->url($i) }}" class="border px-4 py-2 rounded-lg bg-white">{{ $i }}</a>
+        @endif
+    @endfor
+
+    {{-- Tombol Selanjutnya --}}
+    @if ($forumDiskusi->hasMorePages())
+        <a href="{{ $forumDiskusi->nextPageUrl() }}" class="border px-4 py-2 rounded-lg bg-blueJR text-white">Selanjutnya</a>
+    @else
+        <button class="border px-4 py-2 rounded-lg text-gray-500 bg-white" disabled>Selanjutnya</button>
+    @endif
 </div>
 
 <div class="flex flex-col justify-center items-center my-20">

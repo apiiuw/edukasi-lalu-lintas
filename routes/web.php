@@ -16,6 +16,7 @@ use App\Http\Controllers\User\RepositoriController;
 use App\Http\Controllers\User\SearchController;
 use App\Http\Controllers\User\RequestItemController;
 use App\Http\Controllers\User\FormForumDiskusiController;
+use App\Http\Controllers\User\ForumDiskusiController;
 
 use Illuminate\Support\Facades\DB;
 
@@ -83,10 +84,8 @@ Route::get('/tentang-kami', function () {
     return view('user.pages.tentang-kami.index', ['title' => 'Tentang Kami | Edulantas']);
 });
 
-Route::get('/forum-diskusi', function () {
-    return view('user.pages.forum-diskusi.index', ['title' => 'Forum Diskusi | Edulantas']);
-});
-
+Route::get('/forum-diskusi', [ForumDiskusiController::class, 'index']);
+Route::get('/forum-diskusi/search', [ForumDiskusiController::class, 'search'])->name('forum-diskusi.search');
 
 
 // Halaman yang bisa diakses oleh User dan Admin (wajib login)
