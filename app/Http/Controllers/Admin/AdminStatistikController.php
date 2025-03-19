@@ -7,6 +7,7 @@ use App\Models\Visitor;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AdminStatistikController extends Controller
 {
@@ -45,6 +46,7 @@ class AdminStatistikController extends Controller
             $multiYearMonthlyStats[$year] = $dataBulanan;
         }
     
+        // Data Statistik Pengunjung Item
         $selectedYear = $request->year ?? date('Y');
         $selectedCategory = $request->kategori ?? 'Semua';
         
@@ -93,5 +95,59 @@ class AdminStatistikController extends Controller
             'pengunjungItems',
             'selectedCategory'
         ))->with('title', 'Admin Statistik Kunjungan | Edulantas');
+    }
+
+    public function download(Request $request)
+    {
+        $type = $request->type;
+        $year = $request->year ?? date('Y');
+        $kategori = $request->kategori ?? 'Semua';
+    
+        if ($type === 'multiyear') {
+            $currentYear = date('Y');
+            $years = range($currentYear - 4, $currentYear);
+            $multiYearMonthlyStats = [];
+    
+            foreach ($years as $y) {
+                $dataBulanan = Visitor::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+                    ->whereYear('created_at', $y)
+                    ->groupBy('month')
+                    ->pluck('total', 'month')
+                    ->toArray();
+                $multiYearMonthlyStats[$y] = $dataBulanan;
+            }
+    
+            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-multiyear', compact('multiYearMonthlyStats', 'years'))
+                ->setPaper('a4', 'portrait');
+            return $pdf->download('Laporan-Perbandingan-5-Tahun.pdf');
+    
+        } elseif ($type === 'monthly') {
+            $monthlyStats = Visitor::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+                ->whereYear('created_at', $year)
+                ->groupBy('month')
+                ->pluck('total', 'month')
+                ->toArray();
+    
+            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-monthly', compact('monthlyStats', 'year'))
+                ->setPaper('a4', 'portrait');
+            return $pdf->download("Laporan-Pengunjung-Tahun-$year.pdf");
+    
+        } elseif ($type === 'items') {
+            $itemQuery = Visitor::select('item_id', 'item_judul', 'item_kategori', DB::raw('COUNT(*) as jumlah_pengunjung'))
+                ->whereYear('created_at', $year)
+                ->groupBy('item_id', 'item_judul', 'item_kategori');
+    
+            if ($kategori != 'Semua') {
+                $itemQuery->where('item_kategori', $kategori);
+            }
+    
+            $pengunjungItems = $itemQuery->orderByDesc('jumlah_pengunjung')->get();
+    
+            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-items', compact('pengunjungItems', 'year', 'kategori'))
+                ->setPaper('a4', 'portrait');
+            return $pdf->download("Laporan-Item-Tahun-$year-Kategori-$kategori.pdf");
+        }
+    
+        return back();
     }    
 }

@@ -39,7 +39,10 @@
         <div class="flex flex-col justify-center items-center bg-white p-4 rounded shadow mb-8">
             <h2 class="text-sm lg:text-lg font-semibold mb-2">Perbandingan Pengunjung Bulanan (5 Tahun Terakhir)</h2>
             <canvas id="multiLineChart"></canvas>
-            <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR mt-3 rounded-xl text-white" href="">Download Report</a>
+            <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR mt-3 rounded-xl text-white" 
+                href="{{ route('statistik.download', ['type' => 'multiyear']) }}" target="_blank">
+                Download Report
+            </a>
         </div>
 
         {{-- Grafik Bulanan Berdasarkan Tahun Terpilih --}}
@@ -54,7 +57,10 @@
                 </select>
             </form>
             <canvas class="mb-5" id="monthlyChart"></canvas>
-            <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR rounded-xl text-white" href="">Download Report</a>
+            <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR mt-3 rounded-xl text-white" 
+            href="{{ route('statistik.download', ['type' => 'monthly', 'year' => $selectedYear]) }}" target="_blank">
+                Download Report
+            </a>
         </div>
 
         {{-- Grafik Item Bulanan --}}
@@ -103,7 +109,10 @@
                 </tbody>
             </table>
         
-            <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR rounded-xl text-white" href="#">Download Report</a>
+            <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR rounded-xl text-white" 
+            href="{{ route('statistik.download', ['type' => 'items', 'year' => $selectedYear, 'kategori' => $selectedCategory]) }}" target="_blank">
+                Download Report
+            </a> 
         </div>
         
     </div>

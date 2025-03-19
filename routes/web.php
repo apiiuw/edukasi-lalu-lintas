@@ -147,6 +147,7 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
         return view('admin.pages.statistik.index', ['title' => 'Admin Statistik | Edulantas']);
     });
     Route::get('/admin-statistik', [AdminStatistikController::class, 'index'])->name('admin.statistik');
+    Route::get('/admin/statistik/download', [AdminStatistikController::class, 'download'])->name('statistik.download');
     
     Route::get('/admin-item', function () {
         return view('admin.pages.item.index', ['title' => 'Admin Item | Edulantas']);
