@@ -147,6 +147,46 @@ class AdminStatistikController extends Controller
                 ->setPaper('a4', 'portrait');
             return $pdf->download("Laporan-Item-Tahun-$year-Kategori-$kategori.pdf");
         }
+
+        elseif ($type === 'all') {
+            $currentYear = date('Y');
+            $years = range($currentYear - 4, $currentYear);
+        
+            // Data multiyear
+            $multiYearMonthlyStats = [];
+            foreach ($years as $y) {
+                $dataBulanan = Visitor::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+                    ->whereYear('created_at', $y)
+                    ->groupBy('month')
+                    ->pluck('total', 'month')
+                    ->toArray();
+                $multiYearMonthlyStats[$y] = $dataBulanan;
+            }
+        
+            // Data monthly
+            $year = $request->year ?? $currentYear;
+            $monthlyStats = Visitor::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+                ->whereYear('created_at', $year)
+                ->groupBy('month')
+                ->pluck('total', 'month')
+                ->toArray();
+        
+            // Data items
+            $kategori = $request->kategori ?? 'Semua';
+            $itemQuery = Visitor::select('item_id', 'item_judul', 'item_kategori', DB::raw('COUNT(*) as jumlah_pengunjung'))
+                ->whereYear('created_at', $year)
+                ->groupBy('item_id', 'item_judul', 'item_kategori');
+            if ($kategori != 'Semua') {
+                $itemQuery->where('item_kategori', $kategori);
+            }
+            $pengunjungItems = $itemQuery->orderByDesc('jumlah_pengunjung')->get();
+        
+            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-keseluruhan', compact(
+                'multiYearMonthlyStats', 'years', 'monthlyStats', 'year', 'pengunjungItems', 'kategori'
+            ))->setPaper('a4', 'portrait');
+        
+            return $pdf->download('Laporan-Keseluruhan.pdf');
+        }         
     
         return back();
     }    

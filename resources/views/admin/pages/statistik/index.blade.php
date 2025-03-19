@@ -114,6 +114,13 @@
                 Download Report
             </a> 
         </div>
+
+        <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR mt-3 rounded-xl text-white" 
+            href="{{ route('statistik.download', ['type' => 'all', 'year' => $selectedYear, 'kategori' => $selectedCategory]) }}" 
+            target="_blank">
+            Download Report Keseluruhan
+        </a>
+     
         
     </div>
 </div>
