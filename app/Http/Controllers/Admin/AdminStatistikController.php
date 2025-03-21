@@ -105,9 +105,10 @@ class AdminStatistikController extends Controller
     
         if ($type === 'multiyear') {
             $currentYear = date('Y');
+            $startYear = $currentYear - 4;
             $years = range($currentYear - 4, $currentYear);
             $multiYearMonthlyStats = [];
-    
+        
             foreach ($years as $y) {
                 $dataBulanan = Visitor::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
                     ->whereYear('created_at', $y)
@@ -116,10 +117,36 @@ class AdminStatistikController extends Controller
                     ->toArray();
                 $multiYearMonthlyStats[$y] = $dataBulanan;
             }
-    
-            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-multiyear', compact('multiYearMonthlyStats', 'years'))
+
+            function bulanIndo($bulan)
+            {
+                $bulanIndo = [
+                    '01' => 'Januari',
+                    '02' => 'Februari',
+                    '03' => 'Maret',
+                    '04' => 'April',
+                    '05' => 'Mei',
+                    '06' => 'Juni',
+                    '07' => 'Juli',
+                    '08' => 'Agustus',
+                    '09' => 'September',
+                    '10' => 'Oktober',
+                    '11' => 'November',
+                    '12' => 'Desember',
+                ];
+                return $bulanIndo[$bulan];
+            }
+        
+            // Buat format tanggal sesuai permintaan
+            $tanggal = date('d') . ' ' . bulanIndo(date('m')) . ' ' . date('Y');
+
+            // Variabel periode dalam format "2021 s/d 2025"
+            $periode = "$startYear s/d $currentYear";
+        
+            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-multiyear', compact('multiYearMonthlyStats', 'years', 'tanggal', 'periode'))
                 ->setPaper('a4', 'portrait');
-            return $pdf->download('Laporan-Perbandingan-5-Tahun.pdf');
+        
+            return $pdf->download("Laporan-Perbandingan-5-Tahun_{$tanggal}.pdf");        
     
         } elseif ($type === 'monthly') {
             $monthlyStats = Visitor::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
@@ -127,10 +154,32 @@ class AdminStatistikController extends Controller
                 ->groupBy('month')
                 ->pluck('total', 'month')
                 ->toArray();
+            
+            function bulanIndo($bulan)
+            {
+                $bulanIndo = [
+                    '01' => 'Januari',
+                    '02' => 'Februari',
+                    '03' => 'Maret',
+                    '04' => 'April',
+                    '05' => 'Mei',
+                    '06' => 'Juni',
+                    '07' => 'Juli',
+                    '08' => 'Agustus',
+                    '09' => 'September',
+                    '10' => 'Oktober',
+                    '11' => 'November',
+                    '12' => 'Desember',
+                ];
+                return $bulanIndo[$bulan];
+            }
+        
+            // Buat format tanggal sesuai permintaan
+            $tanggal = date('d') . ' ' . bulanIndo(date('m')) . ' ' . date('Y');
     
-            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-monthly', compact('monthlyStats', 'year'))
+            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-monthly', compact('monthlyStats', 'year', 'tanggal'))
                 ->setPaper('a4', 'portrait');
-            return $pdf->download("Laporan-Pengunjung-Tahun-$year.pdf");
+            return $pdf->download("Laporan-Pengunjung-Tahun-{$year}_{$tanggal}.pdf");
     
         } elseif ($type === 'items') {
             $itemQuery = Visitor::select('item_id', 'item_judul', 'item_kategori', DB::raw('COUNT(*) as jumlah_pengunjung'))
@@ -140,19 +189,49 @@ class AdminStatistikController extends Controller
             if ($kategori != 'Semua') {
                 $itemQuery->where('item_kategori', $kategori);
             }
+
+            function bulanIndo($bulan)
+            {
+                $bulanIndo = [
+                    '01' => 'Januari',
+                    '02' => 'Februari',
+                    '03' => 'Maret',
+                    '04' => 'April',
+                    '05' => 'Mei',
+                    '06' => 'Juni',
+                    '07' => 'Juli',
+                    '08' => 'Agustus',
+                    '09' => 'September',
+                    '10' => 'Oktober',
+                    '11' => 'November',
+                    '12' => 'Desember',
+                ];
+                return $bulanIndo[$bulan];
+            }
+        
+            // Buat format tanggal sesuai permintaan
+            $tanggal = date('d') . ' ' . bulanIndo(date('m')) . ' ' . date('Y');
     
             $pengunjungItems = $itemQuery->orderByDesc('jumlah_pengunjung')->get();
+
+            $kategoriDisplay = 'Elektronik Buku dan Video Edukasi';
+            if ($kategori === 'book') {
+                $kategoriDisplay = 'Elektronik Buku';
+            } elseif ($kategori === 'video') {
+                $kategoriDisplay = 'Video Edukasi';
+            }
     
-            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-items', compact('pengunjungItems', 'year', 'kategori'))
+            $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-items', compact('pengunjungItems', 'year', 'kategori', 'tanggal', 'kategoriDisplay'))
                 ->setPaper('a4', 'portrait');
-            return $pdf->download("Laporan-Item-Tahun-$year-Kategori-$kategori.pdf");
+            return $pdf->download("Laporan-Item-Tahun-{$year}-Kategori-{$kategori}_{$tanggal}.pdf");
         }
 
         elseif ($type === 'all') {
             $currentYear = date('Y');
-            $years = range($currentYear - 4, $currentYear);
+            $startYear = $currentYear - 4;
+            $years = range($startYear, $currentYear);
         
-            // Data multiyear
+            // Data multi-year
             $multiYearMonthlyStats = [];
             foreach ($years as $y) {
                 $dataBulanan = Visitor::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
@@ -173,20 +252,52 @@ class AdminStatistikController extends Controller
         
             // Data items
             $kategori = $request->kategori ?? 'Semua';
+
             $itemQuery = Visitor::select('item_id', 'item_judul', 'item_kategori', DB::raw('COUNT(*) as jumlah_pengunjung'))
                 ->whereYear('created_at', $year)
+                ->whereNotNull('item_id')
+                ->whereNotNull('item_judul')
+                ->whereNotNull('item_kategori')
+                ->where('item_id', '!=', '')
+                ->where('item_judul', '!=', '')
+                ->where('item_kategori', '!=', '')
                 ->groupBy('item_id', 'item_judul', 'item_kategori');
+
             if ($kategori != 'Semua') {
                 $itemQuery->where('item_kategori', $kategori);
             }
-            $pengunjungItems = $itemQuery->orderByDesc('jumlah_pengunjung')->get();
+
+            $pengunjungItems = $itemQuery->get();
+
+        
+            // Fungsi bulanIndo
+            function bulanIndo($bulan)
+            {
+                $bulanIndo = [
+                    '01' => 'Januari', '02' => 'Februari', '03' => 'Maret', '04' => 'April', '05' => 'Mei', '06' => 'Juni',
+                    '07' => 'Juli', '08' => 'Agustus', '09' => 'September', '10' => 'Oktober', '11' => 'November', '12' => 'Desember',
+                ];
+                return $bulanIndo[str_pad($bulan, 2, '0', STR_PAD_LEFT)];
+            }
+        
+            // Tanggal dan periode
+            $tanggal = date('d') . ' ' . bulanIndo(date('m')) . ' ' . date('Y');
+            $periode = "$startYear s/d $currentYear";
+        
+            // Kategori display
+            $kategoriDisplay = 'Elektronik Buku dan Video Edukasi';
+            if ($kategori === 'book') {
+                $kategoriDisplay = 'Elektronik Buku';
+            } elseif ($kategori === 'video') {
+                $kategoriDisplay = 'Video Edukasi';
+            }
         
             $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-keseluruhan', compact(
-                'multiYearMonthlyStats', 'years', 'monthlyStats', 'year', 'pengunjungItems', 'kategori'
+                'multiYearMonthlyStats', 'years', 'monthlyStats', 'year', 'pengunjungItems', 'kategori', 'kategoriDisplay', 'tanggal', 'periode'
             ))->setPaper('a4', 'portrait');
         
-            return $pdf->download('Laporan-Keseluruhan.pdf');
-        }         
+            return $pdf->download("Laporan-Keseluruhan_{$tanggal}.pdf");
+        }        
     
         return back();
     }    

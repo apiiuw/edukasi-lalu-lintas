@@ -1,42 +1,94 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Keseluruhan</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Statistik Pengunjung</title>
     <style>
-        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-        td, th { border: 1px solid #000; padding: 5px; }
-        th { background-color: #eee; }
-        h2, h3 { text-align: center; margin-top: 40px; }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        header h2, header h3, header h4, header p {
+            margin: 5px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        .section-title {
+            margin-top: 40px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .footer {
+            margin-top: 20px;
+        }
+        .page-break {
+            page-break-after: always;
+        }
     </style>
 </head>
 <body>
-    <h2>Laporan Statistik Pengunjung Keseluruhan</h2>
+    <header>
+        <h4>PT. JASA RAHARJA</h4>
+        <h4>KANTOR WILAYAH UTAMA DKI JAKARTA</h4>
+        <h3>PLATFORM WEBSITE EDUKASI LALU LINTAS</h3>
+        <p>Jl. Jatinegara Timur No.123, RT.1/RW.2, Bali Mester, Kecamatan Jatinegara,<br>Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13310.</p>
+    </header>
 
-    {{-- Multiyear Report --}}
-    <h3>Perbandingan 5 Tahun Terakhir</h3>
-    @foreach($multiYearMonthlyStats as $y => $dataBulanan)
-        <h4>Tahun {{ $y }}</h4>
-        <table>
-            <thead>
+    <p style="text-align: right;">{{ $tanggal }}</p>
+    <p>Lampiran: 3</p>
+    <p>Hal: Laporan Statistik Pengunjung Keseluruhan</p>
+
+    <p>
+        Kepada<br>
+        Yth. Admin Edukasi Lalu Lintas
+    </p>
+
+    <p style="text-align: justify;">
+        Bersama surat ini kami sampaikan <strong>Laporan Statistik Pengunjung Platform Edukasi Lalu Lintas PT Jasa Raharja Kantor Wilayah Utama DKI Jakarta</strong>.
+    </p>
+
+    <p class="section-title">I. Statistik Pengunjung 5 Tahun Terakhir</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Bulan / Tahun</th>
+                @foreach ($years as $y)
+                    <th>{{ $y }}</th>
+                @endforeach
+            </tr>
+        </thead>
+        <tbody>
+            @for ($bulan = 1; $bulan <= 12; $bulan++)
                 <tr>
-                    <th>Bulan</th>
-                    <th>Jumlah Pengunjung</th>
+                    <td style="text-align: left;">
+                        {{ \Carbon\Carbon::create()->month($bulan)->locale('id')->isoFormat('MMMM') }}
+                    </td>
+                    @foreach ($years as $y)
+                        <td>{{ $multiYearMonthlyStats[$y][$bulan] ?? 0 }}</td>
+                    @endforeach
                 </tr>
-            </thead>
-            <tbody>
-                @for($m = 1; $m <= 12; $m++)
-                    <tr>
-                        <td>{{ DateTime::createFromFormat('!m', $m)->format('F') }}</td>
-                        <td>{{ $dataBulanan[$m] ?? 0 }}</td>
-                    </tr>
-                @endfor
-            </tbody>
-        </table>
-    @endforeach
+            @endfor
+        </tbody>
+    </table>
 
-    {{-- Monthly Report --}}
-    <h3>Laporan Bulanan Tahun {{ $year }}</h3>
+    <p class="section-title">II. Statistik Pengunjung Tahun {{ $year }}</p>
     <table>
         <thead>
             <tr>
@@ -45,17 +97,18 @@
             </tr>
         </thead>
         <tbody>
-            @for($m = 1; $m <= 12; $m++)
+            @for ($bulan = 1; $bulan <= 12; $bulan++)
                 <tr>
-                    <td>{{ DateTime::createFromFormat('!m', $m)->format('F') }}</td>
-                    <td>{{ $monthlyStats[$m] ?? 0 }}</td>
+                    <td style="text-align: left;">
+                        {{ \Carbon\Carbon::create()->month($bulan)->locale('id')->isoFormat('MMMM') }}
+                    </td>
+                    <td>{{ $monthlyStats[$bulan] ?? 0 }}</td>
                 </tr>
             @endfor
         </tbody>
     </table>
 
-    {{-- Item Report --}}
-    <h3>Laporan Pengunjung Berdasarkan Item Tahun {{ $year }} (Kategori: {{ $kategori }})</h3>
+    <p class="section-title">III. Statistik Pengunjung Item Tahun {{ $year }} Kategori: {{ $kategoriDisplay }}</p>
     <table>
         <thead>
             <tr>
@@ -66,13 +119,7 @@
             </tr>
         </thead>
         <tbody>
-            @php
-                $filteredItems = $pengunjungItems->filter(function ($item) {
-                    return in_array($item->item_kategori, ['book', 'video']);
-                });
-            @endphp
-            
-            @foreach($filteredItems as $i => $item)
+            @foreach($pengunjungItems as $i => $item)
                 <tr>
                     <td>{{ $i + 1 }}</td>
                     <td>{{ $item->item_judul }}</td>
@@ -87,8 +134,19 @@
                     </td>
                     <td>{{ $item->jumlah_pengunjung }}</td>
                 </tr>
-            @endforeach      
+            @endforeach
         </tbody>
     </table>
+
+    <p style="text-align: justify;">
+        Demikian laporan statistik pengunjung platform Edukasi Lalu Lintas PT Jasa Raharja Kantor Wilayah Utama DKI Jakarta. Semoga laporan ini bermanfaat untuk penyusunan strategi pengembangan platform ke depan.
+    </p>
+
+    <div class="footer">
+        <p>
+            Hormat kami, <br>
+            IT Developer Platform Website Edukasi Lalu Lintas
+        </p>
+    </div>
 </body>
 </html>

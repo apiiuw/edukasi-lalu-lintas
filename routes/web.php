@@ -191,3 +191,9 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     Route::post('/admin/forum-diskusi/{id}', [AdminForumDiskusiController::class, 'update']);
 
 });
+
+// Test PDF
+
+Route::get('/test-pdf-5-tahun', function() {
+    return view('admin.pages.statistik.pdf-files.pdf-multiyear');
+});
