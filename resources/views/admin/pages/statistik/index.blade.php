@@ -33,15 +33,24 @@
                 }, 5000);
             </script>
         @endif
-    
 
+        <div class="fixed bottom-4 right-4">
+            <a href="{{ route('statistik.download', ['type' => 'all', 'year' => $selectedYear, 'kategori' => $selectedCategory]) }}" 
+                target="_blank" class="cursor-pointer group relative flex gap-1.5 px-8 py-4 bg-blueJR hover:bg-blueDarkJR bg-opacity-60 text-[#f1f1f1] rounded-3xl hover:bg-opacity-100 transition font-semibold shadow-md">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" height="24px" width="24px">
+                    <path stroke-linejoin="round" stroke-linecap="round" stroke-width="2" stroke="#f1f1f1" d="M6 21H18M12 3V17M12 17L17 12M12 17L7 12"></path>
+                </svg>
+                Unduh Keseluruhan Laporan
+            </a>
+        </div>
+    
         {{-- Grafik Multi-Line Bulanan 5 Tahun Terakhir --}}
         <div class="flex flex-col justify-center items-center bg-white p-4 rounded shadow mb-8">
             <h2 class="text-sm lg:text-lg font-semibold mb-2">Pengunjung 5 Tahun Terakhir</h2>
             <canvas id="multiLineChart"></canvas>
             <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR mt-3 rounded-xl text-white" 
                 href="{{ route('statistik.download', ['type' => 'multiyear']) }}" target="_blank">
-                Download Report
+                Unduh Laporan
             </a>
         </div>
 
@@ -59,7 +68,7 @@
             <canvas class="mb-5" id="monthlyChart"></canvas>
             <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR mt-3 rounded-xl text-white" 
             href="{{ route('statistik.download', ['type' => 'monthly', 'year' => $selectedYear]) }}" target="_blank">
-                Download Report
+                Unduh Laporan
             </a>
         </div>
 
@@ -111,16 +120,9 @@
         
             <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR rounded-xl text-white" 
             href="{{ route('statistik.download', ['type' => 'items', 'year' => $selectedYear, 'kategori' => $selectedCategory]) }}" target="_blank">
-                Download Report
+                Unduh Laporan
             </a> 
         </div>
-
-        <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR mt-3 rounded-xl text-white" 
-            href="{{ route('statistik.download', ['type' => 'all', 'year' => $selectedYear, 'kategori' => $selectedCategory]) }}" 
-            target="_blank">
-            Download Report Keseluruhan
-        </a>
-     
         
     </div>
 </div>

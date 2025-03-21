@@ -94,8 +94,8 @@
             </div>
             <div class="grid grid-cols-2 gap-2">
                 <span>Jawaban</span>
-                <textarea id="popupJawaban" class="w-full border rounded p-1" rows="3"></textarea>
             </div>
+            <textarea id="popupJawaban" class="w-full border rounded p-1" rows="3"></textarea>
         </div>
         <div id="popupButtons" class="flex justify-center gap-2 mt-7">
             <!-- Tombol-tombol akan di-generate lewat JS -->

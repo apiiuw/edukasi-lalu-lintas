@@ -18,9 +18,9 @@
                 <div class="bg-white shadow-md rounded-b-lg p-4 w-full border-b border-l border-r border-black">
                     <div class="p-4 text-sm text-gray-700">
                         <p>
-                            Buku ini merupakan bagian dari kurikulum yang bertujuan meningkatkan kesadaran berlalu lintas bagi peserta didik.
+                            {{ $item->deskripsi }}
                         </p>
-                        <p class="mt-2"><strong>Kata Kunci:</strong> Pendidikan lalu lintas, Kurikulum Merdeka</p>
+                        <p class="mt-2"><strong>Kata Kunci:</strong> {{ $item->kata_kunci }}</p>
                     </div>
                 </div>
             </div>
@@ -30,15 +30,15 @@
                 <a href="{{ Storage::url($item->pdf) }}" target="_blank" class="bg-blueJR text-white px-6 py-2 rounded-lg flex items-center gap-2">
                     <span><i class="fa-solid fa-eye"></i></span> Lihat Detail
                 </a>
-                <a href="{{ Storage::url($item->pdf) }}" download class="bg-blueJR text-white px-6 py-2 rounded-lg flex items-center gap-2">
-                    <span><i class="fa-regular fa-circle-down"></i></span> Download
-                </a>
+                <a href="{{ Storage::url($item->pdf) }}" download="Edulantas_Buku {{ $item->judul }}.pdf" class="bg-blueJR text-white px-6 py-2 rounded-lg flex items-center gap-2">
+                    <span><i class="fa-regular fa-circle-down"></i></span> Unduh Buku
+                </a>                
             </div>
 
             <!-- Cover Image -->
             <div class="mt-6 w-full lg:w-4/12 px-2">
                 <!-- Jika file adalah PDF, tampilkan dalam iframe -->
-                <iframe src="{{ Storage::url($item->pdf) }}" class="w-full h-[400px] lg:h-[650px] rounded-md shadow-lg"></iframe>
+                <iframe src="{{ Storage::url($item->pdf) }}#zoom=page-width&page=1" class="w-full h-[400px] lg:h-[650px] rounded-md shadow-lg"></iframe>
             </div>
 
             @endif
@@ -52,15 +52,15 @@
                 </div>
                 <div class="bg-white shadow-md rounded-b-lg p-4 w-full border-b border-l border-r border-black">
                     <div class="p-4 text-sm text-gray-700">
-                        <p>Kecelakaan lalu lintas adalah penyebab kematian terbesar kedua di dunia. Video ini memberikan edukasi untuk meningkatkan kesadaran masyarakat.</p>
-                        <p class="mt-2"><strong>Kata Kunci:</strong> Keselamatan berlalu lintas, Edukasi</p>
+                        <p>{{ $item->deskripsi }}</p>
+                        <p class="mt-2"><strong>Kata Kunci:</strong> {{ $item->kata_kunci }}</p>
                     </div>
                 </div>
             </div>
 
             <!-- Buttons -->
             <div class="flex gap-4 mt-4">
-                <a href="https://youtu.be/Yo18MupGsa8?si=oIiWRsfTIXhKgQn6" target="_blank" class="bg-red-500 text-white px-6 py-2 rounded-lg flex items-center gap-2">
+                <a href="{{ $item->youtube_url }}" target="_blank" class="bg-red-500 text-white px-6 py-2 rounded-lg flex items-center gap-2">
                     <span><i class="fa-solid fa-eye"></i></span> Tonton di Youtube
                 </a>
             </div>

@@ -136,6 +136,8 @@ class AdminStatistikController extends Controller
                 ];
                 return $bulanIndo[$bulan];
             }
+
+            date_default_timezone_set('Asia/Jakarta');
         
             // Buat format tanggal sesuai permintaan
             $tanggal = date('d') . ' ' . bulanIndo(date('m')) . ' ' . date('Y');
@@ -146,7 +148,7 @@ class AdminStatistikController extends Controller
             $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-multiyear', compact('multiYearMonthlyStats', 'years', 'tanggal', 'periode'))
                 ->setPaper('a4', 'portrait');
         
-            return $pdf->download("Laporan-Perbandingan-5-Tahun_{$tanggal}.pdf");        
+            return $pdf->download("Laporan Edulantas Perbandingan 5 Tahun Terakhir_{$tanggal}.pdf");        
     
         } elseif ($type === 'monthly') {
             $monthlyStats = Visitor::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
@@ -173,13 +175,15 @@ class AdminStatistikController extends Controller
                 ];
                 return $bulanIndo[$bulan];
             }
+
+            date_default_timezone_set('Asia/Jakarta');
         
             // Buat format tanggal sesuai permintaan
             $tanggal = date('d') . ' ' . bulanIndo(date('m')) . ' ' . date('Y');
     
             $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-monthly', compact('monthlyStats', 'year', 'tanggal'))
                 ->setPaper('a4', 'portrait');
-            return $pdf->download("Laporan-Pengunjung-Tahun-{$year}_{$tanggal}.pdf");
+            return $pdf->download("Laporan Edulantas Pengunjung Tahun {$year}_{$tanggal}.pdf");
     
         } elseif ($type === 'items') {
             $itemQuery = Visitor::select('item_id', 'item_judul', 'item_kategori', DB::raw('COUNT(*) as jumlah_pengunjung'))
@@ -208,6 +212,8 @@ class AdminStatistikController extends Controller
                 ];
                 return $bulanIndo[$bulan];
             }
+
+            date_default_timezone_set('Asia/Jakarta');
         
             // Buat format tanggal sesuai permintaan
             $tanggal = date('d') . ' ' . bulanIndo(date('m')) . ' ' . date('Y');
@@ -223,7 +229,7 @@ class AdminStatistikController extends Controller
     
             $pdf = Pdf::loadView('admin.pages.statistik.pdf-files.pdf-items', compact('pengunjungItems', 'year', 'kategori', 'tanggal', 'kategoriDisplay'))
                 ->setPaper('a4', 'portrait');
-            return $pdf->download("Laporan-Item-Tahun-{$year}-Kategori-{$kategori}_{$tanggal}.pdf");
+            return $pdf->download("Laporan Edulantas Item Tahun {$year} Kategori {$kategori}_{$tanggal}.pdf");
         }
 
         elseif ($type === 'all') {
@@ -279,6 +285,8 @@ class AdminStatistikController extends Controller
                 ];
                 return $bulanIndo[str_pad($bulan, 2, '0', STR_PAD_LEFT)];
             }
+
+            date_default_timezone_set('Asia/Jakarta');
         
             // Tanggal dan periode
             $tanggal = date('d') . ' ' . bulanIndo(date('m')) . ' ' . date('Y');
@@ -296,7 +304,7 @@ class AdminStatistikController extends Controller
                 'multiYearMonthlyStats', 'years', 'monthlyStats', 'year', 'pengunjungItems', 'kategori', 'kategoriDisplay', 'tanggal', 'periode'
             ))->setPaper('a4', 'portrait');
         
-            return $pdf->download("Laporan-Keseluruhan_{$tanggal}.pdf");
+            return $pdf->download("Laporan Edulantas Keseluruhan_{$tanggal}.pdf");
         }        
     
         return back();
