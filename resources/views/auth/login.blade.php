@@ -78,6 +78,12 @@
                 </a>
             </div>
 
+            <div class="text-left mt-3 px-3 w-full">
+                <a href="{{ route('password.request') }}" class="text-blueJR text-xs hover:underline">
+                    Lupa Password?
+                </a>
+            </div>            
+
             <p class="mt-4 text-sm text-center text-gray-600">Belum memiliki akun? <br>
                 <a href="/sign-up" class="text-blueJR underline text-xs font-semibold">Buat akun di sini</a>
             </p>

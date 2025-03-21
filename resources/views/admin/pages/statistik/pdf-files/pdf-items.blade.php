@@ -34,7 +34,7 @@
     </style>
 </head>
 <body>
-    <header >
+    <header>
         <h4>PT. JASA RAHARJA</h4>
         <h4>KANTOR WILAYAH UTAMA DKI JAKARTA</h4>
         <h3>PLATFORM WEBSITE EDUKASI LALU LINTAS</h3>
@@ -42,8 +42,10 @@
     </header>
 
     <p style=" text-align: right;">{{ $tanggal }}</p>
-    <p>Lampiran: 1</p>
-    <p>Hal: Laporan Pengunjung Item Tahun {{ $year }} Kategori: {{ $kategoriDisplay }}</p>
+    <p>
+        Lampiran: 1 <br>
+        Hal: Laporan Pengunjung Item Tahun {{ $year }} Kategori: {{ $kategoriDisplay }}
+    </p>
 
     <p>
         Kepada<br>

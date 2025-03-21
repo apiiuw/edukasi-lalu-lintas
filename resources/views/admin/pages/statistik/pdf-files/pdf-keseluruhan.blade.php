@@ -52,8 +52,10 @@
     </header>
 
     <p style="text-align: right;">{{ $tanggal }}</p>
-    <p>Lampiran: 3</p>
-    <p>Hal: Laporan Statistik Pengunjung Keseluruhan</p>
+    <p>
+        Lampiran: 3 <br>
+        Hal: Laporan Statistik Pengunjung Keseluruhan
+    </p>
 
     <p>
         Kepada<br>

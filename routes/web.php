@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Request;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 use App\Http\Controllers\Admin\AdminStatistikController;
 use App\Http\Controllers\Admin\AdminItemController;
@@ -73,6 +75,11 @@ Route::get('/sign-up-google', [GoogleAuthController::class, 'showGoogleSignUp'])
 Route::post('/sign-up-google', [GoogleAuthController::class, 'completeGoogleSignUp'])->name('sign-up-google.process');
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectToGoogle']);
 Route::get('/auth/google/callback', [GoogleAuthController::class, 'handleGoogleCallback']);
+
+Route::get('forgot-password', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('forgot-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('reset-password/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 
 

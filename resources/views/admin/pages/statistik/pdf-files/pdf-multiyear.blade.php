@@ -44,7 +44,7 @@
     <p style=" text-align: right;">{{ $tanggal }}</p>
     <p>
         Lampiran: 1 <br>
-        Hal: Hal: Laporan Statistik Pengunjung Platform 5 Tahun Terakhir
+        Hal: Laporan Statistik Pengunjung Platform 5 Tahun Terakhir
     </p>
 
     <p>
