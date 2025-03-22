@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\RequestItem;
 use Illuminate\Http\Request;
+use App\Mail\RequestItemStatusMail;
+use Illuminate\Support\Facades\Mail;
 
 class AdminRequestItemController extends Controller
 {
@@ -40,6 +42,9 @@ class AdminRequestItemController extends Controller
         $item->status = $request->status;
         $item->save();
     
+        // Kirim email setelah update
+        Mail::to($item->email_pengirim)->send(new RequestItemStatusMail($item->pengirim, $item->judul, $item->status));
+    
         return response()->json(['success' => true]);
-    }    
+    }
 }
