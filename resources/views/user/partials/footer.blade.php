@@ -24,7 +24,7 @@
                                 Alamat Kantor
                             </p>
                             </div>
-                            <a href="#" class="text-xs hover:underline">Jl. Jatinegara Timur No.123, RT.1/RW.2, Bali Mester, Kecamatan Jatinegara, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13310.</a>
+                            <a href="https://maps.app.goo.gl/ppvfeNSHD9Cn2bpW9" class="text-xs hover:underline">Jl. Jatinegara Timur No.123, RT.1/RW.2, Bali Mester, Kecamatan Jatinegara, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13310.</a>
                         </li>
                         <li>
                             <div class="flex flex-row items-center mb-2">
@@ -33,7 +33,7 @@
                                 Nomor Telepon
                             </p>
                             </div>
-                            <a href="#" class="text-xs hover:underline">(021) 21012904</a>
+                            <a href="tel:+622121012904" class="text-xs hover:underline">(021) 21012904</a>
                         </li>
                   </ul>
               </div>

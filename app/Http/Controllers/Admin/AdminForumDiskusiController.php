@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ForumDiskusi;
+use App\Mail\ForumStatusUpdateMail;
+use Illuminate\Support\Facades\Mail;
 
 class AdminForumDiskusiController extends Controller
 {
@@ -41,13 +43,17 @@ class AdminForumDiskusiController extends Controller
             $forum->status = 'Berhasil Dikirim';
         } elseif ($action === 'tolak_pertanyaan') {
             $forum->status = 'Ditolak';
-            // Hapus isi balasan_admin jika sebelumnya sudah ada
             $forum->balasan_admin = null;
         } elseif ($action === 'diproses') {
             $forum->status = 'Diproses';
         }
     
         $forum->save();
+    
+        // Kirim email notifikasi setelah update status
+        if ($forum->email_pengirim) {
+            Mail::to($forum->email_pengirim)->send(new ForumStatusUpdateMail($forum));
+        }
     
         return response()->json(['message' => 'Data berhasil diperbarui']);
     }

@@ -93,10 +93,17 @@
         </div>      
 
         <div id="dropdownHubungi" class="hidden absolute left-auto right-72 top-12 mt-1 w-48 bg-white border border-gray-200 shadow-lg rounded-lg py-2">
-          <a href="/kontak" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-            <i class="fa-solid fa-xl fa-phone-volume mr-2"></i>
+          <a href="https://maps.app.goo.gl/ppvfeNSHD9Cn2bpW9" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <i class="fa-solid lg:fa-xl fa-building-columns mr-2"></i>
             <div class="flex flex-col">
-              <p class="text-sm">Nomor Telepon</p>
+              <p class="text-sm font-semibold">Alamat Kantor</p>
+              <p class="text-sm">Jl. Jatinegara Timur No.123, RT.1/RW.2, Bali Mester, Kecamatan Jatinegara, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13310.</p>
+            </div>
+          </a>
+          <a href="tel:+622121012904" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+            <i class="fa-solid lg:fa-xl fa-phone-volume mr-2"></i>
+            <div class="flex flex-col">
+              <p class="text-sm font-semibold">Nomor Telepon</p>
               <p class="text-sm">(021) 21012904</p>
             </div>
           </a>
@@ -104,10 +111,17 @@
 
         <div id="mobileDropdownHubungi" class="hs-collapse mt-3 hidden absolute top-full left-0 w-full bg-white/60 backdrop-blur-sm text-center shadow-lg py-2 lg:hidden">
           <div class="relative z-10">
-            <a href="/kontak" class="flex items-center justify-center px-4 py-2 text-black hover:bg-gray-100">
+            <a href="tel:+622121012904" class="flex items-center justify-center px-4 py-2 text-black/100 hover:bg-gray-100">
+              <i class="fa-solid lg:fa-xl fa-building-columns mr-2"></i>
+              <div class="flex flex-col text-sm">
+                <p class="font-semibold">Alamat Kantor</p>
+                <p>Jl. Jatinegara Timur No.123, RT.1/RW.2, Bali Mester, Kecamatan Jatinegara, Kota Jakarta Timur, Daerah Khusus Ibukota Jakarta 13310.</p>
+              </div>
+            </a>
+            <a href="tel:+622121012904" class="flex items-center justify-center px-4 py-2 text-black hover:bg-gray-100">
               <i class="fa-solid lg:fa-xl fa-phone-volume mr-2"></i>
               <div class="flex flex-col text-sm">
-                <p>Nomor Telepon</p>
+                <p class="font-semibold">Nomor Telepon</p>
                 <p>(021) 21012904</p>
               </div>
             </a>
@@ -157,7 +171,7 @@
     if (window.scrollY > 50) {
       navbar.classList.add("bg-white/60", "backdrop-blur-sm");
       desktopDropdown.classList.add("bg-white/80", "backdrop-blur-sm");
-      mobileDropdown.classList.add("bg-white/60", "backdrop-blur-sm");
+      mobileDropdown.classList.add("bg-white/80", "backdrop-blur-sm");
       dropdownUser.classList.add("bg-white/80", "backdrop-blur-sm");
       navbar.classList.remove("bg-white");
       desktopDropdown.classList.remove("bg-white");
@@ -166,7 +180,7 @@
     } else {
       navbar.classList.remove("bg-white/60", "backdrop-blur-sm");
       desktopDropdown.classList.remove("bg-white/80", "backdrop-blur-sm");
-      mobileDropdown.classList.remove("bg-white/60", "backdrop-blur-sm");
+      mobileDropdown.classList.remove("bg-white/80", "backdrop-blur-sm");
       dropdownUser.classList.remove("bg-white/80", "backdrop-blur-sm");
       navbar.classList.add("bg-white");
       desktopDropdown.classList.add("bg-white");
