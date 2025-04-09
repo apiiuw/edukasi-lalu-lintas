@@ -66,8 +66,8 @@ class AdminStatistikController extends Controller
             $itemQuery->where('item_kategori', $selectedCategory);
         }
         
-        // Ambil data
-        $pengunjungItems = $itemQuery->orderByDesc('jumlah_pengunjung')->get();
+        // Ambil data dengan pagination
+        $pengunjungItems = $itemQuery->orderByDesc('jumlah_pengunjung')->paginate(10);
         
         // Mapping kategori
         $kategoriMap = [
@@ -75,11 +75,11 @@ class AdminStatistikController extends Controller
             'book' => 'Elektronik Buku',
         ];
         
-        $pengunjungItems = $pengunjungItems->map(function ($item) use ($kategoriMap) {
+        $pengunjungItems->getCollection()->transform(function ($item) use ($kategoriMap) {
             $item->kategori_nama = $kategoriMap[$item->item_kategori] ?? 'Lainnya';
             return $item;
         });
-        
+    
         $successMessage = null;
         if ($request->has('year')) {
             $successMessage = 'Tahun ' . $selectedYear . ' berhasil dipilih!';
@@ -95,7 +95,7 @@ class AdminStatistikController extends Controller
             'pengunjungItems',
             'selectedCategory'
         ))->with('title', 'Admin Statistik Kunjungan | Edulantas');
-    }
+    }    
 
     public function download(Request $request)
     {

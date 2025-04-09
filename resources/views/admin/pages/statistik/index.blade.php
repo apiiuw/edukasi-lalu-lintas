@@ -117,6 +117,27 @@
                     @endforelse
                 </tbody>
             </table>
+
+            <!-- Pagination -->
+            <div class="mb-6 text-xs lg:text-sm flex justify-center items-center space-x-2">
+                @if ($pengunjungItems->currentPage() > 1)
+                    <a href="{{ $pengunjungItems->previousPageUrl() }}" class="border border-black px-4 py-2 rounded-lg text-gray-500 bg-white">Sebelumnya</a>
+                @else
+                    <span class="border border-black px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Sebelumnya</span>
+                @endif
+
+                @for ($i = 1; $i <= $pengunjungItems->lastPage(); $i++)
+                    <a href="{{ $pengunjungItems->url($i) }}" class="border px-4 py-2 rounded-lg border-black {{ $pengunjungItems->currentPage() == $i ? 'bg-gray-200' : 'bg-white' }}">
+                        {{ $i }}
+                    </a>
+                @endfor
+
+                @if ($pengunjungItems->hasMorePages())
+                    <a href="{{ $pengunjungItems->nextPageUrl() }}" class="border border-black px-4 py-2 rounded-lg bg-blueJR text-white">Selanjutnya</a>
+                @else
+                    <span class="border border-black px-4 py-2 rounded-lg text-gray-300 bg-white cursor-not-allowed">Selanjutnya</span>
+                @endif
+            </div>
         
             <a class="py-2 px-3 bg-blueJR hover:bg-blueDarkJR rounded-xl text-white" 
             href="{{ route('statistik.download', ['type' => 'items', 'year' => $selectedYear, 'kategori' => $selectedCategory]) }}" target="_blank">
