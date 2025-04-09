@@ -66,6 +66,8 @@ class SearchController extends Controller
             ['path' => request()->url(), 'query' => request()->query()]
         );
 
+        $totalItemSearch = $books->count() + $videos->count();
+
         Visitor::create([
             'name'       => auth()->check() ? auth()->user()->name : 'tamu',
             'email'      => auth()->check() ? auth()->user()->email : 'tamu',
@@ -78,7 +80,8 @@ class SearchController extends Controller
     
         return view('user.pages.repositori.index', [
             'title' => 'Repositori | Edulantas',
-            'items' => $paginatedItems
+            'items' => $paginatedItems,
+            'totalItemSearch' => $totalItemSearch
         ]);
     }
 }

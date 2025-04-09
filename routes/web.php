@@ -155,13 +155,9 @@ Route::middleware(['auth', 'role:Admin'])->group(function () {
     });
     Route::get('/admin-statistik', [AdminStatistikController::class, 'index'])->name('admin.statistik');
     Route::get('/admin/statistik/download', [AdminStatistikController::class, 'download'])->name('statistik.download');
-    
-    Route::get('/admin-item', function () {
-        return view('admin.pages.item.index', ['title' => 'Admin Item | Edulantas']);
-    });
 
     Route::get('/admin-item', [AdminItemController::class, 'index'])->name('item.index');
-    Route::get('/admin-item', [AdminItemController::class, 'search'])->name('item.search');
+    Route::get('/admin-item/search', [AdminItemController::class, 'search'])->name('item.search');
     
     // Subpage Item
     Route::get('/admin-add-books', function () {

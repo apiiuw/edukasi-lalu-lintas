@@ -35,6 +35,37 @@
     <div class="mt-24 lg:mt-32 flex flex-col justify-center items-center px-0 lg:px-0 pb-10">
 
         <div class="w-full max-w-5xl">
+
+            <div class="flex flex-col md:flex-row gap-4 md:gap-10 items-center justify-center mb-3">
+                <!-- Kotak Total Buku -->
+                <div class="flex items-center justify-between w-full md:w-96 p-4 rounded-3xl shadow-md bg-white border border-black">
+                    <div>
+                        <p class="text-sm text-gray-500">Total Item Buku</p>
+                        <h2 class="text-xl font-semibold">{{ $totalBooks }}</h2>
+                    </div>
+                    <a href="/admin-add-books" class="ml-4 bg-blue-500 hover:bg-blue-600 text-white font-bold text-xl pb-1 w-10 h-10 flex items-center justify-center rounded-full">
+                        +
+                    </a>
+                </div>
+            
+                <!-- Kotak Total Video -->
+                <div class="flex items-center justify-between w-full md:w-96 p-4 rounded-3xl shadow-md bg-white border border-black">
+                    <div>
+                        <p class="text-sm text-gray-500">Total Item Video</p>
+                        <h2 class="text-xl font-semibold">{{ $totalVideos }}</h2>
+                    </div>
+                    <a href="/admin-add-videos" class="ml-4 bg-red-500 hover:bg-red-600 text-white font-bold text-xl pb-1 w-10 h-10 flex items-center justify-center rounded-full">
+                        +
+                    </a>
+                </div>
+            
+                <!-- Kotak Total Semua Item -->
+                <div class="w-full md:w-96 p-4 rounded-3xl shadow-md bg-white border border-black">
+                    <p class="text-sm text-gray-500">Total Semua Item</p>
+                    <h2 class="text-xl font-semibold">{{ $totalItems }}</h2>
+                </div>
+            </div>   
+
             <!-- Search Bar -->
             <form action="{{ route('item.search') }}" method="GET">
                 <div class="flex items-center justify-center rounded-full p-2 shadow-md bg-white mb-3 border border-black">
@@ -86,6 +117,9 @@
         @if ($items->isEmpty())
             <p class="text-gray-500 text-sm lg:text-base text-center mt-10">Tidak ada hasil yang ditemukan.</p>
         @else
+        @if (request()->has('search'))
+            <p class="text-gray-500 text-sm lg:text-base text-center mt-4">Total item yang ditemukan: {{ $totalItemSearch }}</p>
+        @endif
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-1 gap-y-2 lg:gap-x-4 lg:gap-y-4 max-w-5xl mx-auto mt-6 place-items-center">
             @foreach ($items as $item)
               <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">

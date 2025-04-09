@@ -56,6 +56,9 @@
 @if ($items->isEmpty())
   <p class="text-gray-500 text-sm lg:text-base text-center mt-10">Tidak ada hasil yang ditemukan.</p>
 @else
+@if (request()->has('search'))
+<p class="text-gray-500 text-sm lg:text-base text-center mt-4">Total item yang ditemukan: {{ $totalItemSearch }}</p>
+@endif
 <div class="grid grid-cols-2 sm:grid-cols-3 gap-x-1 gap-y-2 lg:gap-x-4 lg:gap-y-4 max-w-5xl mx-auto mt-6 place-items-center px-6 lg:px-0">
   @foreach ($items as $item)
     <div class="bg-white rounded-xl w-44 lg:w-full shadow-lg flex flex-col items-center border border-black h-full lg:transition lg:duration-300 lg:ease-in-out lg:hover:scale-105">

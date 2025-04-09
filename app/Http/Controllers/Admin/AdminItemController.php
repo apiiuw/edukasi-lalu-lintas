@@ -17,6 +17,9 @@ class AdminItemController extends Controller
         // Ambil semua buku dan video
         $books = ElectronicsBook::select('id', 'cover', 'judul', 'tahun_rilis')->get();
         $videos = Video::select('id', 'cover', 'judul', 'tahun_rilis')->get();
+        $totalBooks = ElectronicsBook::count();
+        $totalVideos = Video::count();
+        $totalItems = $totalBooks + $totalVideos;
     
         // Gabungkan data secara selang-seling
         $items = [];
@@ -51,7 +54,10 @@ class AdminItemController extends Controller
         // Kirim data ke view
         return view('admin.pages.item.index', [
             'title' => 'Admin Item | Edulantas',
-            'items' => $paginatedItems
+            'items' => $paginatedItems,
+            'totalBooks' => $totalBooks,
+            'totalVideos' => $totalVideos,
+            'totalItems' => $totalItems
         ]);
     }
 
@@ -201,18 +207,21 @@ class AdminItemController extends Controller
         $query = $request->input('search');
         $kategori = $request->input('kategori');
         $tahun = $request->input('tahun');
+        $totalBooks = ElectronicsBook::count();
+        $totalVideos = Video::count();
+        $totalItems = $totalBooks + $totalVideos;
         
-        // Ambil data sesuai filter pencarian
+       // Ambil semua data sesuai filter pencarian (tanpa pagination)
         $books = ElectronicsBook::where('judul', 'like', "%$query%")
-            ->when($kategori == 'Elektronik Buku', function ($q) {
-                return $q;
-            })
-            ->when($tahun, function ($q) use ($tahun) {
-                return $q->where('tahun_rilis', $tahun);
-            })
-            ->select('id', 'cover', 'judul', 'tahun_rilis')
-            ->get();
-    
+        ->when($kategori == 'Elektronik Buku', function ($q) {
+            return $q;
+        })
+        ->when($tahun, function ($q) use ($tahun) {
+            return $q->where('tahun_rilis', $tahun);
+        })
+        ->select('id', 'cover', 'judul', 'tahun_rilis')
+        ->get();
+
         $videos = Video::where('judul', 'like', "%$query%")
             ->when($kategori == 'Video Edukasi', function ($q) {
                 return $q;
@@ -222,11 +231,11 @@ class AdminItemController extends Controller
             })
             ->select('id', 'cover', 'judul', 'tahun_rilis')
             ->get();
-    
-        // Gabungkan data
+
+        // Gabungkan data buku dan video
         $items = [];
         $max = max(count($books), count($videos));
-    
+
         for ($i = 0; $i < $max; $i++) {
             if (isset($books[$i])) {
                 $items[] = ['type' => 'book', 'data' => $books[$i]];
@@ -235,13 +244,13 @@ class AdminItemController extends Controller
                 $items[] = ['type' => 'video', 'data' => $videos[$i]];
             }
         }
-    
+
         // Konversi ke koleksi dan paginasi
         $collection = collect($items);
         $perPage = 12;
         $currentPage = request()->query('page', 1);
         $pagedData = $collection->slice(($currentPage - 1) * $perPage, $perPage)->values();
-    
+
         $paginatedItems = new LengthAwarePaginator(
             $pagedData,
             $collection->count(),
@@ -249,10 +258,17 @@ class AdminItemController extends Controller
             $currentPage,
             ['path' => request()->url(), 'query' => request()->query()]
         );
-    
+
+        // Menghitung total item hasil pencarian secara keseluruhan tanpa menggunakan pagination
+        $totalItemSearch = $books->count() + $videos->count();
+
         return view('admin.pages.item.index', [
             'title' => 'Admin Item | Edulantas',
-            'items' => $paginatedItems
+            'items' => $paginatedItems,
+            'totalBooks' => $totalBooks,
+            'totalVideos' => $totalVideos,
+            'totalItems' => $totalItems,
+            'totalItemSearch' => $totalItemSearch
         ]);
     }
 }
