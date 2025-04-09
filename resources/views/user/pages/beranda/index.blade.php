@@ -206,14 +206,14 @@
         </div>
         <div class="flex flex-col px-4 py-4 flex-grow w-full">
           <p class="text-center text-xs lg:text-sm line-clamp-2 min-h-[2rem] lg:min-h-[2.5rem]">
-            Desiminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XII
+            Diseminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XII
           </p>
         </div>
         <div class="mt-auto flex flex-col items-center w-full pb-4">
           <span class="text-gray-500 text-xs mb-2">2023</span>
-          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+          <a href="/detail-item/book-33" class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
             Baca Selengkapnya
-          </button>
+          </a>
         </div>
       </div>
     
@@ -225,14 +225,14 @@
         </div>
         <div class="flex flex-col px-4 py-4 flex-grow w-full">
           <p class="text-center text-xs lg:text-sm line-clamp-2 min-h-[2rem] lg:min-h-[2.5rem]">
-            Desiminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XI
+            Diseminasi Kurikulum Pendidikan Lalu Lintas SMA Kelas XI
           </p>
         </div>
         <div class="mt-auto flex flex-col items-center w-full pb-4">
           <span class="text-gray-500 text-xs mb-2">2023</span>
-          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+          <a href="/detail-item/book-32" class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
             Baca Selengkapnya
-          </button>
+          </a>
         </div>
       </div>
     
@@ -244,14 +244,14 @@
         </div>
         <div class="flex flex-col px-4 py-4 flex-grow w-full">
           <p class="text-center text-xs lg:text-sm line-clamp-2 min-h-[2rem] lg:min-h-[2.5rem]">
-            Desiminasi Kurikulum Pendidikan Lalu Lintas SMP Kelas VII
+            Diseminasi Kurikulum Merdeka Pendidikan Lalu Lintas SMP Kelas VII
           </p>
         </div>
         <div class="mt-auto flex flex-col items-center w-full pb-4">
           <span class="text-gray-500 text-xs mb-2">2023</span>
-          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+          <a href="/detail-item/book-28" class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
             Baca Selengkapnya
-          </button>
+          </a>
         </div>
       </div>
     </div>    
@@ -280,9 +280,9 @@
         </div>
         <div class="mt-auto flex flex-col items-center w-full pb-4">
           <span class="text-gray-500 text-xs mb-2">2019</span>
-          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+          <a href="/detail-item/video-10" class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
             Tonton Sekarang
-          </button>
+          </a>
         </div>
       </div>
     
@@ -299,9 +299,9 @@
         </div>
         <div class="mt-auto flex flex-col items-center w-full pb-4">
           <span class="text-gray-500 text-xs mb-2">2021</span>
-          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+          <a href="/detail-item/video-11" class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
             Tonton Sekarang
-          </button>
+          </a>
         </div>
       </div>
     
@@ -318,9 +318,9 @@
         </div>
         <div class="mt-auto flex flex-col items-center w-full pb-4">
           <span class="text-gray-500 text-xs mb-2">2021</span>
-          <button class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
+          <a href="/detail-item/video-12" class="bg-blueJR text-xs lg:text-sm border border-black text-white py-2 px-3 rounded-md">
             Tonton Sekarang
-          </button>
+          </a>
         </div>
       </div>
     </div>    
