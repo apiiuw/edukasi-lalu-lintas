@@ -82,7 +82,7 @@
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
       <div class="flex justify-center">
-          <p class="text-xs text-gray-500 text-center">© 2025 - Jasa Raharja Cabang Utama DKI Jakarta All Rights Reserved.</p>
+          <p class="text-xs text-gray-500 text-center">© 2025 - Jasa Raharja Kantor Wilayah Utama DKI Jakarta All Rights Reserved.</p>
       </div>
     </div>
 </footer>
