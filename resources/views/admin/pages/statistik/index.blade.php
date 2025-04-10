@@ -58,8 +58,8 @@
         <div class="bg-white p-4 rounded shadow mb-8 flex flex-col justify-center items-center">
             <h2 class="text-sm lg:text-lg font-semibold mb-2">Pengunjung Bulanan Tahun {{ $selectedYear }}</h2>
             <form method="get" class="mb-4">
-                <label class="text-xs lg:text-lg" for="year" class="mr-2">Pilih Tahun:</label>
-                <select class="text-xs lg:text-lg border rounded p-[-3]" name="year" id="year" onchange="this.form.submit()">
+                <label class="text-xs lg:text-sm" for="year" class="mr-2">Pilih Tahun:</label>
+                <select class="text-xs lg:text-sm border rounded p-[-3]" name="year" id="year" onchange="this.form.submit()">
                     @foreach ($years as $year)
                         <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>{{ $year }}</option>
                     @endforeach
@@ -74,11 +74,11 @@
 
         {{-- Grafik Item Bulanan --}}
         <div class="bg-white p-4 rounded shadow mb-8 flex flex-col justify-center items-center">
-            <h2 class="text-sm lg:text-lg font-semibold mb-2">Pengunjung Item Bulanan</h2>
+            <h2 class="text-sm lg:text-lg font-semibold mb-2">Statistik Pengunjung Item Bulanan</h2>
         
             <form method="get" class="flex flex-wrap gap-2 mb-4 items-center justify-center">
                 <div>
-                    <label class="text-xs lg:text-sm mr-1">Tahun:</label>
+                    <label class="text-xs lg:text-sm mr-1">Pilih Tahun:</label>
                     <select name="year" class="border rounded p-1 text-xs" onchange="this.form.submit()">
                         @foreach ($years as $year)
                             <option value="{{ $year }}" {{ $year == $selectedYear ? 'selected' : '' }}>{{ $year }}</option>
@@ -86,7 +86,7 @@
                     </select>
                 </div>
                 <div>
-                    <label class="text-xs lg:text-sm mr-1">Kategori:</label>
+                    <label class="text-xs lg:text-sm mr-1">Pilih Kategori:</label>
                     <select name="kategori" class="border rounded p-1 text-xs" onchange="this.form.submit()">
                         <option value="Semua" {{ $selectedCategory == 'Semua' ? 'selected' : '' }}>Semua</option>
                         <option value="book" {{ $selectedCategory == 'Elektronik Buku' ? 'selected' : '' }}>Elektronik Buku</option>
