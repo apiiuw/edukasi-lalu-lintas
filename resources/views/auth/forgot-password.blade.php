@@ -82,7 +82,7 @@
         </form>
 
         <div class="mt-4 text-center">
-            <a href="{{ route('login') }}" class="text-blueJR underline text-sm">Kembali ke Login</a>
+            <a href="{{ route('login') }}" class="text-blueJR underline text-sm">Kembali ke sign in</a>
         </div>
     </div>
 </div>

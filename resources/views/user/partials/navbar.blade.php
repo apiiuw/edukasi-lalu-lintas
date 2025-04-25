@@ -41,7 +41,7 @@
               Sign up
           </a>
           <a href="/login" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-xl border border-transparent bg-blueJR hover:bg-blueDarkJR text-white">
-              Login
+              Sign In
           </a>
       @endif
 

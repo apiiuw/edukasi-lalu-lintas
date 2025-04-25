@@ -36,18 +36,18 @@
             
                 <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" class="text-sm placeholder:text-gray-500 w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg">
                 
-                <button type="submit" class="w-full mt-2 bg-blueJR text-white py-2 rounded-md">Buat Akun</button>
+                <button type="submit" class="w-full mt-2 bg-blueJR text-white py-2 rounded-md">Sign up</button>
             </form>            
 
             <div class="w-full mt-1 px-3 text-sm">
                 <a href="{{ url('/auth/google') }}" role="button" class="w-full border border-gray-300 text-black py-2 text-sm rounded-md flex justify-center items-center gap-2 hover:bg-gray-100">
                     <img src="{{ asset('img/logo/icon-google.png') }}" alt="Google" class="w-5 h-5">
-                    Sign in dengan Google
+                    Sign up dengan Google
                 </a>                
             </div>
 
             <p class="mt-2 text-sm text-center text-gray-600">Sudah memiliki akun? <br>
-                <a href="/login" class="text-blueJR underline text-xs font-semibold">Masuk akun di sini</a>
+                <a href="/login" class="text-blueJR underline text-xs font-semibold">Sign in di sini</a>
             </p>
         </div>
     </div>
